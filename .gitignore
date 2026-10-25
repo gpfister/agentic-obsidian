@@ -7,3 +7,7 @@
 # OS files
 .DS_Store
 *.swp
+
+# Git worktrees for parallel sessions
+.worktrees/
+worktrees/
