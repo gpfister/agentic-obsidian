@@ -1,0 +1,6 @@
+{
+  "summary":  "Updated implementation plan: markdown agent definitions located in gp-coding-plugin/agents/<agent_name>.md, instruction-driven orchestration via invoke_subagent, PreInvocation prompt triage hook, and SessionStart subagent registration hook.",
+  "updatedAt":  "2026-10-26T08:43:25.562304Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}
