@@ -43,15 +43,12 @@ Subagent instructions are authored as modular markdown specifications within ded
 | [`coding-review/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-review/) | `@coding-review` | **Quality Assurance Lead**: Cross-repository verification against `specification.md` and discrepancy routing. | `write=True`, `subagent=False`, `mcp=True` |
 | [`coding-merge/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-merge/) | `@coding-merge` | **Release Engineer**: Executes local git merge (when no remote exists) or opens a GitHub Pull Request via `gh pr create`. | `write=True`, `subagent=False`, `mcp=True` |
 | [`coding-investigate/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-investigate/) | `@coding-investigate` | **Issue Investigator**: Standalone multi-repository root cause investigator producing `issue-assessment.md`, grilling the user when needed, and handing off approved fixes to `@coding`. | `write=True`, `subagent=True`, `mcp=True` |
-| [`coding-monitoring/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-monitoring/) | `@coding-monitoring` | **Telemetry Monitor**: Continuous log, Docker, and serial stream (`/dev/tty*`) surveillance with anomaly pause gates. | `write=True`, `subagent=False`, `mcp=True` |
-| [`monitoring/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/monitoring/) | `@monitoring` | **Telemetry Monitor (Alias)**: Short alias for `coding-monitoring`. | `write=True`, `subagent=False`, `mcp=True` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill | File | Description |
 | :--- | :--- | :--- |
 | `coding` | [`skills/coding-orchestrator/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-orchestrator/SKILL.md) | Guides full-lifecycle software development tasks through the 6-stage coordinated workflow (`@coding`). |
 | `coding-investigate` | [`skills/coding-investigate/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-investigate/SKILL.md) | Guides multi-repository root cause diagnosis, `issue-assessment.md` approval, and remediation handoff (`@coding-investigate`). |
-| `coding-monitoring` | [`skills/coding-monitoring/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-monitoring/SKILL.md) | Guides background telemetry, log surveillance, and serial console monitoring (`@monitoring`). |
 | `clean-code-reviewer` | [`skills/clean-code-reviewer/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/clean-code-reviewer/SKILL.md) | Systematic code quality, readability, error handling, and architectural boundary reviewer. |
 
 ---
