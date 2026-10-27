@@ -1,12 +1,12 @@
-# Implementation Plan: Subagents & Pre-Prompt Triage Hooks for `gp-coding-plugin`
+# Implementation Plan: Subagents & Pre-Prompt Triage Hooks for `agentic-coding-plugin`
 
-This plan establishes the architecture, schemas, and implementation steps to add the **Coding Orchestrator workflow**, **worker subagents**, **monitoring subagents**, and a **Laya Router prompt triage hook** to [`gp-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin).
+This plan establishes the architecture, schemas, and implementation steps to add the **Coding Orchestrator workflow**, **worker subagents**, **monitoring subagents**, and a **Laya Router prompt triage hook** to [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin).
 
 ---
 
 ## 1. Goal Description
 
-Enhance `gp-coding-plugin` with an enterprise-grade agentic workflow architecture:
+Enhance `agentic-coding-plugin` with an enterprise-grade agentic workflow architecture:
 1. **Coding Orchestrator Subagent (`@coding` / `coding-orchestrator`)**:
    - Built with **Google ADK 2.0 (`Workflow`)** for graph-based deterministic routing and state transitions.
    - Enforces a single active coding workflow at any time with persistent state tracking.
@@ -100,10 +100,10 @@ flowchart TD
 
 ## 4. Proposed Changes
 
-### Directory Structure to Add in `gp-coding-plugin`
+### Directory Structure to Add in `agentic-coding-plugin`
 
 ```text
-gp-coding-plugin/
+agentic-coding-plugin/
 ├── pyproject.toml                         # Updated with google-antigravity, google-adk, laya, pydantic
 ├── hooks.json                             # Declares PreInvocation hook
 ├── rules/
@@ -144,7 +144,7 @@ gp-coding-plugin/
 
 ### File Modifications & Additions
 
-#### [MODIFY] [`pyproject.toml`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/pyproject.toml)
+#### [MODIFY] [`pyproject.toml`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/pyproject.toml)
 Add runtime dependencies:
 ```toml
 dependencies = [
@@ -155,7 +155,7 @@ dependencies = [
 ]
 ```
 
-#### [NEW] [`hooks.json`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/hooks.json)
+#### [NEW] [`hooks.json`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/hooks.json)
 Register the PreInvocation hook handler:
 ```json
 {
@@ -171,7 +171,7 @@ Register the PreInvocation hook handler:
 }
 ```
 
-#### [NEW] [`hooks/prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/hooks/prompt_triage.py)
+#### [NEW] [`hooks/prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/hooks/prompt_triage.py)
 Reads `stdin` (`conversationId`, `lastUserInput`, `artifactDirectoryPath`, `invocationNum`), executes Laya Router triage:
 1. **Scope Check**: If `invocationNum > 1`, evaluates `state={"user_input": lastUserInput}` with Laya `noul` decision:
    - If probability $< 0.8$, injects guidance prompting user to confirm scope expansion or stop.
@@ -187,14 +187,14 @@ Reads `stdin` (`conversationId`, `lastUserInput`, `artifactDirectoryPath`, `invo
    - If confidence $< 0.8$: Injects step asking the user to clarify intent.
 - Writes `{ "injectSteps": [...] }` to `stdout`.
 
-#### [NEW] [`src/gp_coding/state.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/src/gp_coding/state.py)
+#### [NEW] [`src/gp_coding/state.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/src/gp_coding/state.py)
 - `WorkflowStatus` enum: `IDLE`, `CLARIFYING`, `SPECIFYING`, `AWAITING_SPEC_APPROVAL`, `PLANNING`, `AWAITING_PLAN_APPROVAL`, `DEVELOPING`, `REVIEWING`, `AWAITING_MERGE_APPROVAL`, `MERGING`, `COMPLETED`, `FAILED`.
 - `WorkflowState` model:
   - Tracks `workflow_id`, `current_step`, `waiting_agent`, `repositories`, `active_develop_agents`, `artifacts` dict.
   - Implements concurrency lock: raises error if attempting to start a second coding workflow while one is active.
   - Persists to `<artifactDirectoryPath>/workflow_state.json` or `.agents/state/`.
 
-#### [NEW] [`src/gp_coding/schemas.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/src/gp_coding/schemas.py)
+#### [NEW] [`src/gp_coding/schemas.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/src/gp_coding/schemas.py)
 - Pydantic models for structured inter-agent data:
   - `ClarificationSummary`: questions, answers, edge cases, scope boundaries.
   - `SpecificationDocument`: feature overview, requirements, API specs, testing criteria.
@@ -214,12 +214,12 @@ Reads `stdin` (`conversationId`, `lastUserInput`, `artifactDirectoryPath`, `invo
 - `merge.py`: Checks git remotes; if remote exists, creates PR via `gh` and waits; otherwise merges to master locally.
 - `monitoring.py`: Takes target (log file, docker container, serial port) and alert threshold. Stream-monitors and raises `ask_question` when critical errors are intercepted.
 
-#### [NEW] [`src/gp_coding/agents/orchestrator.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/src/gp_coding/agents/orchestrator.py)
+#### [NEW] [`src/gp_coding/agents/orchestrator.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/src/gp_coding/agents/orchestrator.py)
 - Implements ADK 2.0 `Workflow` graph:
   - Nodes: `clarify_node`, `specify_node`, `plan_node`, `develop_fanout_node`, `review_node`, `merge_node`.
   - Condition routes evaluating approval events, feedback loops, and discrepancy signals.
 
-#### [MODIFY] [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/rules/AGENTS.md)
+#### [MODIFY] [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/rules/AGENTS.md)
 Document subagents, mention handles (`@coding`, `@monitoring`, `@coding-specify`, etc.), messaging protocol (`send_message`), and state transitions for the main agent.
 
 ---
@@ -229,28 +229,28 @@ Document subagents, mention handles (`@coding`, `@monitoring`, `@coding-specify`
 ### Automated Tests
 1. **Plugin Manifest & Hooks Validation**:
    ```bash
-   pytest gp-coding-plugin/tests/test_plugin.py
+   pytest agentic-coding-plugin/tests/test_plugin.py
    ```
 2. **Schema & Markdown Converter Tests**:
    ```bash
-   pytest gp-coding-plugin/tests/test_schemas.py
+   pytest agentic-coding-plugin/tests/test_schemas.py
    ```
 3. **Workflow State & Concurrency Lock Tests**:
    ```bash
-   pytest gp-coding-plugin/tests/test_state.py
+   pytest agentic-coding-plugin/tests/test_state.py
    ```
    - Verify only one workflow runs at a time.
    - Verify state transitions and waking up awaiting subagents.
 4. **Laya Router Prompt Triage Tests**:
    ```bash
-   pytest gp-coding-plugin/tests/test_prompt_triage.py
+   pytest agentic-coding-plugin/tests/test_prompt_triage.py
    ```
    - Test session scope gate (confidence $\ge 0.8$ pass, $< 0.8$ ask).
    - Test waiting subagent routing (`@coding-specify` vs general chat).
    - Test intent classification (question with "Do not make any changes", coding request alteration, monitoring request).
 5. **ADK Graph & Antigravity Agent Configuration Tests**:
    ```bash
-   pytest gp-coding-plugin/tests/test_agents.py
+   pytest agentic-coding-plugin/tests/test_agents.py
    ```
 
 ### Manual Verification

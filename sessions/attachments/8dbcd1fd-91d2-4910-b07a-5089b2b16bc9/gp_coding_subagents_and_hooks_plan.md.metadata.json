@@ -1,5 +1,5 @@
 {
-  "summary":  "Detailed architectural and implementation plan for adding the first set of subagents (coding-orchestrator ADK workflow, worker subagents, coding-monitoring) and Laya Router-based pre-prompt triage hooks to gp-coding-plugin.",
+  "summary":  "Detailed architectural and implementation plan for adding the first set of subagents (coding-orchestrator ADK workflow, worker subagents, coding-monitoring) and Laya Router-based pre-prompt triage hooks to agentic-coding-plugin.",
   "updatedAt":  "2026-10-25T17:10:09.999329Z",
   "requestFeedback":  true,
   "userFacing":  true

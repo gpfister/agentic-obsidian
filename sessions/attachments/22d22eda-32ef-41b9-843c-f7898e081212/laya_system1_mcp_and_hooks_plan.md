@@ -1,6 +1,6 @@
 # Implementation Plan: Laya System 1 FastMCP Server, Intelligent Hooks & Post-Install Setup
 
-Integrate the **Laya System 1** decision engine and **FastMCP** into [`gp-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin) alongside automated environment lifecycle management. This plan introduces:
+Integrate the **Laya System 1** decision engine and **FastMCP** into [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin) alongside automated environment lifecycle management. This plan introduces:
 1. **Automated Virtualenv Setup**: A `post_install` script leveraging `uv sync` to generate and manage the virtual environment (`.venv`) from `pyproject.toml`.
 2. **`laya_system1` FastMCP Server**: Providing fast, non-autoregressive System 1 decision-making tools.
 3. **`PreToolUse` Lifecycle Hook**:
@@ -91,13 +91,13 @@ flowchart TD
 
 ## Proposed Changes
 
-### Component: Packaging & Post-Install Setup (`gp-coding-plugin/`)
+### Component: Packaging & Post-Install Setup (`agentic-coding-plugin/`)
 
-#### [NEW] `gp-coding-plugin/pyproject.toml`
+#### [NEW] `agentic-coding-plugin/pyproject.toml`
 Defines project metadata and dependencies:
 ```toml
 [project]
-name = "gp-coding-plugin"
+name = "agentic-coding-plugin"
 version = "0.1.0"
 description = "Antigravity coding companion plugin bundling engineering standards, clean code review, and Laya System 1 decision engine."
 readme = "README.md"
@@ -114,16 +114,16 @@ dev = [
 ]
 ```
 
-#### [NEW] `gp-coding-plugin/scripts/post_install.sh`
+#### [NEW] `agentic-coding-plugin/scripts/post_install.sh`
 Automated setup script (executable with `chmod +x`):
 - Verifies `uv` is installed (providing actionable instructions if missing).
 - Executes `uv sync` in the plugin directory to create/update `.venv` and install all required packages.
 
-#### [MODIFY] `gp-coding-plugin/plugin.json`
+#### [MODIFY] `agentic-coding-plugin/plugin.json`
 Update manifest with post_install script reference and metadata:
 ```json
 {
-  "name": "gp-coding-plugin",
+  "name": "agentic-coding-plugin",
   "version": "0.1.0",
   "description": "Antigravity coding companion plugin bundling engineering standards, clean code review skills, and Laya System 1 decision engine.",
   "scripts": {
@@ -134,9 +134,9 @@ Update manifest with post_install script reference and metadata:
 
 ---
 
-### Component: Decision Engine & MCP Server (`gp-coding-plugin/servers/laya_system1/`)
+### Component: Decision Engine & MCP Server (`agentic-coding-plugin/servers/laya_system1/`)
 
-#### [NEW] `gp-coding-plugin/servers/laya_system1/engine.py`
+#### [NEW] `agentic-coding-plugin/servers/laya_system1/engine.py`
 Reusable System 1 Decision Engine:
 - Wraps `laya.Router` (with fallback heuristics when offline or model weights downloading).
 - Implements `evaluate_tool_risk(tool_name: str, args: dict, context: str = "") -> dict`:
@@ -149,14 +149,14 @@ Reusable System 1 Decision Engine:
   - Sets `auto_pick = True` if `top_conf >= 0.90`.
   - Sets `should_recommend = True` if `top_conf >= 0.75`.
 
-#### [NEW] `gp-coding-plugin/servers/laya_system1/server.py`
+#### [NEW] `agentic-coding-plugin/servers/laya_system1/server.py`
 FastMCP server registering `laya_system1` tools:
 - `evaluate_tool_risk(tool_name: str, args: dict, context: str = "") -> dict`
 - `evaluate_choices(question: str, options: list[str], context: str = "") -> dict`
 - `fast_decision(statement: str, context: str = "") -> dict` (binary `noul` primitive)
 - `fast_choice(instructions: str, options: list[str], context: str = "") -> dict` (multi-option `choice` primitive)
 
-#### [MODIFY] `gp-coding-plugin/mcp_config.json`
+#### [MODIFY] `agentic-coding-plugin/mcp_config.json`
 Register `laya_system1` stdio server invoking the virtualenv python:
 ```json
 {
@@ -171,9 +171,9 @@ Register `laya_system1` stdio server invoking the virtualenv python:
 
 ---
 
-### Component: Lifecycle Hooks (`gp-coding-plugin/hooks/`)
+### Component: Lifecycle Hooks (`agentic-coding-plugin/hooks/`)
 
-#### [NEW] `gp-coding-plugin/hooks/pre_tool.py`
+#### [NEW] `agentic-coding-plugin/hooks/pre_tool.py`
 Executable Python script reading `stdin` JSON payload and emitting `stdout` JSON:
 1. **Intercept `ask_question`**:
    - Parses `questions` from `toolCall.args`.
@@ -192,7 +192,7 @@ Executable Python script reading `stdin` JSON payload and emitting `stdout` JSON
    - Else:
      - Outputs `{"decision": "allow"}`.
 
-#### [MODIFY] `gp-coding-plugin/hooks.json`
+#### [MODIFY] `agentic-coding-plugin/hooks.json`
 Configure `PreToolUse` hook with wildcard matcher `*`:
 ```json
 {
@@ -218,7 +218,7 @@ Configure `PreToolUse` hook with wildcard matcher `*`:
 
 ### Component: Automated Verification & Documentation
 
-#### [NEW] `gp-coding-plugin/tests/test_laya_system1.py`
+#### [NEW] `agentic-coding-plugin/tests/test_laya_system1.py`
 Unit and regression tests:
 - Test `scripts/post_install.sh` generates `.venv` properly.
 - Test risk threshold logic ($<0.80 \to \text{allow}$, $[0.80, 0.95) \to \text{ask}$, $\ge 0.95 \to \text{deny}$).
@@ -226,10 +226,10 @@ Unit and regression tests:
 - Test FastMCP tool definitions and schema generation.
 - Test hook execution with simulated `stdin` JSON pipelines.
 
-#### [MODIFY] `gp-coding-plugin/README.md`
+#### [MODIFY] `agentic-coding-plugin/README.md`
 Update setup instructions with `./scripts/post_install.sh` command.
 
-#### [MODIFY] `obsidian-vault/plugins/gp-coding-plugin.md`
+#### [MODIFY] `agentic-obsidian/plugins/agentic-coding-plugin.md`
 Update documentation with:
 - `post_install` workflow and virtual environment management.
 - `laya_system1` MCP server capabilities and tool specifications.
@@ -242,7 +242,7 @@ Update documentation with:
 ### Automated Tests
 ```bash
 # 1. Run post_install script to sync environment
-cd gp-coding-plugin && ./scripts/post_install.sh
+cd agentic-coding-plugin && ./scripts/post_install.sh
 
 # 2. Run test suite using the generated venv
 .venv/bin/pytest tests/test_laya_system1.py -v

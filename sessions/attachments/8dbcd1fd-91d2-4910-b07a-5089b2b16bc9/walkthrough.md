@@ -1,14 +1,14 @@
-# Walkthrough: Subagents & Pre-Prompt Triage Hooks for `gp-coding-plugin`
+# Walkthrough: Subagents & Pre-Prompt Triage Hooks for `agentic-coding-plugin`
 
-The first set of specialized subagents, the ADK 2.0 coding orchestrator workflow, the telemetry monitoring agent, and the Laya Router pre-invocation prompt triage hook have been implemented and verified in [`gp-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin).
+The first set of specialized subagents, the ADK 2.0 coding orchestrator workflow, the telemetry monitoring agent, and the Laya Router pre-invocation prompt triage hook have been implemented and verified in [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin).
 
 ---
 
 ## 1. What Was Built
 
 ### A. Pre-Invocation Prompt Triage Hook
-- **Hook Manifest**: [`hooks.json`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/hooks.json) registers the `prompt-triage` handler on `PreInvocation`.
-- **Triage Script**: [`hooks/prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/hooks/prompt_triage.py) and engine [`src/gp_coding/triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/src/gp_coding/triage.py).
+- **Hook Manifest**: [`hooks.json`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/hooks.json) registers the `prompt-triage` handler on `PreInvocation`.
+- **Triage Script**: [`hooks/prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/hooks/prompt_triage.py) and engine [`src/gp_coding/triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/src/gp_coding/triage.py).
 - **Laya Router Pipeline**:
   1. **Stage 1 (Session Scope Guard)**: Evaluates if input is within software engineering session scope (threshold $\ge 0.80$; bypassed on first turn). Prompts user if out-of-scope.
   2. **Stage 2 (Subagent Waiting Route)**: Detects if input is for an active workflow subagent awaiting input (`coding-specify`, `coding-plan`, `coding-review`) and directs message to that subagent via `send_message`.
@@ -18,9 +18,9 @@ The first set of specialized subagents, the ADK 2.0 coding orchestrator workflow
      - **Monitoring Request**: Injects instruction to invoke `@monitoring` (`coding-monitoring`).
 
 ### B. Coding Orchestrator ADK Workflow (`@coding`)
-- **Workflow Graph**: [`src/gp_coding/agents/orchestrator.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/src/gp_coding/agents/orchestrator.py) implements Google ADK 2.0 `Workflow` with 6 interconnected stages:
+- **Workflow Graph**: [`src/gp_coding/agents/orchestrator.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/src/gp_coding/agents/orchestrator.py) implements Google ADK 2.0 `Workflow` with 6 interconnected stages:
   `coding-clarify` $\rightarrow$ `coding-specify` $\rightarrow$ `coding-plan` $\rightarrow$ `coding-develop` $\rightarrow$ `coding-review` $\rightarrow$ `coding-merge`.
-- **Concurrency & State Management**: [`src/gp_coding/state.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/src/gp_coding/state.py) enforces that **only one coding workflow runs at a time** and tracks step transitions and background waiting subagents.
+- **Concurrency & State Management**: [`src/gp_coding/state.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/src/gp_coding/state.py) enforces that **only one coding workflow runs at a time** and tracks step transitions and background waiting subagents.
 
 ### C. Worker Subagents (`src/gp_coding/agents/`)
 All workers are implemented using `google-antigravity` (`LocalAgentConfig` + `Agent`) with matched complexity models and tools:
@@ -36,7 +36,7 @@ All workers are implemented using `google-antigravity` (`LocalAgentConfig` + `Ag
 | `coding-monitoring` (`@monitoring`) | Stream & log watcher with pause gates | `gemini-3.8-flash-lite` | `run_command`, `view_file`, `schedule`, `ask_question` |
 
 ### D. Structured Output Schemas & Markdown Converters
-- [`src/gp_coding/schemas.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/src/gp_coding/schemas.py) defines rigid Pydantic models for inter-agent communication:
+- [`src/gp_coding/schemas.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/src/gp_coding/schemas.py) defines rigid Pydantic models for inter-agent communication:
   - `ClarificationSummary`
   - `SpecificationDocument`
   - `PlanDocument`
@@ -47,10 +47,10 @@ All workers are implemented using `google-antigravity` (`LocalAgentConfig` + `Ag
 - Includes dedicated Markdown converters that render structured JSON into formatted markdown blocks and artifacts.
 
 ### E. Documentation & Skills
-- [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/rules/AGENTS.md): Updated to declare mentionable subagents, invocation rules, background awaiting protocols, and hook behaviors.
-- [`skills/coding-orchestrator/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/skills/coding-orchestrator/SKILL.md): Orchestrator skill reference.
-- [`skills/coding-monitoring/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin/skills/coding-monitoring/SKILL.md): Monitoring skill reference.
-- [`obsidian-vault/plugins/gp-coding-plugin.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/obsidian-vault/plugins/gp-coding-plugin.md): Updated knowledge base documentation.
+- [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/rules/AGENTS.md): Updated to declare mentionable subagents, invocation rules, background awaiting protocols, and hook behaviors.
+- [`skills/coding-orchestrator/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-orchestrator/SKILL.md): Orchestrator skill reference.
+- [`skills/coding-monitoring/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-monitoring/SKILL.md): Monitoring skill reference.
+- [`agentic-obsidian/plugins/agentic-coding-plugin.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/plugins/agentic-coding-plugin.md): Updated knowledge base documentation.
 
 ---
 
@@ -59,13 +59,13 @@ All workers are implemented using `google-antigravity` (`LocalAgentConfig` + `Ag
 Executed automated unit test suite with 32 comprehensive tests across 5 test modules:
 
 ```bash
-cd gp-coding-plugin && .venv/bin/pytest -v
+cd agentic-coding-plugin && .venv/bin/pytest -v
 ```
 
 ```text
 ============================= test session starts ==============================
 platform darwin -- Python 3.13.0, pytest-9.1.1, pluggy-1.7.0
-rootdir: /Users/gpfister/Development/Projects/gpfister/agentic/gp-coding-plugin
+rootdir: /Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin
 configfile: pyproject.toml
 plugins: anyio-4.15.1
 collected 32 items

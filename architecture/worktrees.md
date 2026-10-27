@@ -28,11 +28,11 @@ Worktrees are provisioned in `.worktrees/` at the root of `agentic/`:
 agentic/
 ├── .worktrees/
 │   ├── session-alpha/
-│   │   ├── agentic-root/         (branch: session/session-alpha)
-│   │   ├── gp-coding-plugin/     (branch: session/session-alpha-gp-coding-plugin)
-│   │   └── obsidian-vault/       (branch: session/session-alpha-obsidian-vault)
+│   │   ├── agentic-root/            (branch: session/session-alpha)
+│   │   ├── agentic-coding-plugin/   (branch: session/session-alpha-agentic-coding-plugin)
+│   │   └── agentic-obsidian/        (branch: session/session-alpha-agentic-obsidian)
 │   └── session-beta/
-│       └── gp-coding-plugin/     (branch: session/session-beta-gp-coding-plugin)
+│       └── agentic-coding-plugin/   (branch: session/session-beta-agentic-coding-plugin)
 ```
 
 All `.worktrees/` folders are globally ignored across `.gitignore` files so that parent repositories remain completely clean.
