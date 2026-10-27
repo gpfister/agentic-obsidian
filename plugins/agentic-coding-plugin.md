@@ -42,13 +42,11 @@ Subagent instructions are authored as modular markdown specifications within ded
 | [`coding-develop/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-develop/) | `@coding-develop` | **Software Engineer**: Isolated single-repository implementation, unit tests, linting, documentation, and CI/CD. | `write=True`, `subagent=False`, `mcp=True` |
 | [`coding-review/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-review/) | `@coding-review` | **Quality Assurance Lead**: Cross-repository verification against `specification.md` and discrepancy routing. | `write=True`, `subagent=False`, `mcp=True` |
 | [`coding-merge/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-merge/) | `@coding-merge` | **Release Engineer**: Executes local git merge (when no remote exists) or opens a GitHub Pull Request via `gh pr create`. | `write=True`, `subagent=False`, `mcp=True` |
-| [`coding-investigate/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-investigate/) | `@coding-investigate` | **Issue Investigator**: Standalone multi-repository root cause investigator producing `issue-assessment.md`, grilling the user when needed, and handing off approved fixes to `@coding`. | `write=True`, `subagent=True`, `mcp=True` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill | File | Description |
 | :--- | :--- | :--- |
 | `coding` | [`skills/coding-orchestrator/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-orchestrator/SKILL.md) | Guides full-lifecycle software development tasks through the 6-stage coordinated workflow (`@coding`). |
-| `coding-investigate` | [`skills/coding-investigate/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-investigate/SKILL.md) | Guides multi-repository root cause diagnosis, `issue-assessment.md` approval, and remediation handoff (`@coding-investigate`). |
 | `clean-code-reviewer` | [`skills/clean-code-reviewer/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/clean-code-reviewer/SKILL.md) | Systematic code quality, readability, error handling, and architectural boundary reviewer. |
 
 ---
@@ -67,24 +65,7 @@ coding-clarify ──> coding-specify ──> coding-plan ──> coding-develop
                                                            coding-merge
 ```
 
-### 2. Standalone Issue Investigation Pipeline (`@coding-investigate`)
-```text
-Multi-Repo Search ──> Solution Found? ──(No)──> Grill User (ask_question) ──┐
-                            │                                                │
-                          (Yes) <────────────────────────────────────────────┘
-                            ▼
-                Write issue-assessment.md (RequestFeedback=True)
-                            │
-                     [Approved by User]
-                            ▼
-            Ask Correction Confirmation (Yes / No)
-                     │                    │
-                   (Yes)                 (No)
-                     ▼                    ▼
-              Invoke @coding            Stop
-```
-
-### 3. Antigravity Interactive Artifact Approval Protocol
+### 2. Antigravity Interactive Artifact Approval Protocol
 - **Mandatory Approval Gates**: `specification.md` (Stage 2), `plan.md` (Stage 3), and `issue-assessment.md` (`@coding-investigate`) require interactive user approval before proceeding.
 - **Artifact Metadata**: Written to `<appDataDir>/brain/<conversation-id>/<artifact>.md` with `ArtifactMetadata={"RequestFeedback": True, "UserFacing": True}`.
 - **Sole & Final Tool Call Rule**: `write_file(..., RequestFeedback=True)` must be the sole and final tool call of that turn so Antigravity presents the interactive **Approve / Reject** UI modal.
