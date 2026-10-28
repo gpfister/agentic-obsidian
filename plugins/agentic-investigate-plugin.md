@@ -29,8 +29,8 @@ Subagents are organized in dedicated directories with frontmatter metadata:
 
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
-| [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/agents/agent.md) | `@agent` | **Investigation Subagents Overview**: Investigation architecture, subagent catalog, and remediation protocols. | `write=True`, `subagent=True`, `mcp=True` |
-| [`agents/investigate/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/agents/investigate/agent.md) | `@investigate` | **Issue Investigator**: Autonomous multi-repository root cause investigator producing `issue-assessment.md` artifacts, grilling users when needed, and handing off approved fixes to `@coding`. | `write=True`, `subagent=True`, `mcp=True` |
+| [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/agents/agent.md) | `investigate-catalog` | **Investigation Subagents Overview**: Investigation architecture, subagent catalog, and remediation protocols. | `write=False`, `subagent=False`, `mcp=False` |
+| [`agents/investigate/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/agents/investigate/agent.md) | `@investigate` | **Issue Investigator**: Autonomous multi-repository root cause investigator producing `issue-assessment.md` artifacts, grilling users when needed, researching external issues, and handing off approved fixes to `@coding`. | `write=True`, `subagent=True`, `mcp=True` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill Name | Path | Description | Invocation |

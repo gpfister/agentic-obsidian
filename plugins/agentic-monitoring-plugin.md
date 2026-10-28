@@ -29,8 +29,8 @@ Subagents are organized in dedicated directories with frontmatter metadata:
 
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
-| [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/agents/agent.md) | `@agent` | **Monitoring Subagents Overview**: Telemetry architecture, subagent catalog, and anomaly pause gate protocols. | `write=True`, `subagent=False`, `mcp=True` |
-| [`agents/monitoring/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/agents/monitoring/agent.md) | `@monitoring` | **Telemetry Monitor**: Continuous surveillance of application logs, Docker stdout, and serial ports (`/dev/tty*`) with anomaly pause gates. | `write=True`, `subagent=False`, `mcp=True` |
+| [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/agents/agent.md) | `monitoring-catalog` | **Monitoring Subagents Overview**: Telemetry architecture, subagent catalog, and anomaly pause gate protocols. | `write=False`, `subagent=False`, `mcp=False` |
+| [`agents/monitoring/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/agents/monitoring/agent.md) | `@monitoring` | **Telemetry Monitor**: Continuous surveillance of application logs, Docker stdout, and serial ports (`/dev/tty*`) with background task management and anomaly pause gates. | `write=True`, `subagent=False`, `mcp=False` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill Name | Path | Description | Invocation |
