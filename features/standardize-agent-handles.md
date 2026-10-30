@@ -1,8 +1,8 @@
 ---
 title: "Standardize Agent Handles & Remove Non-Coding Aliases"
 date: "2026-10-30"
-status: "Planned (Approved)"
-phase: "Phase 3: Planning"
+status: "Phase 4 Completed"
+phase: "Phase 4: Development"
 specification_path: "/Users/gpfister/.gemini/antigravity/brain/65353adb-b25d-4fcc-a7a2-f0e776093a2e/specification.md"
 plan_path: "/Users/gpfister/.gemini/antigravity/brain/86b5a736-9acd-446d-b5c8-7deea83752fd/plan.md"
 tags:
@@ -13,6 +13,7 @@ tags:
   - plugins
   - approved-spec
   - approved-plan
+  - phase-4-completed
 affected_plugins:
   - agentic-investigate-plugin
   - agentic-monitoring-plugin
@@ -26,10 +27,11 @@ affected_plugins:
 
 # Feature: Standardize Agent Handles & Remove Non-Coding Aliases
 
-> [!NOTE] Specification & Implementation Plan Approved
+> [!NOTE] Specification, Implementation Plan & Phase 4 Development Status
 > - **Approved Specification**: [`specification.md`](file:///Users/gpfister/.gemini/antigravity/brain/65353adb-b25d-4fcc-a7a2-f0e776093a2e/specification.md) (Phase 2)
 > - **Approved Implementation Plan**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/86b5a736-9acd-446d-b5c8-7deea83752fd/plan.md) (Phase 3)
 > - **Formal ADR**: [[architecture/adr-001-standardize-agent-handles|ADR-001: Standardize Subagent Handles, Aliases, and Skill Identifiers to Coding Namespace]]
+> - **Phase 4 Status**: **Completed** across all 8 repositories (86/86 automated tests passing, 100% pass rate).
 
 ---
 
@@ -349,15 +351,69 @@ sequenceDiagram
 
 ## 11. Verifiable Acceptance Criteria
 
-- [ ] `agents/investigate`, `agents/monitoring`, and `agents/research` directories do not exist anywhere in the workspace.
-- [ ] `skills/coding-investigate`, `skills/coding-monitor`, `skills/coding-document`, and `skills/coding-research` exist.
-- [ ] Every `SKILL.md` frontmatter has `name: coding-*`.
-- [ ] Every agent definition frontmatter contains only aliases beginning with `coding` (e.g. `coding-monitoring` is allowed; `monitoring` is purged).
-- [ ] No non-coding handles (`@investigate`, `@monitoring`, `@document`, `@research`) appear anywhere in active code, rules, READMEs, or tests.
-- [ ] Multi-repo test matrix passes cleanly (approx. 90 total tests passing across all 6 plugins).
+- [x] `agents/investigate`, `agents/monitoring`, and `agents/research` directories do not exist anywhere in the workspace.
+- [x] `skills/coding-investigate`, `skills/coding-monitor`, `skills/coding-document`, and `skills/coding-research` exist.
+- [x] Every `SKILL.md` frontmatter has `name: coding-*`.
+- [x] Every agent definition frontmatter contains only aliases beginning with `coding` (e.g. `coding-monitoring` is allowed; `monitoring` is purged).
+- [x] No non-coding handles (`@investigate`, `@monitoring`, `@document`, `@research`) appear anywhere in active code, rules, READMEs, or tests.
+- [x] Multi-repo test matrix passes cleanly (86 total automated tests passing across all plugins, 100% pass rate).
 
 ---
 
-## 12. Next Steps
+## 12. Phase 4: Implementation Progress & Verification Report
 
-- **Phase 4 (Development)**: Fan out implementation across domain plugins, consumer plugins, obsidian vault, and root repository using `feature/standardize-agent-handles` branches, followed by automated test verification.
+> [!NOTE] Implementation Summary
+> All code modifications, refactorings, test suite updates, and documentation standardizations were completed across all 8 workspace repositories on isolated `feature/standardize-agent-handles` branches. Across the 6 plugin test suites, **86 of 86 tests passed with a 100% pass rate**.
+
+### 12.1 Per-Repository Code Modifications & Commit Manifest
+
+| Repository | Branch | Commit Hash | Key Code Modifications & Structural Actions | Test Results |
+| :--- | :--- | :--- | :--- | :--- |
+| **`agentic-investigate-plugin`** | `feature/standardize-agent-handles` | `6cf9b205` | Purged legacy duplicate `agents/investigate/`; renamed `skills/investigate/` &rarr; [`skills/coding-investigate/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/skills/coding-investigate/); removed legacy non-coding alias `'investigate'`; updated [`agents/coding-investigate/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/agents/coding-investigate/agent.md), [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/rules/AGENTS.md), [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/README.md), and [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/tests/test_plugin.py). | **7/7 passed** (100%) |
+| **`agentic-monitoring-plugin`** | `feature/standardize-agent-handles` | `fd474381` | Purged legacy duplicate `agents/monitoring/`; renamed `skills/monitoring/` &rarr; [`skills/coding-monitor/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/skills/coding-monitor/); removed legacy non-coding alias `'monitoring'` (retaining valid `coding-monitoring`); updated [`agents/coding-monitor/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/agents/coding-monitor/agent.md), [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/rules/AGENTS.md), [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/README.md), and [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/tests/test_plugin.py). | **7/7 passed** (100%) |
+| **`agentic-obsidian-plugin`** | `feature/standardize-agent-handles` | `c2186f8` | Renamed `skills/document/` &rarr; [`skills/coding-document/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/skills/coding-document/); removed legacy non-coding alias `'document'`; updated companion handles in [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/agent.md); updated [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/rules/AGENTS.md), [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/README.md), and [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/tests/test_plugin.py). | **9/9 passed** (100%) |
+| **`agentic-research-plugin`** | `feature/standardize-agent-handles` | `13d57da7` | Purged legacy duplicate `agents/research/`; renamed `skills/research/` &rarr; [`skills/coding-research/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/skills/coding-research/); removed legacy non-coding alias `'research'`; updated [`agents/coding-research/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/coding-research/agent.md), [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/rules/AGENTS.md), [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/README.md), and [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/tests/test_plugin.py). | **9/9 passed** (100%) |
+| **`agentic-coding-plugin`** | `feature/standardize-agent-handles` | `aeed0bc7` | Standardized all companion subagent invocations (`@coding-investigate`, `@coding-monitor`, `@coding-document`, `@coding-research`) across [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/rules/AGENTS.md), [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/agent.md), [`skills/coding-orchestrator/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-orchestrator/SKILL.md), and [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/README.md). | **16/16 passed** (100%) |
+| **`agentic-triage-plugin`** | `feature/standardize-agent-handles` | `550de8f` | Purged legacy handles from routing keyword tuples and regex lookahead matching in [`hooks/prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/hooks/prompt_triage.py); updated routing tests and fixtures in [`tests/test_prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/tests/test_prompt_triage.py) and [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/tests/test_plugin.py); updated [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/rules/AGENTS.md) and [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/README.md). | **38/38 passed** (100%) |
+| **`agentic` (Workspace Root)** | `feature/standardize-agent-handles` | `3e2dfc2b` | Updated [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md) directory map, cross-plugin interoperability matrix, and ecosystem catalog to canonical `@coding-*` handles; verified [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/README.md); clean working tree. | *N/A (Docs/Root)* |
+| **`agentic-obsidian` (Vault)** | `feature/standardize-agent-handles` | `5041ac69` | Updated [`architecture/plugin-standards.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/architecture/plugin-standards.md), [`plugins/*.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/plugins/), research topic notes, and [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/README.md); preserved immutable historical transcripts under `sessions/`; confirmed 0 active legacy handle references outside historical transcripts. | *N/A (Vault)* |
+
+---
+
+### 12.2 Multi-Repository Automated Test Verification Matrix
+
+```text
+============================= TEST EXECUTION REPORT =============================
+Repository                  Suite Executed                     Result       Pass Rate
+---------------------------------------------------------------------------------
+agentic-investigate-plugin  uvx pytest tests                   7 passed     100.0%
+agentic-monitoring-plugin   uvx pytest tests                   7 passed     100.0%
+agentic-obsidian-plugin     uvx pytest tests                   9 passed     100.0%
+agentic-research-plugin     uvx pytest tests                   9 passed     100.0%
+agentic-coding-plugin       uvx pytest tests                  16 passed     100.0%
+agentic-triage-plugin       uvx --with pydantic pytest tests  38 passed     100.0%
+---------------------------------------------------------------------------------
+Total across ecosystem:     6 Plugin Test Suites              86 passed     100.0%
+=================================================================================
+```
+
+---
+
+### 12.3 Legacy Reference Eradication Audit
+
+A workspace-wide scan was conducted to verify that no active non-coding handles or deprecated directory paths remain:
+- **`@investigate`**: 0 occurrences in active code, rules, tests, or documentation.
+- **`@monitoring`**: 0 occurrences in active code, rules, tests, or documentation (canonical `@coding-monitor` and alias `coding-monitoring` retained).
+- **`@document`**: 0 occurrences in active code, rules, tests, or documentation.
+- **`@research`**: 0 occurrences in active code, rules, tests, or documentation.
+- **Legacy Agent Directories**: Completely removed (`agents/investigate/`, `agents/monitoring/`, `agents/research/`).
+- **Legacy Skill Directories**: Completely renamed (`skills/investigate/` &rarr; `skills/coding-investigate/`, `skills/monitoring/` &rarr; `skills/coding-monitor/`, `skills/document/` &rarr; `skills/coding-document/`, `skills/research/` &rarr; `skills/coding-research/`).
+- **Vault Transcripts**: Historical transcripts in `agentic-obsidian/sessions/` were preserved intact as immutable execution logs.
+
+---
+
+## 13. Next Steps
+
+- **Phase 5 (Review & Pre-Merge Audit)**: Audit git diffs across all 8 repositories against specifications, ensure no lint or format regressions, and verify documentation completeness.
+- **User Merge Confirmation Gate**: Present the audit report and request user approval via `ask_question` prior to merging `feature/standardize-agent-handles` into `master`.
+- **Phase 6 (Merge & Release)**: Fast-forward merge `feature/standardize-agent-handles` across all repositories, update git tracking statuses, and author release changelogs.
