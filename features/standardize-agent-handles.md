@@ -1,8 +1,8 @@
 ---
 title: "Standardize Agent Handles & Remove Non-Coding Aliases"
 date: "2026-10-30"
-status: "Phase 5 Completed (Pre-Merge Ready)"
-phase: "Phase 5: Review & Pre-Merge Audit"
+status: "Released / Completed"
+phase: "Phase 6: Merge & Release"
 qa_audit_verdict: "PASS (100% compliance across all 8 repositories)"
 specification_path: "/Users/gpfister/.gemini/antigravity/brain/65353adb-b25d-4fcc-a7a2-f0e776093a2e/specification.md"
 plan_path: "/Users/gpfister/.gemini/antigravity/brain/86b5a736-9acd-446d-b5c8-7deea83752fd/plan.md"
@@ -17,7 +17,9 @@ tags:
   - phase-4-completed
   - phase-5-completed
   - qa-audit-passed
-  - pre-merge-ready
+  - phase-6-completed
+  - released
+  - merged
 affected_plugins:
   - agentic-investigate-plugin
   - agentic-monitoring-plugin
@@ -31,12 +33,13 @@ affected_plugins:
 
 # Feature: Standardize Agent Handles & Remove Non-Coding Aliases
 
-> [!NOTE] Specification, Implementation Plan & Phase 5 Pre-Merge Status
+> [!NOTE] Specification, Implementation Plan & Phase 6 Release Status
 > - **Approved Specification**: [`specification.md`](file:///Users/gpfister/.gemini/antigravity/brain/65353adb-b25d-4fcc-a7a2-f0e776093a2e/specification.md) (Phase 2)
 > - **Approved Implementation Plan**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/86b5a736-9acd-446d-b5c8-7deea83752fd/plan.md) (Phase 3)
 > - **Formal ADR**: [[architecture/adr-001-standardize-agent-handles|ADR-001: Standardize Subagent Handles, Aliases, and Skill Identifiers to Coding Namespace]]
 > - **Phase 4 Implementation**: **Completed** across all 8 repositories (86/86 automated tests passing).
-> - **Phase 5 QA Audit Verdict**: **PASS** (100% compliance across all 8 repositories, clean working trees, pre-merge ready).
+> - **Phase 5 QA Audit Verdict**: **PASS** (100% compliance across all 8 repositories, clean working trees).
+> - **Phase 6 Merge & Release**: **Completed** (fast-forward merged into `master` across all 8 repositories; 86/86 tests passing on `master`; feature branches deleted).
 
 ---
 
@@ -452,8 +455,33 @@ Total Across Workspace                  48          840         406   Full archi
 
 ---
 
-## 14. Phase 6 Handoff: Merge & Release Protocol
+## 14. Phase 6: Merge & Release Execution Report
 
-1. **Merge Execution**: Fast-forward merge `feature/standardize-agent-handles` into `master` across all 8 repositories.
-2. **Branch Cleanup**: Optionally remove local `feature/standardize-agent-handles` branches once merged.
-3. **Post-Merge Documentation**: Update `agentic-obsidian/git-status.md` to reflect unified `master` branch tracking and tag release milestone.
+> [!IMPORTANT] Release Milestone: COMPLETED
+> All 8 workspace repositories successfully executed fast-forward merges (`--ff-only`) from `feature/standardize-agent-handles` into `master`. All automated test suites (86/86 tests) pass with 100% compliance on `master`. Feature branches have been cleaned up and working trees are clean.
+
+### 14.1 Fast-Forward Merge Execution Manifest
+
+| Repository | Target Branch | Merged Commit | Merge Strategy | Working Tree | Test Results on Master |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`agentic` (root)** | `master` | [`3e2dfc2`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | Fast-Forward (`--ff-only`) | Clean | Root/Docs (PASS) |
+| **`agentic-coding-plugin`** | `master` | [`aeed0bc`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | Fast-Forward (`--ff-only`) | Clean | **16/16 passed** (100%) |
+| **`agentic-investigate-plugin`** | `master` | [`6cf9b20`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) | Fast-Forward (`--ff-only`) | Clean | **7/7 passed** (100%) |
+| **`agentic-monitoring-plugin`** | `master` | [`fd47438`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/) | Fast-Forward (`--ff-only`) | Clean | **7/7 passed** (100%) |
+| **`agentic-obsidian` (vault)** | `master` | [`0bf5cd5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | Fast-Forward (`--ff-only`) | Clean | Vault Docs (PASS) |
+| **`agentic-obsidian-plugin`** | `master` | [`c2186f8`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/) | Fast-Forward (`--ff-only`) | Clean | **9/9 passed** (100%) |
+| **`agentic-research-plugin`** | `master` | [`13d57da`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) | Fast-Forward (`--ff-only`) | Clean | **9/9 passed** (100%) |
+| **`agentic-triage-plugin`** | `master` | [`550de8f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) | Fast-Forward (`--ff-only`) | Clean | **38/38 passed** (100%) |
+
+---
+
+## 15. Release Changelog & Deliverables Summary
+
+### 15.1 Release Highlights
+- **Subagent Handle Standardization**: Canonical handles `@coding-investigate`, `@coding-monitor`, `@coding-document`, and `@coding-research` enforced workspace-wide.
+- **Legacy Agent Directory Purge**: Duplicate legacy directories (`agents/investigate/`, `agents/monitoring/`, `agents/research/`) permanently removed.
+- **Skill Directory Renaming**: All progressive-disclosure skills normalized to `skills/coding-*/` (`coding-investigate`, `coding-monitor`, `coding-document`, `coding-research`).
+- **YAML Frontmatter Sanitization**: Purged legacy non-coding aliases (`investigate`, `monitoring`, `document`, `research`) from agent metadata while preserving allowed alias `coding-monitoring`.
+- **Dynamic Prompt Triage Routing**: `agentic-triage-plugin` routing patterns and tests updated to eliminate legacy alias fallbacks.
+- **Cross-Plugin Coordination**: Documented interoperability, ADR-001, and architecture diagrams updated in Obsidian vault without modifying immutable historical transcripts.
+- **Zero Regressions**: 86 automated unit tests passing across all repositories on `master`.

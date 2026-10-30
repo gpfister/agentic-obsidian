@@ -1,37 +1,39 @@
 ---
 title: "Workspace Git Status & Branch Tracking"
 date: "2026-10-30"
-active_branch: "feature/standardize-agent-handles"
-phase: "Phase 5: Review & Pre-Merge Audit"
+active_branch: "master"
+phase: "Phase 6: Merge & Release (Completed)"
 audit_verdict: "PASS (100% Compliance)"
-status: "Pre-Merge Ready"
+status: "Released / Synchronized"
 tags:
   - git-status
   - branch-tracking
-  - pre-merge
+  - master
+  - post-merge
+  - released
   - standardize-agent-handles
 repositories_count: 8
 ---
 
 # Workspace Git Status & Branch Tracking
 
-> [!NOTE] Pre-Merge Audit Verdict: PASS (Ready for Phase 6 Merge)
-> All 8 workspace repositories are synchronized on isolated feature branches (`feature/standardize-agent-handles`), clean, and verified against the QA test suite (86/86 tests passing).
+> [!NOTE] Release Milestone: Phase 6 Merge & Release Completed
+> All 8 workspace repositories have fast-forward merged `feature/standardize-agent-handles` into `master` via `--ff-only`. All 86 automated unit tests pass on `master`. Feature branches have been cleaned up and working trees are clean.
 
 ---
 
 ## 1. Multi-Repository State Overview
 
-| Repository | Active Branch | Latest Commit | Commit Message | Working Tree | Diff vs `master` | Test Verdict |
+| Repository | Active Branch | Latest Commit | Commit Message | Working Tree | Tracking Status | Test Verdict |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`agentic` (root)** | `feature/standardize-agent-handles` | `3e2dfc2` | docs: standardize agent handles to @coding-* in directory layout | Clean | 1 file (+3/-3) | Docs/Root (PASS) |
-| **`agentic-coding-plugin`** | `feature/standardize-agent-handles` | `aeed0bc` | feat(agents): standardize agent handles across documentation and tests | Clean | 6 files (+86/-10) | 16/16 passed (100%) |
-| **`agentic-investigate-plugin`** | `feature/standardize-agent-handles` | `6cf9b20` | refactor: standardize @coding-investigate agent handles and directory structure | Clean | 6 files (+40/-125) | 7/7 passed (100%) |
-| **`agentic-monitoring-plugin`** | `feature/standardize-agent-handles` | `fd47438` | feat: standardize agent handles and skills to coding-monitor | Clean | 6 files (+41/-93) | 7/7 passed (100%) |
-| **`agentic-obsidian-plugin`** | `feature/standardize-agent-handles` | `c2186f8` | feat(obsidian): standardize agent handles and skills to coding-document | Clean | 6 files (+22/-17) | 9/9 passed (100%) |
-| **`agentic-research-plugin`** | `feature/standardize-agent-handles` | `13d57da` | refactor: standardize research subagent handle to @coding-research | Clean | 6 files (+41/-101) | 9/9 passed (100%) |
-| **`agentic-triage-plugin`** | `feature/standardize-agent-handles` | `550de8f` | feat(triage): standardize subagent handles and remove legacy aliases | Clean | 4 files (+77/-10) | 38/38 passed (100%) |
-| **`agentic-obsidian` (vault)** | `feature/standardize-agent-handles` | `dbdd5a7` | docs: finalize Phase 5 pre-merge tidy-up and git status tracker | Clean | 14 files (+585/-47) | Docs/Vault (PASS) |
+| **`agentic` (root)** | `master` | [`3e2dfc2`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | `docs: standardize agent handles to @coding-* in directory layout` | Clean | `ahead: 1, behind: 0` | Root/Docs (PASS) |
+| **`agentic-coding-plugin`** | `master` | [`aeed0bc`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | `feat(agents): standardize agent handles across documentation and tests` | Clean | `ahead: 1, behind: 0` | **16/16 passed** (100%) |
+| **`agentic-investigate-plugin`** | `master` | [`6cf9b20`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) | `refactor: standardize @coding-investigate agent handles and directory structure` | Clean | `ahead: 1, behind: 0` | **7/7 passed** (100%) |
+| **`agentic-monitoring-plugin`** | `master` | [`fd47438`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/) | `feat: standardize agent handles and skills to coding-monitor` | Clean | `ahead: 1, behind: 0` | **7/7 passed** (100%) |
+| **`agentic-obsidian-plugin`** | `master` | [`c2186f8`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/) | `feat(obsidian): standardize agent handles and skills to coding-document` | Clean | `ahead: 1, behind: 0` | **9/9 passed** (100%) |
+| **`agentic-research-plugin`** | `master` | [`13d57da`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) | `refactor: standardize research subagent handle to @coding-research` | Clean | `ahead: 1, behind: 0` | **9/9 passed** (100%) |
+| **`agentic-triage-plugin`** | `master` | [`550de8f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) | `feat(triage): standardize subagent handles and remove legacy aliases` | Clean | `ahead: 1, behind: 0` | **38/38 passed** (100%) |
+| **`agentic-obsidian` (vault)** | `master` | [`c418851`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | `docs: record Phase 6 merge release, changelog, and git status tracking` | Clean | `ahead: 4, behind: 0` | Vault Docs (PASS) |
 
 ---
 
@@ -39,38 +41,39 @@ repositories_count: 8
 
 | Repository | Worktree Path | HEAD Commit | Branch |
 | :--- | :--- | :--- | :--- |
-| **`agentic` (root)** | `/Users/gpfister/Development/Projects/gpfister/agentic` | `3e2dfc2` | `feature/standardize-agent-handles` |
-| **`agentic-coding-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin` | `aeed0bc` | `feature/standardize-agent-handles` |
-| **`agentic-investigate-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin` | `6cf9b20` | `feature/standardize-agent-handles` |
-| **`agentic-monitoring-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin` | `fd47438` | `feature/standardize-agent-handles` |
-| **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `dbdd5a7` | `feature/standardize-agent-handles` |
-| **`agentic-obsidian-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin` | `c2186f8` | `feature/standardize-agent-handles` |
-| **`agentic-research-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin` | `13d57da` | `feature/standardize-agent-handles` |
-| **`agentic-triage-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin` | `550de8f` | `feature/standardize-agent-handles` |
+| **`agentic` (root)** | `/Users/gpfister/Development/Projects/gpfister/agentic` | `3e2dfc2` | `master` |
+| **`agentic-coding-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin` | `aeed0bc` | `master` |
+| **`agentic-investigate-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin` | `6cf9b20` | `master` |
+| **`agentic-monitoring-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin` | `fd47438` | `master` |
+| **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `0bf5cd5` | `master` |
+| **`agentic-obsidian-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin` | `c2186f8` | `master` |
+| **`agentic-research-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin` | `13d57da` | `master` |
+| **`agentic-triage-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin` | `550de8f` | `master` |
 
-> [!TIP] Parallel Session Worktree Isolation
-> All active session operations are conducted within local repositories without conflicting worktrees. Session worktree allocations are managed via [`scripts/worktree.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/worktree.py).
-
----
-
-## 3. Phase 5 Pre-Merge Verification Checklist
-
-- [x] **Specification Compliance**: Fully aligns with [`features/standardize-agent-handles.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/features/standardize-agent-handles.md) and [[architecture/adr-001-standardize-agent-handles|ADR-001]].
-- [x] **Legacy Handles Eradicated**: 0 references to non-coding handles (`@investigate`, `@monitoring`, `@document`, `@research`) in active code, tests, rules, or documentation.
-- [x] **Directory Layout Standardized**: All legacy agent directories (`agents/investigate/`, `agents/monitoring/`, `agents/research/`) purged; all skill folders canonicalized (`skills/coding-*/`).
-- [x] **Automated Test Matrix**: 86/86 tests passing across all 6 plugin test suites.
-- [x] **Clean Working Trees**: All 8 repositories committed with zero uncommitted or untracked changes (excluding runtime caches).
-- [x] **Fast-Forward Ready**: Branch topologies allow clean fast-forward merge into `master` across all repositories.
+> [!TIP] Worktree Hygiene
+> All operations are consolidated on canonical `master` branches across the workspace. Dedicated feature branches have been removed.
 
 ---
 
-## 4. Phase 6 Fast-Forward Merge Commands
+## 3. Post-Merge Verification Checklist
 
-When Phase 6 is triggered, execute the fast-forward merge across all 8 repositories:
+- [x] **Fast-Forward Merge Completed**: All 8 repositories merged `feature/standardize-agent-handles` into `master` via `--ff-only`.
+- [x] **Feature Branches Cleaned Up**: `feature/standardize-agent-handles` deleted across all repositories.
+- [x] **Test Verification on Master**: 86/86 automated unit tests passing across all plugins.
+- [x] **Zero Working Tree Contamination**: Working trees are clean across all repositories.
+- [x] **Vault Tracking Synchronized**: [`features/standardize-agent-handles.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/features/standardize-agent-handles.md), [`features/index.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/features/index.md), and [`git-status.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/git-status.md) up to date.
 
-```bash
-# In each repository (or via workspace automation):
-git checkout master
-git merge --ff-only feature/standardize-agent-handles
-git branch -d feature/standardize-agent-handles
-```
+---
+
+## 4. Release Changelog: Standardize Agent Handles & Remove Non-Coding Aliases
+
+| Repository | Merge Commit | Scope & Summary of Changes |
+| :--- | :--- | :--- |
+| **`agentic` (root)** | [`3e2dfc2`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | Standardized agent handles in root [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md) directory map, cross-plugin interoperability matrix, and [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/README.md). |
+| **`agentic-coding-plugin`** | [`aeed0bc`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | Updated cross-plugin invocations and rules to canonical `@coding-investigate`, `@coding-monitor`, `@coding-document`, `@coding-research`; updated test suites (16/16 pass). |
+| **`agentic-investigate-plugin`** | [`6cf9b20`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) | Purged legacy `agents/investigate/`; renamed skill to `skills/coding-investigate/`; removed non-coding alias `'investigate'`; updated rules, README, and unit tests (7/7 pass). |
+| **`agentic-monitoring-plugin`** | [`fd47438`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/) | Purged legacy `agents/monitoring/`; renamed skill to `skills/coding-monitor/`; removed non-coding alias `'monitoring'`; retained valid alias `coding-monitoring`; updated tests (7/7 pass). |
+| **`agentic-obsidian-plugin`** | [`c2186f8`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/) | Renamed skill to `skills/coding-document/`; removed non-coding alias `'document'`; updated companion handles in agent files and tests (9/9 pass). |
+| **`agentic-research-plugin`** | [`13d57da`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) | Purged legacy `agents/research/`; renamed skill to `skills/coding-research/`; removed non-coding alias `'research'`; updated tests (9/9 pass). |
+| **`agentic-triage-plugin`** | [`550de8f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) | Purged legacy non-coding handles from routing regex and keyword tuples; updated test fixtures and routing assertions (38/38 pass). |
+| **`agentic-obsidian` (vault)** | [`0bf5cd5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | Documented [[architecture/adr-001-standardize-agent-handles|ADR-001]], standardized plugin notes, feature lifecycle tracking, and release git status while preserving historical session logs. |
