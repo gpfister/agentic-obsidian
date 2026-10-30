@@ -36,7 +36,7 @@ It introduces the autonomous subagent [`@coding-document`](file:///Users/gpfiste
 ### 2. Declarative Markdown Subagents (`agents/`)
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
-| [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/agent.md) | `obsidian-catalog` | **Documentation Subagent Catalog**: Architecture, subagent registry, tool configurations, and operating models. | `write=False`, `subagent=False`, `mcp=False` |
+| [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/agent.md) | `coding-obsidian-catalog` | **Documentation Subagent Catalog**: Architecture, subagent registry, tool configurations, and operating models. | `write=False`, `subagent=False`, `mcp=False` |
 | [`agents/coding-document/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/coding-document/agent.md) | `@coding-document` (Aliases: `coding-document`, `document`) | **Autonomous Documentation Specialist**: Documents projects, features, architecture, sessions, artifacts, code changes, and git status in Obsidian vaults. | `read_file`, `write_file`, `edit_file`, `list_dir`, `run_command`, `ask_question`, `send_message` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
@@ -49,15 +49,13 @@ It introduces the autonomous subagent [`@coding-document`](file:///Users/gpfiste
 ## Multi-Plugin Integration Architecture
 
 ```text
-@coding (develop/review) ──(pre-merge)──> @coding-document (tidy docs, specs & ADRs)
-                                                 │
-@coding (release/merge)  ──(post-merge)─> @coding-document (update git status & changelog)
-                                                 │
-@investigate             ──(concluded)──> @coding-document (archive investigation notes)
-                                                 │
-@research                ──(concluded)──> @coding-document (archive research brief & citations)
-                                                 │
-@monitoring              ──(concluded)──> @coding-document (record telemetry & alerts)
+@coding (after each phase)       ──> @coding-document (maintain specs, plans, progress, ADRs, git status)
+                                           │
+@coding-investigate (concluded)   ──> @coding-document (archive investigation notes)
+                                           │
+@coding-research (concluded)      ──> @coding-document (record research, create/update topic)
+                                           │
+@coding-monitor (concluded)       ──> @coding-document (record telemetry & alerts)
                                                  │
 @triage                  ──(doc-request)─> @coding-document (direct user request dispatch)
 ```

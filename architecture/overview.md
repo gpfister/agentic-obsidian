@@ -25,8 +25,13 @@ The **Agentic** workspace is designed to author, test, and maintain a federation
 
 | Repository / Path | Purpose |
 | :--- | :--- |
-| [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md) | Root workspace coordination instructions and operational rules. |
+| [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md) | Root workspace coordination instructions, cross-plugin interoperability guidelines, and 6-stage flowchart. |
 | [`scripts/sync_sessions.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/sync_sessions.py) | Exports Antigravity session transcripts and artifacts into `agentic-obsidian/sessions/`. |
 | [`scripts/worktree.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/worktree.py) | Manages isolated Git worktrees across root and sub-repositories for parallel sessions. |
-| [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | Primary coding companion plugin (`@coding`, `@coding-investigate`, `@monitoring`, Laya Router triage). |
+| [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | 6-stage software development companion (`@coding`) with after-each-phase documentation maintenance. |
+| [`agentic-investigate-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) | Autonomous multi-repo issue investigation plugin (`@coding-investigate`). |
+| [`agentic-monitoring-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/) | Telemetry and stream surveillance companion (`@coding-monitor`). |
+| [`agentic-obsidian-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/) | Centralized Obsidian documentation companion (`@coding-document`). |
+| [`agentic-research-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) | Deep web and literature research companion (`@coding-research`). |
+| [`agentic-triage-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) | Dynamic Laya Router System 1 prompt triage hook adapting to installed plugins. |
 | [`agentic-obsidian/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | Centralized Obsidian vault for plugin specs, architecture docs, and session logs. |

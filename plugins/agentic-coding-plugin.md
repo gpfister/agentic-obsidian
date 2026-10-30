@@ -54,10 +54,56 @@ Subagent instructions are authored as modular markdown specifications within ded
 
 ### 1. 6-Stage Coding Lifecycle Pipeline (`@coding`)
 Phase transitions are orchestrated via `invoke_subagent`:
-```text
-coding-clarify ──> coding-specify ──> coding-plan ──> coding-develop (parallel per repo)
-                          ▲               ▲                      │
-                          │ (reject/fb)   │ (reject/fb)          ▼
+
+```mermaid
+flowchart TD
+    Start(["User Request / Task"]) --> Phase1["Phase 1: Clarification<br/>(@coding-clarify)"]
+    Phase1 --> AmbiguityCheck{"Ambiguities?"}
+    AmbiguityCheck -->|"Yes"| GrillUser["Interrogate User (ask_question)"]
+    GrillUser --> AmbiguityCheck
+    AmbiguityCheck -->|"No"| Doc1{"agentic-document-plugin<br/>installed?"}
+    Doc1 -->|"Yes"| InvokeDoc1["Invoke @coding-document<br/>(Record requirements)"]
+    Doc1 -->|"No"| Phase2["Phase 2: Specification<br/>(@coding-specify)"]
+    InvokeDoc1 --> Phase2
+    
+    Phase2 --> SpecArtifact["Write specification.md (RequestFeedback=True)"]
+    SpecArtifact --> IdleGuardSpec["Wait for User Approval (IDLE guard)"]
+    IdleGuardSpec --> UserSpecGate{"specification.md decision"}
+    UserSpecGate -->|"[GATE_REJECTED]"| Phase1
+    UserSpecGate -->|"[GATE_APPROVED]"| Doc2{"agentic-document-plugin<br/>installed?"}
+    Doc2 -->|"Yes"| InvokeDoc2["Invoke @coding-document<br/>(Record & index spec)"]
+    Doc2 -->|"No"| Phase3["Phase 3: Planning<br/>(@coding-plan)"]
+    InvokeDoc2 --> Phase3
+    
+    Phase3 --> PlanArtifact["Write plan.md (RequestFeedback=True)"]
+    PlanArtifact --> IdleGuardPlan["Wait for User Approval (IDLE guard)"]
+    IdleGuardPlan --> UserPlanGate{"plan.md decision"}
+    UserPlanGate -->|"[GATE_REJECTED]"| Phase1
+    UserPlanGate -->|"[GATE_APPROVED]"| Doc3{"agentic-document-plugin<br/>installed?"}
+    Doc3 -->|"Yes"| InvokeDoc3["Invoke @coding-document<br/>(Record plan & ADRs)"]
+    Doc3 -->|"No"| Phase4["Phase 4: Development<br/>(@coding-develop)"]
+    InvokeDoc3 --> Phase4
+    
+    Phase4 --> DevWork["Parallel implementation per repo"]
+    DevWork --> Doc4{"agentic-document-plugin<br/>installed?"}
+    Doc4 -->|"Yes"| InvokeDoc4["Invoke @coding-document<br/>(Record implementation notes)"]
+    Doc4 -->|"No"| Phase5["Phase 5: Review<br/>(@coding-review)"]
+    InvokeDoc4 --> Phase5
+    
+    Phase5 --> ReviewCheck{"Review passed?"}
+    ReviewCheck -->|"Defects"| Phase3
+    ReviewCheck -->|"Passed"| ConfirmMerge{"Confirm merge with user (ask_question)"}
+    ConfirmMerge -->|"Confirmed"| Doc5{"agentic-document-plugin<br/>installed?"}
+    Doc5 -->|"Yes"| InvokeDoc5["Invoke @coding-document<br/>(Pre-merge tidy up)"]
+    Doc5 -->|"No"| Phase6["Phase 6: Merge<br/>(@coding-merge)"]
+    InvokeDoc5 --> Phase6
+    
+    Phase6 --> ExecMerge["Execute git merge or PR"]
+    ExecMerge --> Doc6{"agentic-document-plugin<br/>installed?"}
+    Doc6 -->|"Yes"| InvokeDoc6["Invoke @coding-document<br/>(Post-merge git status)"]
+    Doc6 -->|"No"| Complete(["Done"])
+    InvokeDoc6 --> Complete
+```
                           └───────────────┴────────────── coding-review
                                                                  │ (approved)
                                                                  ▼

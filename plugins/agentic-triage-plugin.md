@@ -46,8 +46,10 @@ The triage engine scans for active capability plugins through:
 The routing criteria adapts dynamically:
 - `response 1` is always: `"one or more inquiries involving no changes"`.
 - If `agentic-coding-plugin` is active: adds `"one or more code change request"` $\rightarrow$ directs main agent to invoke `@coding`.
-- If `agentic-monitoring-plugin` is active: adds `"one or more task monitoring request"` $\rightarrow$ directs main agent to invoke `@monitoring`.
-- If `agentic-investigate-plugin` is active: adds `"one or more issue investigation request"` $\rightarrow$ directs main agent to invoke `@investigate`.
+- If `agentic-monitoring-plugin` (or `agentic-monitor-plugin`) is active: adds `"one or more task monitoring request"` $\rightarrow$ directs main agent to invoke `@coding-monitor`.
+- If `agentic-investigate-plugin` is active: adds `"one or more issue investigation request"` $\rightarrow$ directs main agent to invoke `@coding-investigate`.
+- If `agentic-research-plugin` is active: adds `"one or more topic research or information retrieval requests"` $\rightarrow$ directs main agent to invoke `@coding-research`.
+- If `agentic-obsidian-plugin` (or `agentic-document-plugin`) is active: adds `"one or more documentation request"` $\rightarrow$ directs main agent to invoke `@coding-document`.
 - If any capability is active: appends the mixed request option $\rightarrow$ directs main agent to reject mixed prompts.
 
 ### 3. Execution & Routing Logic

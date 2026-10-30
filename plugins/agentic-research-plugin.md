@@ -35,8 +35,8 @@ Subagents are organized in dedicated directories with YAML frontmatter:
 
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
-| [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/agent.md) | `research-catalog` | **Research Subagent Catalog**: Architecture, subagent registry, tool configurations, and research operating models. | `write=False`, `subagent=False`, `mcp=False` |
-| [`agents/research/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/research/agent.md) | `@research` (Aliases: `@coding-research`, `research`) | **Topic & Web Research Investigator**: Autonomous topic researcher executing web searches, reading sources, synthesizing structured markdown reports, archiving findings in Obsidian, and presenting approval gates. | `search_web`, `read_file`, `write_file`, `list_dir`, `ask_question`, `send_message` |
+| [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/agent.md) | `coding-research-catalog` | **Research Subagent Catalog**: Architecture, subagent registry, tool configurations, and research operating models. | `write=False`, `subagent=False`, `mcp=False` |
+| [`agents/coding-research/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/coding-research/agent.md) | `@coding-research` (Aliases: `@coding-research`, `@research`) | **Topic & Web Research Investigator**: Autonomous topic researcher executing web searches, reading sources, synthesizing structured markdown reports, archiving findings in Obsidian via `@coding-document` (creating or updating topics), and presenting approval gates. | `search_web`, `read_file`, `write_file`, `list_dir`, `ask_question`, `send_message`, `invoke_subagent` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill Name | Path | Description | Invocation |
