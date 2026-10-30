@@ -21,6 +21,47 @@ The **Agentic** workspace is designed to author, test, and maintain a federation
 
 ---
 
+## System Topology & Subagent Federation
+
+```mermaid
+flowchart TD
+    User(["User Prompt / Task"]) --> Triage["Dynamic Prompt Triage<br/>(@coding-triage-plugin / Laya Router)"]
+    
+    subgraph Subagents["Standardized @coding-* Subagent Federation"]
+        Orch["@coding<br/>(Software Development Lifecycle)"]
+        Investigate["@coding-investigate<br/>(Issue Diagnosis & RCA)"]
+        Monitor["@coding-monitor<br/>(Telemetry & Surveillance)"]
+        Research["@coding-research<br/>(Topic & Web Research)"]
+        Document["@coding-document<br/>(Knowledge Curator & Vault Specialist)"]
+    end
+
+    Triage -->|Code Change Request| Orch
+    Triage -->|Issue / Bug Investigation| Investigate
+    Triage -->|Telemetry / Streaming Log| Monitor
+    Triage -->|Deep Literature / Web Research| Research
+    Triage -->|Documentation / Vault Query| Document
+
+    %% Inter-subagent collaborations
+    Orch -.->|Maintains documentation after each phase| Document
+    Investigate -.->|Handoff remediation| Orch
+    Investigate -.->|Archives approved assessment| Document
+    Monitor -.->|Pause gate on error| Investigate
+    Monitor -.->|Archives telemetry & alerts| Document
+    Research -.->|Records research report| Document
+
+    subgraph Vault["agentic-obsidian Vault"]
+        DocProjects["projects/"]
+        DocFeatures["features/"]
+        DocArch["architecture/"]
+        DocSessions["sessions/"]
+        DocGit["git-status.md"]
+    end
+
+    Document --> Vault
+```
+
+---
+
 ## Repository Map
 
 | Repository / Path | Purpose |
