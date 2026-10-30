@@ -18,7 +18,7 @@ version: "0.1.0"
 ## Overview
 `agentic-obsidian-plugin` is the centralized documentation and Obsidian vault knowledge curator companion plugin within the `agentic` workspace. It establishes the single source of truth across projects, architecture designs (ADRs), feature specifications, Antigravity session trajectories, generated artifacts, code changes, and git repository statuses.
 
-It introduces the autonomous subagent [`@coding-document`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/coding-document/agent.md), addressable independently by users and programmatically invoked by other pipeline subagents (`@coding`, `@investigate`, `@research`, `@monitoring`, `@triage`).
+It introduces the autonomous subagent [`@coding-document`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/coding-document/agent.md), addressable independently by users and programmatically invoked by other pipeline subagents (`@coding`, `@coding-investigate`, `@coding-research`, `@coding-monitor`, `@coding-triage`).
 
 ---
 
@@ -37,12 +37,12 @@ It introduces the autonomous subagent [`@coding-document`](file:///Users/gpfiste
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
 | [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/agent.md) | `coding-obsidian-catalog` | **Documentation Subagent Catalog**: Architecture, subagent registry, tool configurations, and operating models. | `write=False`, `subagent=False`, `mcp=False` |
-| [`agents/coding-document/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/coding-document/agent.md) | `@coding-document` (Aliases: `coding-document`, `document`) | **Autonomous Documentation Specialist**: Documents projects, features, architecture, sessions, artifacts, code changes, and git status in Obsidian vaults. | `read_file`, `write_file`, `edit_file`, `list_dir`, `run_command`, `ask_question`, `send_message` |
+| [`agents/coding-document/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/agents/coding-document/agent.md) | `@coding-document` (Alias: `coding-document`) | **Autonomous Documentation Specialist**: Documents projects, features, architecture, sessions, artifacts, code changes, and git status in Obsidian vaults. | `read_file`, `write_file`, `edit_file`, `list_dir`, `run_command`, `ask_question`, `send_message` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill Name | Path | Description | Invocation |
 | :--- | :--- | :--- | :--- |
-| `document` | [`skills/document/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/skills/document/SKILL.md) | Runbooks and procedures for project documentation, architecture ADRs, session and artifact archival, git status auditing, and multi-agent coordination. | Progressive disclosure / `@coding-document` invocation |
+| `coding-document` | [`skills/coding-document/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian-plugin/skills/coding-document/SKILL.md) | Runbooks and procedures for project documentation, architecture ADRs, session and artifact archival, git status auditing, and multi-agent coordination. | Progressive disclosure / `@coding-document` invocation |
 
 ---
 

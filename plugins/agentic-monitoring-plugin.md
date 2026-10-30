@@ -13,7 +13,7 @@ version: "0.1.0"
 # Plugin: agentic-monitoring-plugin
 
 ## Overview
-`agentic-monitoring-plugin` is the telemetry, log observation, and stream surveillance companion plugin within the `agentic` ecosystem. It bundles a dedicated declarative markdown subagent ([`@monitoring`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/agents/monitoring/agent.md)), a progressive-disclosure monitoring skill ([`skills/monitoring/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/skills/monitoring/SKILL.md)), and an interactive pause gate protocol that halts log cascades upon anomaly detection to prompt the user with remediation choices.
+`agentic-monitoring-plugin` is the telemetry, log observation, and stream surveillance companion plugin within the `agentic` ecosystem. It bundles a dedicated declarative markdown subagent ([`@coding-monitor`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/agents/coding-monitor/agent.md)), a progressive-disclosure monitoring skill ([`skills/coding-monitor/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/skills/coding-monitor/SKILL.md)), and an interactive pause gate protocol that halts log cascades upon anomaly detection to prompt the user with remediation choices.
 
 ---
 
@@ -35,7 +35,7 @@ Subagents are organized in dedicated directories with frontmatter metadata:
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill Name | Path | Description | Invocation |
 | :--- | :--- | :--- | :--- |
-| `monitoring` | [`skills/monitoring/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/skills/monitoring/SKILL.md) | Runbooks and procedures for streaming logs, Docker containers, and serial ports with automatic anomaly detection. | Progressive disclosure / `@monitoring` prompt |
+| `coding-monitor` | [`skills/coding-monitor/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/skills/coding-monitor/SKILL.md) | Runbooks and procedures for streaming logs, Docker containers, and serial ports with automatic anomaly detection. | Progressive disclosure / `@coding-monitor` prompt |
 
 ---
 
@@ -71,5 +71,5 @@ Continuous Surveillance Scan (Chunk by chunk)
 agy plugin enable agentic-monitoring-plugin
 
 # Invoke monitoring directly:
-@monitoring watch server logs at /var/log/app.log and alert on 5xx errors
+@coding-monitor watch server logs at /var/log/app.log and alert on 5xx errors
 ```

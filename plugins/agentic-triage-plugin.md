@@ -15,8 +15,8 @@ version: "0.1.0"
 ## Overview
 `agentic-triage-plugin` is the dynamic prompt triage and intent classification plugin within the `agentic` ecosystem. It runs a `PreInvocation` lifecycle hook using the non-autoregressive **Laya Router** System 1 model to classify incoming user prompts and dynamically adapt routing based on which plugins are currently installed:
 - **Coding Requests** (`response 2` $\rightarrow$ `@coding`): Evaluated if [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/plugin.json) is installed.
-- **Task Monitoring Requests** (`@monitoring`): Evaluated if [`agentic-monitoring-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/plugin.json) is installed.
-- **Issue Investigation Requests** (`@investigate`): Evaluated if [`agentic-investigate-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/plugin.json) is installed.
+- **Task Monitoring Requests** (`@coding-monitor`): Evaluated if [`agentic-monitoring-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitoring-plugin/plugin.json) is installed.
+- **Issue Investigation Requests** (`@coding-investigate`): Evaluated if [`agentic-investigate-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/plugin.json) is installed.
 - **Inquiries involving no changes** (`response 1`): Always active regardless of installed plugins.
 - **Mixed requests**: Identified when prompts combine multiple intents across active capabilities.
 
@@ -70,8 +70,8 @@ Laya Router System 1 Prediction ("What is this prompt about ?")
   ├── (Yes) ──> Inject systemMessage with Prompt Triage Directive
   │             ├── question: direct response, no code changes
   │             ├── coding: invoke @coding subagent
-  │             ├── monitoring: invoke @monitoring subagent
-  │             ├── investigation: invoke @investigate subagent
+  │             ├── monitoring: invoke @coding-monitor subagent
+  │             ├── investigation: invoke @coding-investigate subagent
   │             └── mixed: reject prompt, ask user to split requests
   │
   └── (No) ───> Ambiguous (confidence < 0.40)

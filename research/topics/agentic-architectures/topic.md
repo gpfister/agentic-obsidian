@@ -15,7 +15,7 @@ last_updated: "2026-10-30"
 Architectural paradigms, patterns, and design principles for autonomous agent systems, multi-agent coordination, subagents, and memory persistence within the `agentic` ecosystem.
 
 ## Key Themes
-- Multi-repository agent coordination and orchestrators (`@coding`, `@investigate`, `@monitoring`, `@research`).
+- Multi-repository agent coordination and orchestrators (`@coding`, `@coding-investigate`, `@coding-monitor`, `@coding-research`).
 - Subagent isolation, operational boundaries, and declarative frontmatter.
 - Human-in-the-loop approval gates and turn termination contracts.
 

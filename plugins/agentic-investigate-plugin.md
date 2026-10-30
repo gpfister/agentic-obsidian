@@ -13,7 +13,7 @@ version: "0.1.0"
 # Plugin: agentic-investigate-plugin
 
 ## Overview
-`agentic-investigate-plugin` is the autonomous multi-repository issue investigation and root-cause analysis companion plugin within the `agentic` ecosystem. It bundles a dedicated declarative markdown subagent ([`@investigate`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/agents/investigate/agent.md)), a progressive-disclosure investigation skill ([`skills/investigate/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/skills/investigate/SKILL.md)), user clarification protocols, an interactive issue assessment approval gate (`issue-assessment.md`), and a remediation confirmation handoff to `@coding`.
+`agentic-investigate-plugin` is the autonomous multi-repository issue investigation and root-cause analysis companion plugin within the `agentic` ecosystem. It bundles a dedicated declarative markdown subagent ([`@coding-investigate`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/agents/coding-investigate/agent.md)), a progressive-disclosure investigation skill ([`skills/coding-investigate/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/skills/coding-investigate/SKILL.md)), user clarification protocols, an interactive issue assessment approval gate (`issue-assessment.md`), and a remediation confirmation handoff to `@coding`.
 
 ---
 
@@ -35,7 +35,7 @@ Subagents are organized in dedicated directories with frontmatter metadata:
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill Name | Path | Description | Invocation |
 | :--- | :--- | :--- | :--- |
-| `investigate` | [`skills/investigate/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/skills/investigate/SKILL.md) | Runbooks and diagnostic procedures for tracing cross-repository bugs, user grilling, and issue assessment authoring. | Progressive disclosure / `@investigate` prompt |
+| `coding-investigate` | [`skills/coding-investigate/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/skills/coding-investigate/SKILL.md) | Runbooks and diagnostic procedures for tracing cross-repository bugs, user grilling, and issue assessment authoring. | Progressive disclosure / `@coding-investigate` prompt |
 
 ---
 
@@ -72,5 +72,5 @@ Multi-Repo Search ──> Solution Found? ──(No)──> Grill User (ask_ques
 agy plugin enable agentic-investigate-plugin
 
 # Invoke investigation directly:
-@investigate Investigate why payments time out in checkout
+@coding-investigate Investigate why payments time out in checkout
 ```

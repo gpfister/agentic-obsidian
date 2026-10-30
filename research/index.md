@@ -13,7 +13,7 @@ last_updated: "2026-10-30"
 
 # Research Knowledge Base Index
 
-Welcome to the centralized **Research Knowledge Base** of the `agentic` workspace, maintained by the autonomous research subagent ([`@research`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/research/agent.md)) provided by [`agentic-research-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/plugins/agentic-research-plugin.md).
+Welcome to the centralized **Research Knowledge Base** of the `agentic` workspace, maintained by the autonomous research subagent ([`@coding-research`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/coding-research/agent.md)) provided by [`agentic-research-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/plugins/agentic-research-plugin.md).
 
 ---
 
@@ -34,7 +34,7 @@ research/
 Topics represent long-lived domain areas, architectures, frameworks, or problem spaces. As new research requests are processed, findings are synthesized into topic notes to form a cumulative knowledge repository.
 
 ### 1.2 Requests (`research/requests/`)
-Requests capture the snapshot findings of specific user inquiries executed by `@research`. Each request file documents the original query, web search queries executed, retrieved sources, synthesized report, and links to relevant topic notes.
+Requests capture the snapshot findings of specific user inquiries executed by `@coding-research`. Each request file documents the original query, web search queries executed, retrieved sources, synthesized report, and links to relevant topic notes.
 
 ---
 
@@ -51,17 +51,17 @@ Requests capture the snapshot findings of specific user inquiries executed by `@
 
 ## 3. Research Request Registry
 
-The following log tracks all completed research requests executed by `@research`:
+The following log tracks all completed research requests executed by `@coding-research`:
 
 | Request ID | Date | Topic | Title / Objective | Report Link | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| *No requests recorded yet* | — | — | Run `@research <topic>` to generate initial research report | — | — |
+| *No requests recorded yet* | — | — | Run `@coding-research <topic>` to generate initial research report | — | — |
 
 ---
 
-## 4. Operational Protocols for `@research`
+## 4. Operational Protocols for `@coding-research`
 
-When the `@research` agent executes a research task:
+When the `@coding-research` agent executes a research task:
 1. **Search & Synthesis**: Query the web (`search_web`), triangulate reputable sources, and synthesize findings with inline citations.
 2. **Artifact Generation**: Generate `<appDataDir>/brain/<conversation-id>/research-report.md` with `RequestFeedback=True` as the sole and final tool call of that turn for user approval.
 3. **Vault Integration**:

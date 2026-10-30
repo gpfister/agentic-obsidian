@@ -15,7 +15,7 @@ version: "0.1.0"
 # Plugin: agentic-research-plugin
 
 ## Overview
-`agentic-research-plugin` is the autonomous web research, topic investigation, and knowledge synthesis companion plugin within the `agentic` ecosystem. It bundles a dedicated declarative subagent ([`@research`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/research/agent.md)), a progressive-disclosure research skill ([`skills/research/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/skills/research/SKILL.md)), multi-source retrieval protocols, an interactive research assessment approval gate (`research-report.md`), and deep two-way integration with the [`agentic-obsidian`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/research/index.md) knowledge vault.
+`agentic-research-plugin` is the autonomous web research, topic investigation, and knowledge synthesis companion plugin within the `agentic` ecosystem. It bundles a dedicated declarative subagent ([`@coding-research`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/coding-research/agent.md)), a progressive-disclosure research skill ([`skills/coding-research/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/skills/coding-research/SKILL.md)), multi-source retrieval protocols, an interactive research assessment approval gate (`research-report.md`), and deep two-way integration with the [`agentic-obsidian`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/research/index.md) knowledge vault.
 
 ---
 
@@ -36,19 +36,19 @@ Subagents are organized in dedicated directories with YAML frontmatter:
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
 | [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/agent.md) | `coding-research-catalog` | **Research Subagent Catalog**: Architecture, subagent registry, tool configurations, and research operating models. | `write=False`, `subagent=False`, `mcp=False` |
-| [`agents/coding-research/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/coding-research/agent.md) | `@coding-research` (Aliases: `@coding-research`, `@research`) | **Topic & Web Research Investigator**: Autonomous topic researcher executing web searches, reading sources, synthesizing structured markdown reports, archiving findings in Obsidian via `@coding-document` (creating or updating topics), and presenting approval gates. | `search_web`, `read_file`, `write_file`, `list_dir`, `ask_question`, `send_message`, `invoke_subagent` |
+| [`agents/coding-research/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/coding-research/agent.md) | `@coding-research` | **Topic & Web Research Investigator**: Autonomous topic researcher executing web searches, reading sources, synthesizing structured markdown reports, archiving findings in Obsidian via `@coding-document` (creating or updating topics), and presenting approval gates. | `search_web`, `read_file`, `write_file`, `list_dir`, `ask_question`, `send_message`, `invoke_subagent` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill Name | Path | Description | Invocation |
 | :--- | :--- | :--- | :--- |
-| `research` | [`skills/research/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/skills/research/SKILL.md) | Structured workflows for web search query expansion, source evaluation, citation formatting, synthesis generation, and Obsidian vault indexing. | Progressive disclosure / `@research` invocation |
+| `coding-research` | [`skills/coding-research/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/skills/coding-research/SKILL.md) | Structured workflows for web search query expansion, source evaluation, citation formatting, synthesis generation, and Obsidian vault indexing. | Progressive disclosure / `@coding-research` invocation |
 
 ---
 
 ## Research & Knowledge Synthesis Workflow
 
 ```text
-User Prompt (@research)
+User Prompt (@coding-research)
           │
           ▼
 Deconstruct Query & Identify Domain
@@ -81,7 +81,7 @@ Save to Obsidian Vault                   Write Session Artifact
 
 ## Obsidian Vault Integration (`agentic-obsidian`)
 
-When `agentic-obsidian` is present in the workspace, `@research` automatically catalogs findings into the vault hierarchy:
+When `agentic-obsidian` is present in the workspace, `@coding-research` automatically catalogs findings into the vault hierarchy:
 
 - **Master Index**: [`research/index.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/research/index.md) maintaining topic taxonomy and the completed request registry.
 - **Topic Syntheses**: [`research/topics/<topic-slug>/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/research/topics/) aggregating long-term domain knowledge across multiple requests.
@@ -94,7 +94,7 @@ When `agentic-obsidian` is present in the workspace, `@research` automatically c
 
 ## Dynamic Prompt Triage Integration
 
-When used alongside [`agentic-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/plugins/agentic-triage-plugin.md), the Laya Router dynamically detects `agentic-research-plugin`'s presence and classifies incoming user research queries to `@research` automatically.
+When used alongside [`agentic-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/plugins/agentic-triage-plugin.md), the Laya Router dynamically detects `agentic-research-plugin`'s presence and classifies incoming user research queries to `@coding-research` automatically.
 
 ---
 
@@ -105,8 +105,5 @@ When used alongside [`agentic-triage-plugin`](file:///Users/gpfister/Development
 agy plugin enable agentic-research-plugin
 
 # Invoke research directly:
-@research Investigate modern multi-agent consensus protocols
-
-# Alias invocation:
-@coding-research Deep dive into fast non-autoregressive routing models
+@coding-research Investigate modern multi-agent consensus protocols
 ```

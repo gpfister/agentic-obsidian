@@ -119,11 +119,6 @@ flowchart TD
     %% User Denied Merge routes directly to bottom termination
     MergeConfirmGate -->|"User Denied"| AbortWorkflow(["Abort / Terminate"])
 ```
-                          └───────────────┴────────────── coding-review
-                                                                 │ (approved)
-                                                                 ▼
-                                                           coding-merge
-```
 
 ### 2. Antigravity Interactive Artifact Approval Protocol
 - **Mandatory Approval Gates**: `specification.md` (Stage 2) and `plan.md` (Stage 3) require interactive user approval before proceeding.
