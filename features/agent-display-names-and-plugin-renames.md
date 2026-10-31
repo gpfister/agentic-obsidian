@@ -1,8 +1,8 @@
 ---
 title: "Agent Display Names Standardization & Plugin Renames (agentic-monitor-plugin & agentic-document-plugin)"
 date: "2026-10-30"
-status: "Plan Approved (GATE_APPROVED)"
-phase: "Phase 3: Planning"
+status: "Development Completed (Verified)"
+phase: "Phase 4: Development"
 specification_path: "/Users/gpfister/.gemini/antigravity/brain/2b726f54-496d-4a46-8461-49d0a86efe79/specification.md"
 vault_specification_path: "sessions/attachments/2b726f54-496d-4a46-8461-49d0a86efe79/specification.md"
 plan_path: "/Users/gpfister/.gemini/antigravity/brain/3355c861-6d22-4e70-99cd-7580458d338c/plan.md"
@@ -23,6 +23,8 @@ tags:
   - phase-1-completed
   - phase-2-completed
   - phase-3-completed
+  - phase-4-completed
+  - development-completed
   - work-breakdown
 affected_plugins:
   - agentic-monitor-plugin (formerly agentic-monitoring-plugin)
@@ -40,23 +42,17 @@ aliases:
 
 # Feature: Agent Display Names Standardization & Plugin Renames (agentic-monitor-plugin & agentic-document-plugin)
 
-> [!NOTE] Phase 3 Implementation Plan Approved (GATE_APPROVED)
-> - **Current Phase**: Phase 3: Planning (Approved by User Gate)
+> [!NOTE] Phase 4 Development Completed & Verified (101/101 Tests Passing)
+> - **Current Phase**: Phase 4: Development (Completed & Verified)
 > - **Approved Brain Specification**: [`specification.md`](file:///Users/gpfister/.gemini/antigravity/brain/2b726f54-496d-4a46-8461-49d0a86efe79/specification.md)
 > - **Vault Archived Specification**: [`sessions/attachments/2b726f54-496d-4a46-8461-49d0a86efe79/specification.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/2b726f54-496d-4a46-8461-49d0a86efe79/specification.md)
 > - **Approved Brain Implementation Plan**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/3355c861-6d22-4e70-99cd-7580458d338c/plan.md)
 > - **Vault Archived Implementation Plan**: [`sessions/attachments/3355c861-6d22-4e70-99cd-7580458d338c/plan.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/3355c861-6d22-4e70-99cd-7580458d338c/plan.md)
 > - **Architecture Decision Record**: [[architecture/adr-002-agent-display-names-and-plugin-renames|ADR-002: Agent Display Names & Dual Plugin Repository Rename]] (Accepted)
 > - **Branch Strategy**: Branch `task/display-names-and-renames` across all 8 repositories.
-> - **Execution Strategy**: Ordered 7-phase multi-repo execution:
->   1. Filesystem directory renames & Git remote updates.
->   2. Working branch initialization.
->   3. Plugin-specific updates (`agentic-monitor-plugin`, `agentic-document-plugin`, `agentic-coding-plugin`, `agentic-investigate-plugin`, `agentic-research-plugin`).
->   4. Dynamic triage router updates (`agentic-triage-plugin`).
->   5. Root workspace coordinator configuration (`Makefile`, `.gitignore`, `AGENTS.md`, `README.md`).
->   6. Obsidian vault archival & documentation (`agentic-obsidian`).
->   7. Comprehensive verification test suites across all repos.
-> - **Next Stage**: Phase 4: Development (`@coding-develop`).
+> - **Implementation Status**: Completed across all 8 repositories (commits: root `2c0b468`, coding `665ace9`, monitor `4c8551f`, document `4fd8f60`, investigate `8bf9919`, research `f5832c7`, triage `75b9c36`, obsidian `e32c4a2`).
+> - **Test Verdict**: 101/101 unit tests passing cleanly across 6 plugin test suites (100% pass rate).
+> - **Next Stage**: Phase 5: Review (`@coding-review`).
 
 ---
 
@@ -431,12 +427,147 @@ Run verification tests across all repositories (`pytest` via `uv`) and confirm c
 flowchart LR
     P1["Phase 1: Clarification<br/>(COMPLETED v2.0)"] --> P2["Phase 2: Specification<br/>(COMPLETED - GATE_APPROVED)"]
     P2 --> P3["Phase 3: Planning<br/>(COMPLETED - GATE_APPROVED)"]
-    P3 --> P4["Phase 4: Development<br/>(@coding-develop)"]
+    P3 --> P4["Phase 4: Development<br/>(COMPLETED - Verified)"]
     P4 --> P5["Phase 5: Review<br/>(@coding-review)"]
     P5 --> P6["Phase 6: Merge & Release<br/>(@coding-merge)"]
 
     style P1 fill:#d4edda,stroke:#28a745,stroke-width:2px
     style P2 fill:#d4edda,stroke:#28a745,stroke-width:2px
     style P3 fill:#d4edda,stroke:#28a745,stroke-width:2px
-    style P4 fill:#fff3cd,stroke:#ffc107,stroke-width:2px
+    style P4 fill:#d4edda,stroke:#28a745,stroke-width:2px
+    style P5 fill:#fff3cd,stroke:#ffc107,stroke-width:2px
 ```
+
+---
+
+## 11. Phase 4: Development Execution & Implementation Report
+
+Following the approval of the implementation plan (Phase 3 Gate), Phase 4 Development was executed across all 8 workspace repositories on branch `task/display-names-and-renames`. All code changes, directory migrations, manifest updates, and unit test verifications were successfully concluded.
+
+### 11.1 Repository Implementation Breakdown & Code Modifications
+
+#### 1. Root Orchestrator Workspace (`agentic`)
+- **Directory Migrations**: Performed atomic physical directory renames:
+  - `agentic-monitoring-plugin/` $\rightarrow$ `agentic-monitor-plugin/`
+  - `agentic-obsidian-plugin/` $\rightarrow$ `agentic-document-plugin/`
+- **Git Remote Origins**: Reconfigured remote origin URLs to canonical GitHub SSH endpoints:
+  - `agentic-monitor-plugin`: `git@github.com:gpfister/agentic-monitor-plugin.git`
+  - `agentic-document-plugin`: `git@github.com:gpfister/agentic-document-plugin.git`
+- **Branch Strategy**: Initialized and checked out working branch `task/display-names-and-renames` across all 8 repositories.
+- **Workspace Orchestration**:
+  - Updated [Makefile](file:///Users/gpfister/Development/Projects/gpfister/agentic/Makefile) (`REPOS` list to include `agentic-document-plugin` and `agentic-monitor-plugin`).
+  - Updated [.gitignore](file:///Users/gpfister/Development/Projects/gpfister/agentic/.gitignore) ignoring new plugin directory paths.
+  - Updated [AGENTS.md](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md) and [README.md](file:///Users/gpfister/Development/Projects/gpfister/agentic/README.md) with updated directory tree, companion delegation table, and catalog links.
+- **Commit**: [`2c0b468`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) (`chore: rename monitor and document plugins and update root workspace configuration`).
+
+#### 2. `agentic-coding-plugin`
+- **Agent Markdown Display Headings**: Updated top-level `# <Title>` headings across 8 agent definitions while strictly preserving YAML frontmatter `name:` handles:
+  - `agents/coding/agent.md`: `# Coding - Workflow Orchestrator` (`name: coding`)
+  - `agents/coding-clarify/agent.md`: `# Coding - Requirement Clarifier` (`name: coding-clarify`)
+  - `agents/coding-specify/agent.md`: `# Coding - Specification Architect` (`name: coding-specify`)
+  - `agents/coding-plan/agent.md`: `# Coding - Architecture Planner` (`name: coding-plan`)
+  - `agents/coding-develop/agent.md`: `# Coding - Software Engineer` (`name: coding-develop`)
+  - `agents/coding-review/agent.md`: `# Coding - Quality Assurance Lead` (`name: coding-review`)
+  - `agents/coding-merge/agent.md`: `# Coding - Release Engineer` (`name: coding-merge`)
+  - `agents/agent.md`: `# Coding - Agentic Coding Subagents & Workflow`
+- **Rules**: Updated [rules/AGENTS.md](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/rules/AGENTS.md) companion references to `agentic-monitor-plugin` and `agentic-document-plugin`.
+- **Test Verification**: 16/16 unit tests passed (100%).
+- **Commit**: [`665ace9`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) (`docs: standardize agent markdown headers with 'Coding - ' prefix and update companion plugin references`).
+
+#### 3. `agentic-monitor-plugin`
+- **Manifest & Metadata**:
+  - Updated [plugin.json](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitor-plugin/plugin.json): `"name": "agentic-monitor-plugin"`.
+  - Updated `pyproject.toml` package name and project metadata to `agentic-monitor-plugin`.
+  - Synchronized `uv.lock`.
+- **Agent Definitions**:
+  - Updated `agents/coding-monitor/agent.md`: `# Coding - Monitor Expert (@coding-monitor)` (frontmatter `name: coding-monitor` preserved).
+  - Updated `agents/agent.md`: `# Coding - Monitoring Subagents & Telemetry Architecture`.
+- **Documentation & Rules**: Updated [rules/AGENTS.md](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitor-plugin/rules/AGENTS.md), `README.md`, `CONTRIBUTING.md`.
+- **Test Verification**: 7/7 unit tests passed (100%).
+- **Commit**: [`4c8551f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitor-plugin/) (`feat: standardize plugin name to agentic-monitor-plugin and update agent display names`).
+
+#### 4. `agentic-document-plugin`
+- **Manifest & Metadata**:
+  - Updated [plugin.json](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-document-plugin/plugin.json): `"name": "agentic-document-plugin"`.
+  - Updated `pyproject.toml` package name and project metadata to `agentic-document-plugin`.
+  - Synchronized `uv.lock`.
+- **Agent Definitions**:
+  - Updated `agents/coding-document/agent.md`: `# Coding - Autonomous Documentation Specialist (@coding-document)` (frontmatter `name: coding-document` preserved).
+  - Updated `agents/agent.md`: `# Coding - Obsidian Vault Documentation Subagents & Architecture`.
+- **Documentation & Rules**: Updated [rules/AGENTS.md](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-document-plugin/rules/AGENTS.md), `README.md`, `CONTRIBUTING.md`.
+- **Test Verification**: 9/9 unit tests passed (100%).
+- **Commit**: [`4fd8f60`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-document-plugin/) (`feat: standardize plugin name to agentic-document-plugin and update headings`).
+
+#### 5. `agentic-investigate-plugin`
+- **Agent Definitions**:
+  - Updated `agents/coding-investigate/agent.md`: `# Coding - Issue Investigator (@coding-investigate)` (frontmatter `name: coding-investigate` preserved).
+  - Updated `agents/agent.md`: `# Coding - Issue Investigation Subagents & Architecture`.
+- **Documentation & Rules**: Updated [rules/AGENTS.md](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/rules/AGENTS.md) and `README.md` companion references (`agentic-monitor-plugin`, `agentic-document-plugin`).
+- **Test Verification**: 7/7 unit tests passed (100%).
+- **Commit**: [`8bf9919`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) (`feat(investigate): update display names and standardize companion plugin references`).
+
+#### 6. `agentic-research-plugin`
+- **Agent Definitions**:
+  - Updated `agents/coding-research/agent.md`: `# Coding - Topic & Web Research Investigator (@coding-research)` (frontmatter `name: coding-research` preserved).
+  - Updated `agents/agent.md`: `# Coding - Topic & Web Research Subagents & Architecture`.
+- **Documentation & Rules**: Updated [rules/AGENTS.md](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/rules/AGENTS.md) and `README.md` companion references.
+- **Test Verification**: 9/9 unit tests passed (100%).
+- **Commit**: [`f5832c7`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) (`feat(research): update display names and standardize companion plugin references`).
+
+#### 7. `agentic-triage-plugin`
+- **Dynamic Intent Routing**:
+  - Updated prompt triage hooks (`hooks/pre_invocation_triage.py` and `hooks/prompt_triage.py`) to detect primary plugin directories `agentic-monitor-plugin` and `agentic-document-plugin`.
+  - Added backward-compatible fallback detection for legacy names (`agentic-monitoring-plugin`, `agentic-obsidian-plugin`).
+- **Documentation & Rules**: Updated [rules/AGENTS.md](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/rules/AGENTS.md) and `README.md`.
+- **Test Verification**: 53/53 unit tests passed (100%).
+- **Commit**: [`75b9c36`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) (`feat(triage): support primary plugin names and legacy fallbacks`).
+
+#### 8. `agentic-obsidian` (Vault Knowledge Base)
+- **Plugin Notes**: Renamed and documented `plugins/agentic-monitor-plugin.md` and `plugins/agentic-document-plugin.md`.
+- **Vault Index**: Updated `plugins/index.md` master catalog.
+- **Architecture & ADRs**: Updated `architecture/overview.md`, `architecture/plugin-standards.md`, and formalized [[architecture/adr-002-agent-display-names-and-plugin-renames|ADR-002: Agent Display Names & Dual Plugin Repository Rename]].
+- **Git Status**: Updated [[git-status|git-status.md]] tracking active branch `task/display-names-and-renames` across all 8 repositories.
+- **Commit**: [`e32c4a2`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) (`docs(vault): update plugin notes, index, and git-status for display-names and plugin renames`).
+
+---
+
+### 11.2 Multi-Repository Test Verification Report
+
+All automated test suites executed cleanly across the entire plugin ecosystem:
+
+| Repository | Test Runner | Test Suite | Passed | Failed | Duration | Verdict |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: |
+| **`agentic-coding-plugin`** | `uv run pytest` | `tests/` | 16 | 0 | 0.42s | **PASS (100%)** |
+| **`agentic-document-plugin`** | `uv run pytest` | `tests/` | 9 | 0 | 0.38s | **PASS (100%)** |
+| **`agentic-investigate-plugin`** | `uv run pytest` | `tests/` | 7 | 0 | 0.35s | **PASS (100%)** |
+| **`agentic-monitor-plugin`** | `uv run pytest` | `tests/` | 7 | 0 | 0.36s | **PASS (100%)** |
+| **`agentic-research-plugin`** | `uv run pytest` | `tests/` | 9 | 0 | 0.39s | **PASS (100%)** |
+| **`agentic-triage-plugin`** | `uv run pytest` | `tests/` | 53 | 0 | 0.85s | **PASS (100%)** |
+| **Total Ecosystem Tests** | | | **101** | **0** | **2.75s** | **PASS (100%)** |
+
+---
+
+### 11.3 Commit Ledger & Working Branch Alignment
+
+| Repository | Active Branch | HEAD Commit | Commit Message Summary |
+| :--- | :--- | :--- | :--- |
+| **`agentic` (root)** | `task/display-names-and-renames` | [`2c0b468`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | `chore: rename monitor and document plugins and update root workspace configuration` |
+| **`agentic-coding-plugin`** | `task/display-names-and-renames` | [`665ace9`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | `docs: standardize agent markdown headers with 'Coding - ' prefix and update companion plugin references` |
+| **`agentic-document-plugin`** | `task/display-names-and-renames` | [`4fd8f60`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-document-plugin/) | `feat: standardize plugin name to agentic-document-plugin and update headings` |
+| **`agentic-investigate-plugin`** | `task/display-names-and-renames` | [`8bf9919`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) | `feat(investigate): update display names and standardize companion plugin references` |
+| **`agentic-monitor-plugin`** | `task/display-names-and-renames` | [`4c8551f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitor-plugin/) | `feat: standardize plugin name to agentic-monitor-plugin and update agent display names` |
+| **`agentic-obsidian`** | `task/display-names-and-renames` | [`e32c4a2`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | `docs(vault): update plugin notes, index, and git-status for display-names and plugin renames` |
+| **`agentic-research-plugin`** | `task/display-names-and-renames` | [`f5832c7`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) | `feat(research): update display names and standardize companion plugin references` |
+| **`agentic-triage-plugin`** | `task/display-names-and-renames` | [`75b9c36`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) | `feat(triage): support primary plugin names and legacy fallbacks` |
+
+---
+
+### 11.4 Acceptance Criteria Verification Status
+
+- [x] **AC-1 (Filesystem Directories)**: `agentic-monitor-plugin` and `agentic-document-plugin` directories exist; legacy paths cleanly moved.
+- [x] **AC-2 (Git Remotes)**: SSH remote origin URLs configured to `git@github.com:gpfister/agentic-monitor-plugin.git` and `git@github.com:gpfister/agentic-document-plugin.git`.
+- [x] **AC-3 (Agent Titles)**: All 16 agent definitions start with `# Coding - <Title>` (with `@coding-monitor` titled `# Coding - Monitor Expert (@coding-monitor)`).
+- [x] **AC-4 (Handle Invariance)**: Frontmatter `name: coding-*` handles strictly preserved across all definitions.
+- [x] **AC-5 (Test Suites)**: 101/101 automated unit tests passing across all 6 plugins.
+- [x] **AC-6 (Root Workspace Sync)**: `make status` detects all 7 sub-repositories cleanly without path errors.
+- [x] **AC-7 (Vault Integrity)**: Obsidian vault documentation and indexes updated and consistent.
