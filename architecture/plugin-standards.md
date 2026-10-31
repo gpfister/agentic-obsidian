@@ -52,12 +52,15 @@ name: coding-my-subagent
 description: Concise summary of the subagent's role and when to invoke it.
 ---
 
-# Subagent Title (`@coding-my-subagent`)
+# Coding - Subagent Title (`@coding-my-subagent`)
 System instructions, responsibilities, and handoff protocols...
 ```
 
-> [!IMPORTANT] Subagent Naming Standard (ADR-001)
+> [!IMPORTANT] Subagent Technical Naming Standard (ADR-001)
 > All subagent handles, aliases, and agent directories must strictly start with the prefix `coding-` (e.g., `@coding-investigate`, `@coding-monitor`, `@coding-document`, `@coding-research`). Aliases not prefixed with `coding-` are prohibited.
+
+> [!NOTE] Subagent Display Title Standardization (ADR-002)
+> All agent markdown definition files and catalogs must prepend `"Coding - "` to their primary Markdown `# ` heading (e.g., `# Coding - Workflow Orchestrator`, `# Coding - Monitor Expert`, `# Coding - Autonomous Documentation Specialist`). The technical identifier `name: coding-*` in YAML frontmatter remains invariant for 100% backward compatibility.
 
 ## 4. Rules (`rules/AGENTS.md`)
 Rules define project-level constraints and standards. Use Markdown alerts (`> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]`) and explicit code snippets.
