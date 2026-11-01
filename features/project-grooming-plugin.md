@@ -1,20 +1,21 @@
 ---
 title: "Project Grooming Plugin & Skill (/project-grooming)"
 date: "2026-11-01"
-status: "Phase 3 Plan Approved"
-phase: "Phase 3: Planning"
+status: "Phase 4 Development Completed"
+phase: "Phase 4: Development (Completed)"
 adr_id: "003"
 tags:
   - feature
   - requirements
   - specification
   - plan
+  - development
   - project-grooming
   - scaffolding
   - skills
   - plugins
-  - phase-3-approved
-  - plan-approved
+  - phase-4-completed
+  - development-completed
 affected_plugins:
   - agentic-project-grooming-plugin
   - agentic-triage-plugin
@@ -26,15 +27,15 @@ affected_plugins:
 
 # Feature: Project Grooming Plugin & Skill (`/project-grooming`)
 
-> [!NOTE] Phase 3: Planning Approved
-> - **Current Phase**: Phase 3: Planning (Approved)
-> - **Feature Status**: Plan Approved & Ready for Development (Phase 4)
+> [!NOTE] Phase 4: Development Completed
+> - **Current Phase**: Phase 4: Development (Completed)
+> - **Feature Status**: Code Implemented, Automated Tests Passing (69/69 Unit Tests Across Sub-Repos)
 > - **Architecture Decision**: Formalized in [[architecture/adr-003-project-grooming-plugin|ADR-003]]
-> - **Target Plugin**: `agentic-project-grooming-plugin` (Standalone Git sub-repo, branch: `feature/project-grooming-plugin`)
+> - **Target Plugin**: `agentic-project-grooming-plugin` (Standalone Git sub-repo, branch: `feature/project-grooming-plugin`, commit: [`2bbd11f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/))
 > - **Primary Skill**: `/project-grooming` ([`skills/project-grooming/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/skills/project-grooming/SKILL.md))
 > - **Interactive Gate Artifact**: `Project_Request_Grooming.md` (`RequestFeedback=True`, sole tool call)
 > - **Multi-Repo Plan**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/401cb359-82fe-40de-a4e6-222c7a01c706/plan.md)
-> - **Ecosystem Impact**: `agentic-triage-plugin` (branch: `feature/grooming-triage`), root workspace (branch: `feature/add-project-grooming-plugin`), `agentic-coding-plugin`, `agentic-document-plugin`, and central knowledge vault.
+> - **Ecosystem Impact**: `agentic-triage-plugin` (branch: `feature/grooming-triage`, commit: [`c6fd560`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/)), root workspace (branch: `feature/add-project-grooming-plugin`, commit: [`d2e11c5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/)), `agentic-coding-plugin`, `agentic-document-plugin`, and central knowledge vault.
 
 ---
 
@@ -356,15 +357,112 @@ flowchart TD
 
 ---
 
-## 12. Next Steps
+## 12. Phase 4: Development Execution & Implementation Progress
 
-With Phase 3 (Planning) approved and formalized:
-- **Phase 4: Development (`@coding-develop`)**:
-  - Fan out development per repository on isolated branches.
-  - Implement files and tests across all 3 repositories.
+Phase 4 (Development) fanned out implementation across three isolated feature branches in parallel, implementing the complete skill lifecycle, dynamic triage routing, and workspace integration.
+
+### 12.1 Repository 1: `agentic-project-grooming-plugin`
+- **Repository Path**: [`/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/)
+- **Feature Branch**: `feature/project-grooming-plugin`
+- **HEAD Commit**: [`2bbd11f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) (`2bbd11f5f1383fa248c32243805a2f60df5bbe9d`)
+- **Commit Message**: `feat: initial commit for agentic-project-grooming-plugin`
+- **Development Status**: **Success (8/8 automated unit tests passing, 100%)**
+- **Files Created**:
+  1. [`plugin.json`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/plugin.json): Antigravity plugin manifest defining `agentic-project-grooming-plugin` (v0.1.0), registering the `/project-grooming` skill and declaring workspace companion dependencies.
+  2. [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/rules/AGENTS.md): Plugin-scoped operational rules enforcing read-only pre-grooming analysis, the Matt Pocock single-question-at-a-time interrogation protocol (`ask_question`), sole-and-final-tool-call rule for `Project_Request_Grooming.md` (`RequestFeedback=True`), and cross-plugin delegation contracts.
+  3. [`skills/project-grooming/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/skills/project-grooming/SKILL.md): Comprehensive 4-step progressive runbook covering non-destructive repository gap analysis, 7-category interactive user grilling, interactive approval artifact authoring, and dynamic delegation to `@coding` and `@coding-document`.
+  4. [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/README.md): Plugin documentation outlining purpose, skill invocation, interrogation flow, and companion interoperability.
+  5. [`LICENSE`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/LICENSE): Standard Apache-2.0 open-source license.
+  6. [`.gitignore`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/.gitignore): Git ignore rules for Python caches, virtual environments, `.pytest_cache/`, and test artifacts.
+  7. [`pyproject.toml`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/pyproject.toml): Project build manifest configuring pytest and project metadata.
+  8. [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/agents/agent.md): Subagent definition reference documenting skill execution within the main agent context.
+  9. [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/tests/test_plugin.py): Automated test suite asserting plugin manifest validity, rule formatting, skill structure, and category completeness.
+- **Verification Command & Output**:
+  ```bash
+  $ cd agentic-project-grooming-plugin && uv run pytest
+  ============================= test session starts ==============================
+  platform darwin -- Python 3.13.0, pytest-9.2.0, pluggy-1.7.0
+  rootdir: /Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin
+  configfile: pyproject.toml
+  collected 8 items
+
+  tests/test_plugin.py ........                                            [100%]
+
+  ============================== 8 passed in 0.01s ===============================
+  ```
+
+---
+
+### 12.2 Repository 2: `agentic-triage-plugin`
+- **Repository Path**: [`/Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/)
+- **Feature Branch**: `feature/grooming-triage`
+- **HEAD Commit**: [`c6fd560`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) (`c6fd5604a0e167a8bc1bbd3b3f422cbfc786a5f5`)
+- **Commit Message**: `feat(triage): add project grooming intent routing and candidate detection`
+- **Development Status**: **Success (61/61 automated unit tests passing, 100%)**
+- **Files Modified**:
+  1. [`hooks/prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/hooks/prompt_triage.py):
+     - Added `agentic-project-grooming-plugin` to `PRIMARY_PLUGINS`.
+     - Added `grooming` intent candidate in `build_dynamic_triage_spec` returning `/project-grooming <prompt>`.
+     - Extended `_heuristic_system1_triage` with keywords and patterns for project initiation, grooming, and requirements elicitation.
+     - Added presence check logic to omit `grooming` response candidates when `agentic-project-grooming-plugin` is not installed.
+  2. [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/rules/AGENTS.md): Updated prompt triage standards documentation with grooming classification and `/project-grooming` routing rule.
+  3. [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/README.md): Documented project grooming intent classification support.
+  4. [`tests/test_prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/tests/test_prompt_triage.py): Added test cases verifying intent detection for project initiation, keyword heuristics, dynamic candidate pruning when grooming plugin is missing, and directive formatting.
+  5. [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/tests/test_plugin.py): Verified manifest integrity and hook registrations.
+- **Verification Command & Output**:
+  ```bash
+  $ cd agentic-triage-plugin && uv run pytest
+  ============================= test session starts ==============================
+  platform darwin -- Python 3.13.0, pytest-9.2.0, pluggy-1.7.0
+  rootdir: /Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin
+  configfile: pyproject.toml
+  plugins: anyio-4.15.1
+  collected 61 items
+
+  tests/test_plugin.py ............                                        [ 19%]
+  tests/test_prompt_triage.py ............................................ [ 91%]
+  .....                                                                    [100%]
+
+  ============================== 61 passed in 5.46s ==============================
+  ```
+
+---
+
+### 12.3 Repository 3: `agentic` (Root Workspace)
+- **Repository Path**: [`/Users/gpfister/Development/Projects/gpfister/agentic`](file:///Users/gpfister/Development/Projects/gpfister/agentic/)
+- **Feature Branch**: `feature/add-project-grooming-plugin`
+- **HEAD Commit**: [`d2e11c5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) (`d2e11c51e75008e87029cff39bac2ba85cd017d6`)
+- **Commit Message**: `feat(workspace): register agentic-project-grooming-plugin across root workspace`
+- **Development Status**: **Success (`make status` tracks all 8 sub-repos cleanly)**
+- **Files Modified**:
+  1. [`Makefile`](file:///Users/gpfister/Development/Projects/gpfister/agentic/Makefile): Added `agentic-project-grooming-plugin` to `SUB_REPOS` array, enabling synchronized `make sync`, `make pull`, `make push`, `make status`, and `make diff`.
+  2. [`.gitignore`](file:///Users/gpfister/Development/Projects/gpfister/agentic/.gitignore): Added `agentic-project-grooming-plugin/` ignore rule, ensuring the standalone git repository is decoupled from root tracking.
+  3. [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md): Registered `agentic-project-grooming-plugin` in Workspace Layout tree, Plugin Ecosystem Catalog, and Cross-Plugin Interoperability Matrix.
+  4. [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/README.md): Documented project grooming capability and `/project-grooming` skill invocation in the root ecosystem directory.
+- **Verification Command & Output**:
+  ```bash
+  $ make status
+  === Repository Status Overview ===
+    agentic (root)               branch: feature/add-project-grooming-plugin [clean]
+    agentic-coding-plugin        branch: master         [clean] (ahead: 2, behind: 0)
+    agentic-document-plugin      branch: master         [clean] (ahead: 2, behind: 0)
+    agentic-investigate-plugin   branch: master         [clean] (ahead: 2, behind: 0)
+    agentic-monitor-plugin       branch: master         [clean] (ahead: 2, behind: 0)
+    agentic-obsidian             branch: master         [clean] (ahead: 9, behind: 0)
+    agentic-project-grooming-plugin branch: feature/project-grooming-plugin [clean]
+    agentic-research-plugin      branch: master         [clean] (ahead: 2, behind: 0)
+    agentic-triage-plugin        branch: feature/grooming-triage [clean]
+  ```
+
+---
+
+## 13. Next Steps
+
+With Phase 4 (Development) completed with 100% automated test verification across all components:
 - **Phase 5: Review (`@coding-review`)**:
-  - Audit deliverables against specification and acceptance criteria.
-  - Run verification test suites.
+  - Audit deliverables against acceptance criteria AC-1 through AC-5.
+  - Perform clean-code review and verification runs.
+  - Interactive merge confirmation gate with user.
 - **Phase 6: Merge & Release (`@coding-merge`)**:
-  - Merge feature branches into `master` across all repositories.
-  - Update vault git statuses and release changelogs.
+  - Merge feature branches (`feature/project-grooming-plugin`, `feature/grooming-triage`, `feature/add-project-grooming-plugin`) into `master`.
+  - Update `agentic-obsidian/git-status.md` and repository changelogs.
