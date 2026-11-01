@@ -27,21 +27,29 @@ The **Agentic** workspace is designed to author, test, and maintain a federation
 flowchart TD
     User(["User Prompt / Task"]) --> Triage["Dynamic Prompt Triage<br/>(@coding-triage-plugin / Laya Router)"]
     
-    subgraph Subagents["Standardized @coding-* Subagent Federation"]
-        Orch["@coding<br/>(Software Development Lifecycle)"]
-        Investigate["@coding-investigate<br/>(Issue Diagnosis & RCA)"]
-        Monitor["@coding-monitor<br/>(Telemetry & Surveillance)"]
-        Research["@coding-research<br/>(Topic & Web Research)"]
-        Document["@coding-document<br/>(Knowledge Curator & Vault Specialist)"]
+    subgraph Execution["Agent & Skill Execution Federation"]
+        subgraph Subagents["Standardized @coding-* Subagent Federation"]
+            Orch["@coding<br/>(Software Development Lifecycle)"]
+            Investigate["@coding-investigate<br/>(Issue Diagnosis & RCA)"]
+            Monitor["@coding-monitor<br/>(Telemetry & Surveillance)"]
+            Research["@coding-research<br/>(Topic & Web Research)"]
+            Document["@coding-document<br/>(Knowledge Curator & Vault Specialist)"]
+        end
+        subgraph Skills["Primary Main-Agent Skills"]
+            Grooming["/project-grooming<br/>(Project Grooming & Elicitation)"]
+        end
     end
 
+    Triage -->|Project Grooming / Scaffolding| Grooming
     Triage -->|Code Change Request| Orch
     Triage -->|Issue / Bug Investigation| Investigate
     Triage -->|Telemetry / Streaming Log| Monitor
     Triage -->|Deep Literature / Web Research| Research
     Triage -->|Documentation / Vault Query| Document
 
-    %% Inter-subagent collaborations
+    %% Inter-subagent and skill collaborations
+    Grooming -.->|Delegates repository & code scaffolding| Orch
+    Grooming -.->|Delegates Obsidian vault initialization| Document
     Orch -.->|Maintains documentation after each phase| Document
     Investigate -.->|Handoff remediation| Orch
     Investigate -.->|Archives approved assessment| Document
@@ -73,6 +81,17 @@ flowchart TD
 | [`agentic-investigate-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) | Autonomous multi-repo issue investigation plugin (`@coding-investigate`). |
 | [`agentic-monitor-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitor-plugin/) | Telemetry and stream surveillance companion (`@coding-monitor`, formerly `agentic-monitoring-plugin`). |
 | [`agentic-document-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-document-plugin/) | Centralized Obsidian documentation companion (`@coding-document`, formerly `agentic-obsidian-plugin`). |
+| [`agentic-project-grooming-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | Interactive project grooming, Matt Pocock style interrogation across 7 categories, and scaffolding coordinator (`/project-grooming`). |
 | [`agentic-research-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) | Deep web and literature research companion (`@coding-research`). |
 | [`agentic-triage-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) | Dynamic Laya Router System 1 prompt triage hook adapting to installed plugins. |
 | [`agentic-obsidian/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | Centralized Obsidian vault for plugin specs, architecture docs, and session logs. |
+
+---
+
+## Architectural Decision Records (ADRs)
+
+| ADR ID | Title | Status |
+| :--- | :--- | :--- |
+| [[architecture/adr-001-standardize-agent-handles\|ADR-001]] | Standardize Subagent Handles, Aliases, and Skill Identifiers to Coding Namespace | Accepted |
+| [[architecture/adr-002-agent-display-names-and-plugin-renames\|ADR-002]] | Agent Display Names Standardization & Dual Plugin Repository Rename | Accepted |
+| [[architecture/adr-003-project-grooming-plugin\|ADR-003]] | Project Grooming Architecture, Skill-Only Execution, Grilling Protocol, Interactive Approval Gate, and Cross-Plugin Delegation | Accepted |

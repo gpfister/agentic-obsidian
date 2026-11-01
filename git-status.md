@@ -78,3 +78,15 @@ repositories_count: 8
   - Updated [[README|README.md]], [[architecture/overview|architecture/overview.md]], and [[architecture/plugin-standards|architecture/plugin-standards.md]].
   - Formalized [[architecture/adr-002-agent-display-names-and-plugin-renames|ADR-002]].
   - Recorded release in [[features/agent-display-names-and-plugin-renames|features/agent-display-names-and-plugin-renames.md]] and [[features/index|features/index.md]].
+
+---
+
+## 4. Planned Feature Branches (Phase 4 Development Pipeline)
+
+The implementation plan for [[features/project-grooming-plugin|Project Grooming Plugin]] (formalized in [[architecture/adr-003-project-grooming-plugin|ADR-003]]) allocates three feature branches across repositories:
+
+| Target Repository | Planned Feature Branch | Base Branch | Scope & Deliverables |
+| :--- | :--- | :--- | :--- |
+| **`agentic-project-grooming-plugin`** | `feature/project-grooming-plugin` | *Initial commit* | New standalone git repository: `plugin.json`, `rules/AGENTS.md`, `skills/project-grooming/SKILL.md`, `README.md`, `LICENSE` |
+| **`agentic-triage-plugin`** | `feature/grooming-triage` | `master` | Update `hooks/prompt_triage.py` (add to `PRIMARY_PLUGINS`, dynamic response candidates, heuristics), `rules/AGENTS.md`, and `tests/test_prompt_triage.py` |
+| **`agentic` (root)** | `feature/add-project-grooming-plugin` | `master` | Update `Makefile` (`REPOS` list), `.gitignore`, `AGENTS.md`, and `README.md` |
