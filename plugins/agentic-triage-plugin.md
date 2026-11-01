@@ -15,8 +15,11 @@ version: "0.1.0"
 ## Overview
 `agentic-triage-plugin` is the dynamic prompt triage and intent classification plugin within the `agentic` ecosystem. It runs a `PreInvocation` lifecycle hook using the non-autoregressive **Laya Router** System 1 model to classify incoming user prompts and dynamically adapt routing based on which plugins are currently installed:
 - **Coding Requests** (`response 2` $\rightarrow$ `@coding`): Evaluated if [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/plugin.json) is installed.
+- **Project Grooming Requests** (`/project-grooming <prompt>`): Evaluated if [`agentic-project-grooming-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/plugin.json) is installed.
 - **Task Monitoring Requests** (`@coding-monitor`): Evaluated if [`agentic-monitor-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitor-plugin/plugin.json) is installed.
 - **Issue Investigation Requests** (`@coding-investigate`): Evaluated if [`agentic-investigate-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/plugin.json) is installed.
+- **Topic Research Requests** (`@coding-research`): Evaluated if [`agentic-research-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/plugin.json) is installed.
+- **Documentation Requests** (`@coding-document`): Evaluated if [`agentic-document-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-document-plugin/plugin.json) is installed.
 - **Inquiries involving no changes** (`response 1`): Always active regardless of installed plugins.
 - **Mixed requests**: Identified when prompts combine multiple intents across active capabilities.
 
@@ -46,6 +49,7 @@ The triage engine scans for active capability plugins through:
 The routing criteria adapts dynamically:
 - `response 1` is always: `"one or more inquiries involving no changes"`.
 - If `agentic-coding-plugin` is active: adds `"one or more code change request"` $\rightarrow$ directs main agent to invoke `@coding`.
+- If `agentic-project-grooming-plugin` is active: adds `"one or more project initialization, scope elicitation, or project grooming request"` $\rightarrow$ directs main agent to execute `/project-grooming <prompt>`.
 - If `agentic-monitor-plugin` (or `agentic-monitoring-plugin`) is active: adds `"one or more task monitoring request"` $\rightarrow$ directs main agent to invoke `@coding-monitor`.
 - If `agentic-investigate-plugin` is active: adds `"one or more issue investigation request"` $\rightarrow$ directs main agent to invoke `@coding-investigate`.
 - If `agentic-research-plugin` is active: adds `"one or more topic research or information retrieval requests"` $\rightarrow$ directs main agent to invoke `@coding-research`.
@@ -61,7 +65,7 @@ User Input Prompt (invocationNum == 0)
 Sanitize Prompt (strip XML tags, timestamps, trailing file paths)
          │
          ▼
-Detect Installed Plugins (coding, monitoring, investigate)
+Detect Installed Plugins (coding, grooming, monitoring, investigate, research, document)
          │
          ▼
 Laya Router System 1 Prediction ("What is this prompt about ?")
@@ -70,8 +74,11 @@ Laya Router System 1 Prediction ("What is this prompt about ?")
   ├── (Yes) ──> Inject systemMessage with Prompt Triage Directive
   │             ├── question: direct response, no code changes
   │             ├── coding: invoke @coding subagent
+  │             ├── grooming: run /project-grooming <prompt>
   │             ├── monitoring: invoke @coding-monitor subagent
   │             ├── investigation: invoke @coding-investigate subagent
+  │             ├── research: invoke @coding-research subagent
+  │             ├── documentation: invoke @coding-document subagent
   │             └── mixed: reject prompt, ask user to split requests
   │
   └── (No) ───> Ambiguous (confidence < 0.40)
