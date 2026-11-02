@@ -13,7 +13,7 @@ last_updated: "2026-10-30"
 
 # Research Knowledge Base Index
 
-Welcome to the centralized **Research Knowledge Base** of the `agentic` workspace, maintained by the autonomous research subagent ([`@coding-research`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/agents/coding-research/agent.md)) provided by [`agentic-research-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/plugins/agentic-research-plugin.md).
+Welcome to the centralized **Research Knowledge Base** of the `agentic` workspace, maintained by the autonomous research subagent ([`@coding-research`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/agents/coding-research/agent.md)) provided by [`agentic-topic-researching-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/plugins/agentic-topic-researching-plugin.md).
 
 ---
 

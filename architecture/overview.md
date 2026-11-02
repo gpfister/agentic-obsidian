@@ -78,13 +78,13 @@ flowchart TD
 | [`scripts/sync_sessions.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/sync_sessions.py) | Exports Antigravity session transcripts and artifacts into `agentic-obsidian/sessions/`. |
 | [`scripts/worktree.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/worktree.py) | Manages isolated Git worktrees across root and sub-repositories for parallel sessions. |
 | [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | 6-stage software development companion (`@coding`) with after-each-phase documentation maintenance. |
-| [`agentic-investigate-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) | Autonomous multi-repo issue investigation plugin (`@coding-investigate`). |
-| [`agentic-monitor-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitor-plugin/) | Telemetry and stream surveillance companion (`@coding-monitor`, formerly `agentic-monitoring-plugin`). |
-| [`agentic-document-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-document-plugin/) | Centralized Obsidian documentation companion (`@coding-document`, formerly `agentic-obsidian-plugin`). |
-| [`agentic-project-grooming-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | Interactive project grooming, Matt Pocock style interrogation across 7 categories, and scaffolding coordinator (`/project-grooming`). |
-| [`agentic-research-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) | Deep web and literature research companion (`@coding-research`). |
-| [`agentic-triage-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) | Dynamic Laya Router System 1 prompt triage hook adapting to installed plugins. |
+| [`agentic-issue-investigation-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | Autonomous multi-repo issue investigation plugin (`@coding-investigate`). |
 | [`agentic-obsidian/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | Centralized Obsidian vault for plugin specs, architecture docs, and session logs. |
+| [`agentic-project-documenting-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | Centralized Obsidian documentation companion (`@coding-document`). |
+| [`agentic-project-grooming-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | Interactive project grooming, Matt Pocock style interrogation across 7 categories, and scaffolding coordinator (`/project-grooming`). |
+| [`agentic-prompt-triage-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) | Dynamic Laya Router System 1 prompt triage hook adapting to installed plugins. |
+| [`agentic-task-monitoring-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | Telemetry and stream surveillance companion (`@coding-monitor`). |
+| [`agentic-topic-researching-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | Deep web and literature research companion (`@coding-research`). |
 
 ---
 

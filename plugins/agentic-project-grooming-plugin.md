@@ -82,7 +82,7 @@ During the grooming workflow, `/project-grooming` systematically gathers and con
 
 ```mermaid
 flowchart TD
-    Prompt(["User Prompt"]) --> Triage{"agentic-triage-plugin<br/>Installed?"}
+    Prompt(["User Prompt"]) --> Triage{"agentic-prompt-triage-plugin<br/>Installed?"}
     Triage -->|"Yes"| Route["Route to /project-grooming &lt;prompt&gt;"]
     Triage -->|"No"| Manual["Direct /project-grooming invocation"]
     
@@ -97,7 +97,7 @@ flowchart TD
     CodingCheck -->|"Yes"| CallCoding["Invoke @coding<br/>(6-stage delivery lifecycle)"]
     CodingCheck -->|"No"| LocalScaffold["Direct Scaffolding Execution"]
     
-    CallCoding --> DocCheck{"agentic-document-plugin<br/>Installed?"}
+    CallCoding --> DocCheck{"agentic-project-documenting-plugin<br/>Installed?"}
     LocalScaffold --> DocCheck
     
     DocCheck -->|"Yes"| CallDoc["Invoke @coding-document<br/>(Initialize vault & specs)"]
@@ -106,9 +106,9 @@ flowchart TD
 
 | Companion Plugin | Integration Protocol when Installed | Graceful Fallback if Not Installed |
 | :--- | :--- | :--- |
-| **`agentic-triage-plugin`** | Classifies project initiation or grooming prompts and routes them dynamically to `/project-grooming <prompt>`. | User invokes `/project-grooming` manually in chat. |
+| **`agentic-prompt-triage-plugin`** | Classifies project initiation or grooming prompts and routes them dynamically to `/project-grooming <prompt>`. | User invokes `/project-grooming` manually in chat. |
 | **`agentic-coding-plugin`** | Orchestrates 6-stage development lifecycle (`@coding`) for creating repositories, code files, and test infrastructure. | Executes deterministic local file generation, git initialization, and directory setup directly. |
-| **`agentic-document-plugin`** | Initializes the project knowledge base vault (`<project>-obsidian/`) and indexes architecture specifications via `@coding-document`. | Directly scaffolds a standard `<project>-obsidian/` directory structure with starter README. |
+| **`agentic-project-documenting-plugin`** | Initializes the project knowledge base vault (`<project>-obsidian/`) and indexes architecture specifications via `@coding-document`. | Directly scaffolds a standard `<project>-obsidian/` directory structure with starter README. |
 
 ---
 
@@ -125,7 +125,7 @@ flowchart TD
 - **Multi-Repository Implementation Plan**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/401cb359-82fe-40de-a4e6-222c7a01c706/plan.md)
 - **Git Branch Topology**:
   - `agentic-project-grooming-plugin`: `master` (merged from `feature/project-grooming-plugin`, branch deleted)
-  - `agentic-triage-plugin`: `master` (merged from `feature/grooming-triage`, branch deleted)
+  - `agentic-prompt-triage-plugin`: `master` (merged from `feature/grooming-triage`, branch deleted)
   - `agentic` (root): `master` (merged from `feature/add-project-grooming-plugin`, branch deleted)
 
 ---

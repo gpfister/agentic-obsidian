@@ -671,7 +671,7 @@ Prior to Phase 6 Merge execution, the following documentation components were sy
   - `agentic-triage-plugin` updated to prioritize canonical names `agentic-monitor-plugin` and `agentic-document-plugin` while maintaining backward-compatible fallback detection for legacy names `agentic-monitoring-plugin` and `agentic-obsidian-plugin`.
 - **Obsidian Vault Architecture & Documentation**:
   - Formalized [[architecture/adr-002-agent-display-names-and-plugin-renames|ADR-002: Agent Display Names & Dual Plugin Repository Rename]] (Accepted).
-  - Updated [[plugins/index|plugins/index.md]], [[plugins/agentic-monitor-plugin|agentic-monitor-plugin.md]], and [[plugins/agentic-document-plugin|agentic-document-plugin.md]].
+  - Updated [[plugins/index|plugins/index.md]], [[plugins/agentic-task-monitoring-plugin|agentic-task-monitoring-plugin.md]], and [[plugins/agentic-project-documenting-plugin|agentic-project-documenting-plugin.md]].
   - Synchronized master [[features/index|features/index.md]] and [[git-status|git-status.md]].
 - **Full Test Verification on Master**:
   - 101/101 automated unit tests passing across all 6 plugin test suites on `master`.

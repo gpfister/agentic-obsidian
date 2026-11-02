@@ -1,6 +1,6 @@
 ---
 title: "Workspace Plugins Index"
-date: "2026-10-31"
+date: "2026-11-02"
 tags:
   - plugins
   - index
@@ -13,22 +13,22 @@ Directory of companion plugins developed and integrated within the `agentic` wor
 
 | Plugin | Documentation Note | Subagent Handle | Primary Role | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| **`agentic-coding-plugin`** | [[plugins/agentic-coding-plugin\|agentic-coding-plugin]] | `@coding` | 6-stage software development lifecycle orchestrator (`@coding-clarify`, `@coding-specify`, `@coding-plan`, `@coding-develop`, `@coding-review`, `@coding-merge`) | Active |
-| **`agentic-document-plugin`** | [[plugins/agentic-document-plugin\|agentic-document-plugin]] | `@coding-document` | Autonomous Obsidian vault documentation specialist, cross-repo git tracking, and knowledge curation | Active |
-| **`agentic-investigate-plugin`** | [[plugins/agentic-investigate-plugin\|agentic-investigate-plugin]] | `@coding-investigate` | Autonomous multi-repository issue investigation, root-cause diagnosis, and remediation proposals | Active |
-| **`agentic-monitor-plugin`** | [[plugins/agentic-monitor-plugin\|agentic-monitor-plugin]] | `@coding-monitor` | Telemetry, application log surveillance, Docker container observation, and anomaly pause gates | Active |
-| **`agentic-project-grooming-plugin`** | [[plugins/agentic-project-grooming-plugin\|agentic-project-grooming-plugin]] | Skill `/project-grooming` | Interactive multi-repository project initialization, Matt Pocock grill-me interrogation across 7 categories, approval gate, and cross-plugin scaffolding | Active |
-| **`agentic-research-plugin`** | [[plugins/agentic-research-plugin\|agentic-research-plugin]] | `@coding-research` | Autonomous deep web & literature research, multi-query expansion, and synthesis | Active |
-| **`agentic-triage-plugin`** | [[plugins/agentic-triage-plugin\|agentic-triage-plugin]] | N/A (Hook) | Dynamic prompt triage & intent classifier using Laya Router System 1 model | Active |
+| **`agentic-coding-plugin`** | [[plugins/agentic-coding-plugin|agentic-coding-plugin]] | `@coding` | 6-stage software development lifecycle orchestrator (`@coding-clarify`, `@coding-specify`, `@coding-plan`, `@coding-develop`, `@coding-review`, `@coding-merge`) | Active |
+| **`agentic-issue-investigation-plugin`** | [[plugins/agentic-issue-investigation-plugin|agentic-issue-investigation-plugin]] | `@coding-investigate` | Autonomous multi-repository issue investigation, root-cause diagnosis, and remediation proposals | Active |
+| **`agentic-project-documenting-plugin`** | [[plugins/agentic-project-documenting-plugin|agentic-project-documenting-plugin]] | `@coding-document` | Autonomous Obsidian vault documentation specialist, cross-repo git tracking, and knowledge curation | Active |
+| **`agentic-project-grooming-plugin`** | [[plugins/agentic-project-grooming-plugin|agentic-project-grooming-plugin]] | Skill `/project-grooming` | Interactive multi-repository project initialization, Matt Pocock grill-me interrogation across 7 categories, approval gate, and cross-plugin scaffolding | Active |
+| **`agentic-prompt-triage-plugin`** | [[plugins/agentic-prompt-triage-plugin|agentic-prompt-triage-plugin]] | N/A (Hook) | Dynamic prompt triage & intent classifier using Laya Router System 1 model | Active |
+| **`agentic-task-monitoring-plugin`** | [[plugins/agentic-task-monitoring-plugin|agentic-task-monitoring-plugin]] | `@coding-monitor` | Telemetry, application log surveillance, Docker container observation, and anomaly pause gates | Active |
+| **`agentic-topic-researching-plugin`** | [[plugins/agentic-topic-researching-plugin|agentic-topic-researching-plugin]] | `@coding-research` | Autonomous deep web & literature research, multi-query expansion, and synthesis | Active |
 
 ---
 
 ## Plugin Repository Structure
 
 - [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) — Coding lifecycle companion
-- [`agentic-document-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-document-plugin/) — Documentation & Obsidian curator (formerly `agentic-obsidian-plugin/`)
-- [`agentic-investigate-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-investigate-plugin/) — Multi-repo root cause diagnosis
-- [`agentic-monitor-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-monitor-plugin/) — Telemetry surveillance (formerly `agentic-monitoring-plugin/`)
+- [`agentic-issue-investigation-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) — Multi-repo root cause diagnosis
+- [`agentic-project-documenting-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) — Documentation & Obsidian curator
 - [`agentic-project-grooming-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) — Multi-repo project initialization & grooming (Released / Active)
-- [`agentic-research-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-research-plugin/) — Autonomous deep web research
-- [`agentic-triage-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-triage-plugin/) — Fast prompt intent router
+- [`agentic-prompt-triage-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) — Fast prompt intent router
+- [`agentic-task-monitoring-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) — Telemetry surveillance
+- [`agentic-topic-researching-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) — Autonomous deep web research
