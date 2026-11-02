@@ -25,7 +25,7 @@ The **Agentic** workspace is designed to author, test, and maintain a federation
 
 ```mermaid
 flowchart TD
-    User(["User Prompt / Task"]) --> Triage["Dynamic Prompt Triage<br/>(@coding-triage-plugin / Laya Router)"]
+    User(["User Prompt / Task"]) --> Triage["Dynamic Prompt Triage<br/>(agentic-prompt-triage-plugin / Laya Router)"]
     
     subgraph Execution["Agent & Skill Execution Federation"]
         subgraph Subagents["Standardized @coding-* Subagent Federation"]

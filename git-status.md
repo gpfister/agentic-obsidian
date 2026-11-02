@@ -2,9 +2,9 @@
 title: "Workspace Git Status & Branch Tracking"
 date: "2026-11-02"
 active_branch: "multi-branch (bugfix/* & master)"
-phase: "Phase 4: Development (AC-8 Remediation Completed)"
-audit_verdict: "PASS (111/111 Unit Tests Passing Across Remediated Repositories on bugfix/* branches, Total Workspace Tests 135/135)"
-status: "Phase 4 Development Complete (AC-8 Remediation on bugfix/* branches)"
+phase: "Phase 5: Review (Pre-Merge Approved)"
+audit_verdict: "PASS (135/135 Unit Tests Passing Workspace-Wide, AC-1 through AC-9 100% Verified, User Approved for Merge)"
+status: "Phase 5 Review Completed / Approved for Merge"
 tags:
   - git-status
   - branch-tracking
@@ -14,23 +14,25 @@ tags:
   - ac-8-remediation
   - bugfix-branches
   - multi-repo
+  - phase-5-completed
+  - pre-merge-approved
 repositories_count: 9
 ---
 
 # Workspace Git Status & Branch Tracking
 
-> [!NOTE] Milestone: Phase 4 Development Completed (AC-8 Remediation Implemented)
-> Phase 4 (Development) for the AC-8 remediation under [[features/rename-plugin-repositories|Rename Plugin Repositories to Descriptive Action-Oriented Names]] (`SPEC-2026-PLUGIN-RENAME-001` / [[architecture/adr-004-standardize-plugin-repository-names|ADR-004]]) is completed across all 5 affected sub-repositories on dedicated `bugfix/*` branches.
-> - **Remediation Status**: 100% complete across all 5 companion plugins.
-> - **Automated Test Results**: **111/111 unit tests passing (100%)** across remediated plugins (**135/135 tests passing workspace-wide**).
+> [!NOTE] Milestone: Phase 5 Review Completed & Pre-Merge Gate Approved
+> Phase 5 (Review) for [[features/rename-plugin-repositories|Rename Plugin Repositories to Descriptive Action-Oriented Names]] (`SPEC-2026-PLUGIN-RENAME-001` / [[architecture/adr-004-standardize-plugin-repository-names|ADR-004]]) has passed all acceptance criteria, and the user has confirmed approval to merge all 5 `bugfix/*` branches into `master`.
+> - **Total Test Results**: **135/135 unit tests passing workspace-wide (100% pass rate)**.
+> - **Acceptance Criteria**: AC-1 through AC-9 verified 100%.
 > - **Workspace Hygiene**: Clean working trees across all 9 repositories.
-> - **Key Remediation Changes**:
->   1. `agentic-prompt-triage-plugin`: `hooks/prompt_triage.py` updated with canonical `PRIMARY_PLUGINS`, backwards-compatible `LEGACY_PLUGIN_ALIASES`, dynamic capability resolution, and expanded test suite (**77/77 passed**).
->   2. `agentic-project-documenting-plugin`: Scrubbed stale references to `agentic-investigate-plugin`, `agentic-monitor-plugin`, `agentic-research-plugin` (**10/10 passed**).
->   3. `agentic-issue-investigation-plugin`: Scrubbed stale references to `agentic-document-plugin` across manifests, rules, agent prompts, and skills (**7/7 passed**).
->   4. `agentic-task-monitoring-plugin`: Scrubbed stale references to `agentic-investigate-plugin` and `agentic-document-plugin` across manifests, rules, agent prompts, and skills (**8/8 passed**).
->   5. `agentic-topic-researching-plugin`: Scrubbed stale references to `agentic-document-plugin` across manifests, rules, agent prompts, and skills (**9/9 passed**).
->   6. Zero stale occurrences verified across the entire workspace via automated regex grep audits.
+> - **Target Merges Prepared**:
+>   1. `agentic-prompt-triage-plugin`: `bugfix/prompt-triage-plugin-detection` (`9c5c19b`) $\rightarrow$ `master`
+>   2. `agentic-project-documenting-plugin`: `bugfix/documenting-stale-references` (`00b7d03`) $\rightarrow$ `master`
+>   3. `agentic-issue-investigation-plugin`: `bugfix/investigation-stale-references` (`8f46739`) $\rightarrow$ `master`
+>   4. `agentic-task-monitoring-plugin`: `bugfix/monitoring-stale-references` (`76f7002`) $\rightarrow$ `master`
+>   5. `agentic-topic-researching-plugin`: `bugfix/researching-stale-references` (`ee5bfa0`) $\rightarrow$ `master`
+> - Zero stale occurrences verified across the entire workspace via automated regex grep audits.
 
 ---
 
@@ -41,7 +43,7 @@ repositories_count: 9
 | **`agentic` (root)** | `master` | `git@github.com:gpfister/gp-agentic.git` | [`107dd11`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | `chore: synchronize workspace root for renamed plugin repositories` | Clean | PASS (`make status` 8 sub-repos) |
 | **`agentic-coding-plugin`** | `master` | `git@github.com:gpfister/agentic-coding-plugin.git` | [`abac50b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | `chore: update cross-plugin references to standardized plugin names` | Clean | **16/16 passed** (100%) |
 | **`agentic-issue-investigation-plugin`** | `bugfix/investigation-stale-references` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` | [`8f46739`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | `fix(investigate): scrub stale companion plugin references to standardized names` | Clean | **7/7 passed** (100%) |
-| **`agentic-obsidian` (vault)** | `master` | `git@github.com:gpfister/agentic-obsidian.git` | [`066925b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | `docs: document AC-8 remediation implementation, commit ledger, and test reports` | Clean | Vault Docs (PASS) |
+| **`agentic-obsidian` (vault)** | `master` | `git@github.com:gpfister/agentic-obsidian.git` | [`2aa5ccf`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | `docs: pre-merge documentation tidy-up and merge readiness tracking for SPEC-2026-PLUGIN-RENAME-001` | Clean | Vault Docs (PASS) |
 | **`agentic-project-documenting-plugin`** | `bugfix/documenting-stale-references` | `git@github.com:gpfister/agentic-project-documenting-plugin.git` | [`00b7d03`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | `fix(docs): scrub stale companion plugin references to standardized names` | Clean | **10/10 passed** (100%) |
 | **`agentic-project-grooming-plugin`** | `master` | *Local sub-repo* | [`68f21b0`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | `chore: update cross-plugin references to standardized plugin names` | Clean | **8/8 passed** (100%) |
 | **`agentic-prompt-triage-plugin`** | `bugfix/prompt-triage-plugin-detection` | `git@github.com:gpfister/agentic-prompt-triage-plugin.git` | [`9c5c19b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) | `fix(triage): support canonical plugin names and legacy aliases for dynamic detection` | Clean | **77/77 passed** (100%) |
@@ -57,7 +59,7 @@ repositories_count: 9
 | **`agentic` (root)** | `/Users/gpfister/Development/Projects/gpfister/agentic` | `107dd11` | `master` | `git@github.com:gpfister/gp-agentic.git` |
 | **`agentic-coding-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin` | `abac50b` | `master` | `git@github.com:gpfister/agentic-coding-plugin.git` |
 | **`agentic-issue-investigation-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin` | `8f46739` | `bugfix/investigation-stale-references` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` |
-| **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `066925b` | `master` | `git@github.com:gpfister/agentic-obsidian.git` |
+| **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `2aa5ccf` | `master` | `git@github.com:gpfister/agentic-obsidian.git` |
 | **`agentic-project-documenting-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin` | `00b7d03` | `bugfix/documenting-stale-references` | `git@github.com:gpfister/agentic-project-documenting-plugin.git` |
 | **`agentic-project-grooming-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin` | `68f21b0` | `master` | *Local sub-repo* |
 | **`agentic-prompt-triage-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin` | `9c5c19b` | `bugfix/prompt-triage-plugin-detection` | `git@github.com:gpfister/agentic-prompt-triage-plugin.git` |
@@ -165,6 +167,31 @@ repositories_count: 9
 - [x] **Zero Stale References**:
   - Grep verification across all modified repositories confirms 0 occurrences of deprecated plugin directory names.
 - [x] **Vault Knowledge Base Synchronization**:
-  - Feature note: [[features/rename-plugin-repositories|Rename Plugin Repositories to Descriptive Action-Oriented Names]] updated with Phase 4 AC-8 remediation progress and commit hashes.
+  - Feature note: [[features/rename-plugin-repositories|Rename Plugin Repositories to Descriptive Action-Oriented Names]] updated with Phase 5 review status and commit hashes.
   - Architecture decision: [[architecture/adr-004-standardize-plugin-repository-names|ADR-004]] formalizes naming grammar.
   - Component notes: All 5 plugin notes in `agentic-obsidian/plugins/` reflect new repository names and paths.
+
+---
+
+## 5. Pre-Merge Readiness & Target Merge Topology (SPEC-2026-PLUGIN-RENAME-001)
+
+> [!NOTE] User Merge Approval Confirmed
+> User explicitly approved merging all 5 `bugfix/*` branches into `master` following 100% verification of AC-1 through AC-9 and 135/135 tests passing workspace-wide.
+
+### 5.1 Branch Merge Target Ledger
+
+| Repository | Current Working Branch | Target Branch | Commit to Merge | Commit Title | Fast-Forward Eligible |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **[`agentic-prompt-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/)** | `bugfix/prompt-triage-plugin-detection` | `master` | [`9c5c19b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) | `fix(triage): support canonical plugin names and legacy aliases for dynamic detection` | Yes |
+| **[`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/)** | `bugfix/documenting-stale-references` | `master` | [`00b7d03`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | `fix(docs): scrub stale companion plugin references to standardized names` | Yes |
+| **[`agentic-issue-investigation-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/)** | `bugfix/investigation-stale-references` | `master` | [`8f46739`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | `fix(investigate): scrub stale companion plugin references to standardized names` | Yes |
+| **[`agentic-task-monitoring-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/)** | `bugfix/monitoring-stale-references` | `master` | [`76f7002`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | `fix(monitor): scrub stale companion plugin references to standardized names` | Yes |
+| **[`agentic-topic-researching-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/)** | `bugfix/researching-stale-references` | `master` | [`ee5bfa0`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | `fix(research): scrub stale companion plugin references to standardized names` | Yes |
+
+### 5.2 Phase 6 Merge Execution Protocol
+
+1. Checkout `master` in each remediated repository.
+2. Merge each corresponding `bugfix/*` branch into `master` (`git merge --ff-only` or standard fast-forward merge).
+3. Verify test suites pass post-merge (`uv run pytest` / `pytest`).
+4. Push `master` to remote `origin` across all repositories (`make push`).
+5. Update `agentic-obsidian/git-status.md` and feature notes with post-merge state (`@coding-document`).
