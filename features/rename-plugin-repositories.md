@@ -1,13 +1,15 @@
 ---
 title: "Rename Plugin Repositories to Descriptive Action-Oriented Names"
 date: "2026-11-01"
-status: "Implemented / Ready for Review"
-phase: "Phase 4: Development (Completed)"
+status: "Remediation Planned / Ready for Development"
+phase: "Phase 3: Planning (AC-8 Remediation Approved)"
 specification_id: "SPEC-2026-PLUGIN-RENAME-001"
 specification_path: "/Users/gpfister/.gemini/antigravity/brain/bd5f3041-e39c-44cf-aa85-5d9a61505746/specification.md"
 vault_specification_path: "sessions/attachments/bd5f3041-e39c-44cf-aa85-5d9a61505746/specification.md"
 plan_path: "/Users/gpfister/.gemini/antigravity/brain/80a30eee-9259-426c-acbb-1d07be48f302/plan.md"
 vault_plan_path: "sessions/attachments/80a30eee-9259-426c-acbb-1d07be48f302/plan.md"
+remediation_plan_path: "/Users/gpfister/.gemini/antigravity/brain/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md"
+remediation_vault_plan_path: "sessions/attachments/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md"
 adr: "[[architecture/adr-004-standardize-plugin-repository-names|ADR-004: Standardize Antigravity Plugin Repository Names to Descriptive Action Grammar]]"
 tags:
   - feature
@@ -23,6 +25,8 @@ tags:
   - phase-2-completed
   - phase-3-completed
   - phase-4-completed
+  - ac-8-remediation
+  - remediation-plan-approved
   - adr-004
 affected_plugins:
   - agentic-prompt-triage-plugin (formerly agentic-triage-plugin)
@@ -42,16 +46,13 @@ aliases:
 
 # Feature: Rename Plugin Repositories to Descriptive Action-Oriented Names
 
-> [!NOTE] Phase 4: Development Completed
-> - **Current Phase**: Phase 4: Development (Completed) $\rightarrow$ Ready for Phase 5: Review (`@coding-review`)
-> - **Specification ID**: `SPEC-2026-PLUGIN-RENAME-001`
+> [!IMPORTANT] Phase 3: Planning — AC-8 Remediation Implementation Plan Approved
+> - **Current Phase**: Phase 3: Planning (AC-8 Remediation Plan Approved) $\rightarrow$ Ready for Phase 4: Development (`@coding-develop`)
+> - **Specification ID**: `SPEC-2026-PLUGIN-RENAME-001` (Acceptance Criterion AC-8 Remediation)
 > - **Architecture Decision**: [[architecture/adr-004-standardize-plugin-repository-names|ADR-004: Standardize Antigravity Plugin Repository Names to Descriptive Action Grammar]]
-> - **Brain Specification Artifact**: [`specification.md`](file:///Users/gpfister/.gemini/antigravity/brain/bd5f3041-e39c-44cf-aa85-5d9a61505746/specification.md)
-> - **Vault Archived Specification**: [`sessions/attachments/bd5f3041-e39c-44cf-aa85-5d9a61505746/specification.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/bd5f3041-e39c-44cf-aa85-5d9a61505746/specification.md)
-> - **Brain Plan Artifact**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/80a30eee-9259-426c-acbb-1d07be48f302/plan.md)
-> - **Vault Archived Plan**: [`sessions/attachments/80a30eee-9259-426c-acbb-1d07be48f302/plan.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/80a30eee-9259-426c-acbb-1d07be48f302/plan.md)
-> - **Target Branch**: `master` (across workspace root and all 8 sub-repositories)
-> - **Development Status**: **100% Implemented & Verified**. All 9 repositories updated and committed on `master`. **117/117 unit tests passed across test suites**.
+> - **Primary Plan Artifact**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/80a30eee-9259-426c-acbb-1d07be48f302/plan.md) ([Vault Archive](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/80a30eee-9259-426c-acbb-1d07be48f302/plan.md))
+> - **AC-8 Remediation Plan Artifact**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md) ([Vault Archive](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md))
+> - **Remediation Execution Strategy**: Multi-repository isolated development across 5 sub-repositories on dedicated `bugfix/*` branches.
 
 ---
 
@@ -259,7 +260,9 @@ flowchart TD
 - [x] **AC-5 (Root Automation)**: `make status` and `make sync` in the root workspace execute cleanly, displaying all repositories under their new names without errors or missing paths.
 - [x] **AC-6 (Root Hygiene)**: `git status` in the root `agentic` repo is clean (except for committed/staged modifications to `Makefile`, `.gitignore`, `AGENTS.md`, and `README.md`), with no sub-repo files leaked into root staging.
 - [x] **AC-7 (Obsidian Vault)**: Vault notes in `agentic-obsidian/plugins/` reflect the new names, and `agentic-obsidian/git-status.md` / `index.md` reference the new plugin names with valid links.
-- [x] **AC-8 (Cross-Plugin Consistency)**: Grepping for old plugin names across the entire workspace yields zero obsolete references (excluding historical session logs or git commit histories).
+- [ ] **AC-8 (Cross-Plugin Consistency & Dynamic Routing Detection)**:
+  - *Discrepancy identified in QA review*: `agentic-prompt-triage-plugin/hooks/prompt_triage.py` referenced legacy plugin names in `PRIMARY_PLUGINS`, preventing dynamic detection of renamed plugins. Stale references also identified in companion plugins (`agentic-project-documenting-plugin`, `agentic-issue-investigation-plugin`, `agentic-task-monitoring-plugin`, `agentic-topic-researching-plugin`).
+  - *Remediation Status*: Implementation plan approved (`bugfix/*` branches across 5 sub-repos). Target: Zero stale references and fully verified dynamic triage resolution. See [[rename-plugin-repositories#12-ac-8-discrepancy-remediation-implementation-plan|Section 12]].
 - [x] **AC-9 (Subagent Integrity)**: Subagent handles (`@coding-document`, `@coding-investigate`, `@coding-monitor`, `@coding-research`) are unchanged and intact.
 
 ---
@@ -375,8 +378,162 @@ flowchart TD
 
 ---
 
-## 11. Next Steps & Handoff
+## 11. Initial Implementation Milestones & Development Summary
 
-- **Current Status**: Phase 4: Development Completed & 100% Test Verified.
-- **Handoff Target**: Phase 5: Review (`@coding-review`) for systematic code quality audit, architectural cleanliness verification, and final pre-merge check.
+The initial development phase executed across all 9 repositories, completing directory renames, GitHub remote renames, and manifest updates:
+1. **GitHub Remote Renames**: Successfully renamed 5 repositories via `gh repo rename` under `gpfister/*`.
+2. **Directory Renaming & Clean History**: Preserved full commit histories across local disk directory renames without detached HEADs.
+3. **Remote Origin Alignment**: Reconfigured `origin` URLs for all 5 renamed repositories to `git@github.com:gpfister/<new-name>.git`.
+4. **Manifest Alignment**: Every `plugin.json` matches its repository root directory name, satisfying Antigravity Customization System standards.
+5. **Preserved Invariant Handles**: Subagent technical identifiers (`@coding-document`, `@coding-investigate`, `@coding-monitor`, `@coding-research`), skill directory names, and hook registrations remain intact and unbroken.
+6. **Zero Leaked Files**: Workspace root `agentic` retains clean `.gitignore` and `Makefile`, detecting all 8 sub-repos cleanly.
+
+---
+
+## 12. AC-8 Discrepancy Remediation Implementation Plan
+
+**Specification Reference**: `SPEC-2026-PLUGIN-RENAME-001` (Acceptance Criterion AC-8 Remediation)  
+**Remediation Plan Artifact**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md)  
+**Vault Archived Plan**: [`sessions/attachments/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md)  
+**Target Git Branch Conventions**: `bugfix/<issue-name>` across 5 sub-repositories  
+**Execution Strategy**: Multi-repository isolated development and verification  
+
+### 12.1 Root Cause & Discrepancy Analysis
+
+During Phase 5 (Review) QA auditing for `SPEC-2026-PLUGIN-RENAME-001`, discrepancies against Acceptance Criterion AC-8 were detected:
+
+1. **Critical Runtime Defect in [`agentic-prompt-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin)**:
+   - `hooks/prompt_triage.py` hardcoded `PRIMARY_PLUGINS` with legacy plugin directory names (`agentic-investigate-plugin`, `agentic-monitor-plugin`, `agentic-document-plugin`, `agentic-research-plugin`).
+   - Consequently, dynamic directory detection evaluated to `False` for newly renamed plugin directories, causing `build_dynamic_triage_spec()` to suppress capability options from dynamic prompt schemas.
+   - **Remediation**: Update `PRIMARY_PLUGINS` to canonical renamed names, add `LEGACY_PLUGIN_ALIASES` mapping to ensure backwards compatibility, and expand test coverage.
+
+2. **Stale Cross-Plugin References Across Companion Plugins**:
+   - `agentic-project-documenting-plugin`: Stale references to `agentic-investigate-plugin`, `agentic-monitor-plugin`, `agentic-research-plugin` in `README.md`, `rules/AGENTS.md`, and `skills/coding-document/SKILL.md`.
+   - `agentic-issue-investigation-plugin`: Stale references to `agentic-document-plugin` in `README.md`, `rules/AGENTS.md`, `agents/`, `skills/`, and `tests/test_plugin.py`.
+   - `agentic-task-monitoring-plugin`: Stale references to `agentic-investigate-plugin` and `agentic-document-plugin` across `README.md`, `rules/AGENTS.md`, `agents/`, and `skills/`.
+   - `agentic-topic-researching-plugin`: Stale references to `agentic-document-plugin` across `README.md`, `rules/AGENTS.md`, `agents/`, `skills/`, and `tests/test_plugin.py`.
+
+### 12.2 Multi-Repository Work Breakdown & Git Topology
+
+```mermaid
+flowchart TD
+    PlanApproved(["Plan Approved (AC-8)"]) --> ParallelDev["coding-develop (Parallel Branch Execution)"]
+
+    subgraph Repo1 ["agentic-prompt-triage-plugin"]
+        B1["Branch: bugfix/prompt-triage-plugin-detection"]
+        F1["Update hooks/prompt_triage.py<br/>PRIMARY_PLUGINS & LEGACY_PLUGIN_ALIASES"]
+        T1["Update tests/test_prompt_triage.py & tests/test_plugin.py"]
+        D1["Update README.md & rules/AGENTS.md"]
+        B1 --> F1 --> T1 --> D1
+    end
+
+    subgraph Repo2 ["agentic-project-documenting-plugin"]
+        B2["Branch: bugfix/documenting-stale-references"]
+        F2["Update README.md, rules/AGENTS.md, skills/coding-document/SKILL.md"]
+        B2 --> F2
+    end
+
+    subgraph Repo3 ["agentic-issue-investigation-plugin"]
+        B3["Branch: bugfix/investigation-stale-references"]
+        F3["Update README.md, rules/AGENTS.md, agent manifests & tests/test_plugin.py"]
+        B3 --> F3
+    end
+
+    subgraph Repo4 ["agentic-task-monitoring-plugin"]
+        B4["Branch: bugfix/monitoring-stale-references"]
+        F4["Update README.md, rules/AGENTS.md, agent manifests & skills/coding-monitor/SKILL.md"]
+        B4 --> F4
+    end
+
+    subgraph Repo5 ["agentic-topic-researching-plugin"]
+        B5["Branch: bugfix/researching-stale-references"]
+        F5["Update README.md, rules/AGENTS.md, agent manifests & tests/test_plugin.py"]
+        B5 --> F5
+    end
+
+    ParallelDev --> Repo1
+    ParallelDev --> Repo2
+    ParallelDev --> Repo3
+    ParallelDev --> Repo4
+    ParallelDev --> Repo5
+
+    Repo1 --> Review["coding-review (Verification & Zero-Stale-Match Audit)"]
+    Repo2 --> Review
+    Repo3 --> Review
+    Repo4 --> Review
+    Repo5 --> Review
+```
+
+### 12.3 Concrete Work Breakdown per Repository
+
+#### Work Item 1: `agentic-prompt-triage-plugin`
+- **Git Branch**: `bugfix/prompt-triage-plugin-detection`
+- **Location**: [`/agentic-prompt-triage-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/)
+- **Modifications**:
+  - Update `PRIMARY_PLUGINS` in [`hooks/prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/hooks/prompt_triage.py) to canonical names:
+    - `agentic-coding-plugin`
+    - `agentic-issue-investigation-plugin`
+    - `agentic-project-documenting-plugin`
+    - `agentic-project-grooming-plugin`
+    - `agentic-task-monitoring-plugin`
+    - `agentic-topic-researching-plugin`
+  - Introduce `LEGACY_PLUGIN_ALIASES` mapping to ensure backwards compatibility with legacy workspaces.
+  - Update `build_dynamic_triage_spec()` capability flags (`coding`, `issue_investigation`, `task_monitoring`, `project_grooming`, `topic_research`, `documenting`) based on canonical plugin resolution.
+  - Update [`tests/test_prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/tests/test_prompt_triage.py) and [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/tests/test_plugin.py) to test canonical and legacy alias resolution.
+  - Update [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/README.md) and [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/rules/AGENTS.md).
+- **Verification**: `pytest tests/ -v`
+
+#### Work Item 2: `agentic-project-documenting-plugin`
+- **Git Branch**: `bugfix/documenting-stale-references`
+- **Location**: [`/agentic-project-documenting-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/)
+- **Modifications**:
+  - Update [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/README.md) to purge stale names.
+  - Update [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/rules/AGENTS.md) Section 3 handoff protocols.
+  - Update [`skills/coding-document/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/skills/coding-document/SKILL.md) workflow definitions.
+- **Verification**: `! git grep -E "agentic-investigate-plugin|agentic-monitor-plugin|agentic-research-plugin"`
+
+#### Work Item 3: `agentic-issue-investigation-plugin`
+- **Git Branch**: `bugfix/investigation-stale-references`
+- **Location**: [`/agentic-issue-investigation-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/)
+- **Modifications**:
+  - Update [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/README.md) and [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/rules/AGENTS.md) Section 4.
+  - Update [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/agents/agent.md), [`agents/coding-investigate/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/agents/coding-investigate/agent.md), and [`skills/coding-investigate/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/skills/coding-investigate/SKILL.md).
+  - Update [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/tests/test_plugin.py).
+- **Verification**: `pytest tests/ -v` and `! git grep -E "agentic-document-plugin|agentic-monitor-plugin|agentic-research-plugin"`
+
+#### Work Item 4: `agentic-task-monitoring-plugin`
+- **Git Branch**: `bugfix/monitoring-stale-references`
+- **Location**: [`/agentic-task-monitoring-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/)
+- **Modifications**:
+  - Update [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/README.md) and [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/rules/AGENTS.md) Section 2 & 4.
+  - Update [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/agents/agent.md), [`agents/coding-monitor/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/agents/coding-monitor/agent.md), and [`skills/coding-monitor/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/skills/coding-monitor/SKILL.md).
+- **Verification**: `! git grep -E "agentic-investigate-plugin|agentic-document-plugin|agentic-research-plugin"`
+
+#### Work Item 5: `agentic-topic-researching-plugin`
+- **Git Branch**: `bugfix/researching-stale-references`
+- **Location**: [`/agentic-topic-researching-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/)
+- **Modifications**:
+  - Update [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/README.md) and [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/rules/AGENTS.md) Section 4.
+  - Update [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/agents/agent.md), [`agents/coding-research/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/agents/coding-research/agent.md), and [`skills/coding-research/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/skills/coding-research/SKILL.md).
+  - Update [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/tests/test_plugin.py).
+- **Verification**: `pytest tests/ -v` and `! git grep -E "agentic-document-plugin|agentic-investigate-plugin|agentic-monitor-plugin"`
+
+### 12.4 Verification & Acceptance Criteria Matrix
+
+| Criterion | Target Repository | Verification Command | Expected Outcome |
+| :--- | :--- | :--- | :--- |
+| **AC-8.1** | `agentic-prompt-triage-plugin` | `pytest tests/test_prompt_triage.py` | New plugin names correctly detected; triage spec properly enables corresponding handlers. |
+| **AC-8.2** | `agentic-prompt-triage-plugin` | `pytest tests/test_prompt_triage.py -k test_legacy` | Legacy aliases map cleanly to canonical names without degradation. |
+| **AC-8.3** | `agentic-project-documenting-plugin` | `git grep -E "agentic-(investigate|monitor|research)-plugin"` | 0 matches found across docstrings, rules, and markdown. |
+| **AC-8.4** | `agentic-issue-investigation-plugin` | `git grep -E "agentic-(document|monitor|research)-plugin"` | 0 matches found across manifests, agents, rules, and tests. |
+| **AC-8.5** | `agentic-task-monitoring-plugin` | `git grep -E "agentic-(investigate|document|research)-plugin"` | 0 matches found across manifests, agents, rules, and tests. |
+| **AC-8.6** | `agentic-topic-researching-plugin` | `git grep -E "agentic-(document|investigate|monitor)-plugin"` | 0 matches found across manifests, agents, rules, and tests. |
+| **AC-8.7** | Workspace-wide Test Suites | `pytest` across all updated plugin test suites | 100% test pass rate with zero regressions. |
+
+---
+
+## 13. Next Steps & Handoff
+
+- **Current Status**: Phase 3: Planning Completed (AC-8 Remediation Implementation Plan Approved).
+- **Handoff Target**: Phase 4: Development (`@coding-develop`) to checkout `bugfix/*` branches, apply changes, and run automated test suites.
 - **Obsidian Feature Index**: Cross-referenced in [[features/index|Workspace Features Index]].
