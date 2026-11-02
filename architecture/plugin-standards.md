@@ -62,6 +62,9 @@ System instructions, responsibilities, and handoff protocols...
 > [!NOTE] Subagent Display Title Standardization (ADR-002)
 > All agent markdown definition files and catalogs must prepend `"Coding - "` to their primary Markdown `# ` heading (e.g., `# Coding - Workflow Orchestrator`, `# Coding - Monitor Expert`, `# Coding - Autonomous Documentation Specialist`). The technical identifier `name: coding-*` in YAML frontmatter remains invariant for 100% backward compatibility.
 
+> [!TIP] Plugin Repository Naming Convention (ADR-004)
+> All Antigravity companion plugin repositories follow the descriptive action grammar `agentic-<action-descriptor>-plugin` (e.g., `agentic-coding-plugin`, `agentic-prompt-triage-plugin`, `agentic-issue-investigation-plugin`, `agentic-task-monitoring-plugin`, `agentic-topic-researching-plugin`, `agentic-project-documenting-plugin`, `agentic-project-grooming-plugin`). While repository and manifest names reflect this grammar, subagent handles (`@coding-*`) and skill directories remain strictly invariant for runtime stability (see [[architecture/adr-004-standardize-plugin-repository-names|ADR-004]]).
+
 ## 4. Rules (`rules/AGENTS.md`)
 Rules define project-level constraints and standards. Use Markdown alerts (`> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]`) and explicit code snippets.
 
