@@ -1,8 +1,8 @@
 ---
 title: "Rename Plugin Repositories to Descriptive Action-Oriented Names"
 date: "2026-11-01"
-status: "Review Completed / Approved for Merge"
-phase: "Phase 5: Review (Pre-Merge Tidy-Up Completed)"
+status: "Released / Merged"
+phase: "Phase 6: Merge & Release (Completed)"
 specification_id: "SPEC-2026-PLUGIN-RENAME-001"
 specification_path: "/Users/gpfister/.gemini/antigravity/brain/bd5f3041-e39c-44cf-aa85-5d9a61505746/specification.md"
 vault_specification_path: "sessions/attachments/bd5f3041-e39c-44cf-aa85-5d9a61505746/specification.md"
@@ -31,6 +31,9 @@ tags:
   - remediation-implemented
   - phase-5-completed
   - pre-merge-approved
+  - phase-6-completed
+  - released
+  - merged
   - adr-004
 affected_plugins:
   - agentic-prompt-triage-plugin (formerly agentic-triage-plugin)
@@ -50,13 +53,13 @@ aliases:
 
 # Feature: Rename Plugin Repositories to Descriptive Action-Oriented Names
 
-> [!NOTE] Milestone: Phase 5 Review Completed & Pre-Merge Gate Approved
-> - **Current Phase**: Phase 5: Review Completed (Pre-Merge Tidy-Up Completed) $\rightarrow$ Ready for Phase 6: Merge & Release (`@coding-merge`)
+> [!NOTE] Milestone: Phase 6 Merge & Release Completed
+> - **Current Phase**: Phase 6: Merge & Release Completed $\rightarrow$ Production Release
 > - **Specification ID**: `SPEC-2026-PLUGIN-RENAME-001` (Acceptance Criteria AC-1 through AC-9 100% Verified)
 > - **Architecture Decision**: [[architecture/adr-004-standardize-plugin-repository-names|ADR-004: Standardize Antigravity Plugin Repository Names to Descriptive Action Grammar]]
 > - **Primary Plan Artifact**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/80a30eee-9259-426c-acbb-1d07be48f302/plan.md) ([Vault Archive](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/80a30eee-9259-426c-acbb-1d07be48f302/plan.md))
 > - **AC-8 Remediation Plan Artifact**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md) ([Vault Archive](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/2ed62f68-ca58-422a-93e8-f4fa8abc3419/plan.md))
-> - **Pre-Merge Audit Verdict**: **PASS (135/135 tests passing workspace-wide, 100% pass rate)**. Zero stale plugin references across all repositories. User approval confirmed for merging all 5 `bugfix/*` branches into `master`. Working trees clean across all repositories.
+> - **Final Release Status**: **135/135 tests passing workspace-wide (100% pass rate)**. All 5 `bugfix/*` branches merged into `master` and deleted. All 9 repositories clean on branch `master` and pushed to remote `origin/master`. Zero stale references across the ecosystem.
 
 ---
 
@@ -653,8 +656,53 @@ All 5 bugfix branches are fully committed with clean working trees, ready for fa
 
 ---
 
-## 15. Next Steps & Handoff
+## 15. Phase 6: Merge & Release Execution & Changelog
 
-- **Current Status**: Phase 5: Review Completed & Pre-Merge Gate Approved.
-- **Handoff Target**: Phase 6: Merge & Release (`@coding-merge`) to checkout `master`, merge the 5 `bugfix/*` branches, synchronize git status tracking, and push changes to remote origins.
+> [!NOTE] Release Status: Merged & Pushed to Master Across All Repositories
+> Following user confirmation and full verification of Acceptance Criteria AC-1 through AC-9, Phase 6 (Merge & Release) was executed across the workspace. All 5 `bugfix/*` branches were merged into `master`, deleted locally and on remote, and pushed to `origin/master`. All 9 workspace repositories are clean on branch `master`.
+
+### 15.1 Merge Execution Ledger
+
+| Repository | Source Branch | Merged Commit | Commit Title | Target Branch | Post-Merge Status |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **[`agentic-prompt-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/)** | `bugfix/prompt-triage-plugin-detection` | [`9c5c19b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) | `fix(triage): support canonical plugin names and legacy aliases for dynamic detection` | `master` | Merged, branch deleted, pushed to `origin/master` (**77/77 tests passed**, 100%) |
+| **[`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/)** | `bugfix/documenting-stale-references` | [`00b7d03`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | `fix(docs): scrub stale companion plugin references to standardized names` | `master` | Merged, branch deleted, pushed to `origin/master` (**10/10 tests passed**, 100%) |
+| **[`agentic-issue-investigation-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/)** | `bugfix/investigation-stale-references` | [`8f46739`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | `fix(investigate): scrub stale companion plugin references to standardized names` | `master` | Merged, branch deleted, pushed to `origin/master` (**7/7 tests passed**, 100%) |
+| **[`agentic-task-monitoring-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/)** | `bugfix/monitoring-stale-references` | [`76f7002`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | `fix(monitor): scrub stale companion plugin references to standardized names` | `master` | Merged, branch deleted, pushed to `origin/master` (**8/8 tests passed**, 100%) |
+| **[`agentic-topic-researching-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/)** | `bugfix/researching-stale-references` | [`ee5bfa0`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | `fix(research): scrub stale companion plugin references to standardized names` | `master` | Merged, branch deleted, pushed to `origin/master` (**9/9 tests passed**, 100%) |
+
+### 15.2 Release Changelog (SPEC-2026-PLUGIN-RENAME-001)
+
+- **GitHub Remote Repositories**:
+  - Renamed 5 GitHub repositories via `gh repo rename`:
+    - `gpfister/agentic-triage-plugin` $\rightarrow$ `gpfister/agentic-prompt-triage-plugin`
+    - `gpfister/agentic-investigate-plugin` $\rightarrow$ `gpfister/agentic-issue-investigation-plugin`
+    - `gpfister/agentic-monitor-plugin` $\rightarrow$ `gpfister/agentic-task-monitoring-plugin`
+    - `gpfister/agentic-research-plugin` $\rightarrow$ `gpfister/agentic-topic-researching-plugin`
+    - `gpfister/agentic-document-plugin` $\rightarrow$ `gpfister/agentic-project-documenting-plugin`
+- **Filesystem & Git Remote Alignment**:
+  - Renamed all local directories on disk, preserving complete git commit histories.
+  - Reconfigured `origin` remote URLs in all 5 repositories to `git@github.com:gpfister/<new-repo-name>.git`.
+- **Plugin Manifests & Packaging**:
+  - Synchronized `plugin.json` `"name"` fields with repository directory names.
+  - Updated `pyproject.toml` package identifiers where applicable.
+- **Dynamic Prompt Triage & Compatibility**:
+  - Updated `agentic-prompt-triage-plugin` to evaluate canonical plugin names while supporting `LEGACY_PLUGIN_ALIASES` for backwards compatibility.
+- **Cross-Plugin Reference Scrubbing**:
+  - Purged all stale plugin references across `agentic-coding-plugin`, `agentic-project-grooming-plugin`, `agentic-issue-investigation-plugin`, `agentic-task-monitoring-plugin`, `agentic-topic-researching-plugin`, and `agentic-project-documenting-plugin`.
+- **Workspace Orchestration & Tooling**:
+  - Updated `Makefile` `REPOS` list and `.gitignore` sub-repository rules in the root workspace.
+  - Updated root `README.md` and `AGENTS.md`.
+- **Obsidian Vault Intelligence**:
+  - Renamed all component notes under `agentic-obsidian/plugins/` to match canonical repository names.
+  - Updated `git-status.md`, `index.md`, and [[architecture/adr-004-standardize-plugin-repository-names|ADR-004]].
+
+---
+
+## 16. Lifecycle Summary & Final Sign-Off
+
+- **Feature State**: Completed / Released / Merged
+- **Active Branch**: `master` across all 9 workspace repositories.
+- **Verification Status**: **135/135 tests passing workspace-wide (100% pass rate)**.
 - **Obsidian Feature Index**: Cross-referenced in [[features/index|Workspace Features Index]].
+- **Git Status Record**: Documented in [[git-status|Workspace Git Status & Branch Tracking]].
