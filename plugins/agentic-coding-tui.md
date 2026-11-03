@@ -1,5 +1,5 @@
 ---
-plugin_name: "agentic-code-tui"
+plugin_name: "agentic-coding-tui"
 status: "active"
 tags:
   - tui-application
@@ -11,10 +11,10 @@ tags:
 version: "0.1.0"
 ---
 
-# Application: agentic-code-tui
+# Application: agentic-coding-tui
 
 ## Overview
-`agentic-code-tui` is a standalone, full-screen Terminal User Interface (TUI) application combining the **Google Antigravity SDK** (`google-antigravity`) and **Google ADK** (`google-adk`) workflow graph engine into a unified terminal assistant.
+`agentic-coding-tui` is a standalone, full-screen Terminal User Interface (TUI) application combining the **Google Antigravity SDK** (`google-antigravity`) and **Google ADK** (`google-adk`) workflow graph engine into a unified terminal assistant.
 
 It enables developers to operate the full agentic ecosystem directly in their terminal without requiring a GUI IDE:
 - **Top Prompt Input**: Persistent prompt and slash command bar with history and autocomplete.
@@ -80,5 +80,5 @@ agents:
 # Launch the TUI
 make run
 # or
-agentic-code-tui --config config/agents.yaml
+coding --config config/agents.yaml
 ```
