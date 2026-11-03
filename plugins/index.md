@@ -13,6 +13,7 @@ Directory of companion plugins developed and integrated within the `agentic` wor
 
 | Plugin | Documentation Note | Subagent Handle | Primary Role | Status |
 | :--- | :--- | :--- | :--- | :--- |
+| **`agentic-code-tui`** | [[plugins/agentic-code-tui|agentic-code-tui]] | CLI / TUI | Full-screen terminal AI coding assistant combining Google Antigravity & Google ADK workflows | Active |
 | **`agentic-coding-plugin`** | [[plugins/agentic-coding-plugin|agentic-coding-plugin]] | `@coding` | 6-stage software development lifecycle orchestrator (`@coding-clarify`, `@coding-specify`, `@coding-plan`, `@coding-develop`, `@coding-review`, `@coding-merge`) | Active |
 | **`agentic-issue-investigation-plugin`** | [[plugins/agentic-issue-investigation-plugin|agentic-issue-investigation-plugin]] | `@coding-investigate` | Autonomous multi-repository issue investigation, root-cause diagnosis, and remediation proposals | Active |
 | **`agentic-project-documenting-plugin`** | [[plugins/agentic-project-documenting-plugin|agentic-project-documenting-plugin]] | `@coding-document` | Autonomous Obsidian vault documentation specialist, cross-repo git tracking, and knowledge curation | Active |
@@ -25,6 +26,7 @@ Directory of companion plugins developed and integrated within the `agentic` wor
 
 ## Plugin Repository Structure
 
+- [`agentic-code-tui/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-code-tui/) — Terminal-native coding assistant TUI
 - [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) — Coding lifecycle companion
 - [`agentic-issue-investigation-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) — Multi-repo root cause diagnosis
 - [`agentic-project-documenting-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) — Documentation & Obsidian curator
