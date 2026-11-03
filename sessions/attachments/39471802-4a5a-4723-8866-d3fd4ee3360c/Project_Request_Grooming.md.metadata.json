@@ -1,0 +1,6 @@
+{
+  "summary":  "Comprehensive Project Request Grooming specification for the new repository `agentic-code-tui`. Details the Python Textual TUI architecture, google-adk Workflow graph orchestrator, google-antigravity LocalAgentConfig worker agents, prompt triage routing, model/temperature/seed configuration, tool support, repository topology, and phased scaffolding plan.",
+  "updatedAt":  "2026-11-03T17:27:38.927606Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}
