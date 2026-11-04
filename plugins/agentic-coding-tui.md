@@ -21,6 +21,7 @@ It enables developers to operate the full agentic ecosystem directly in their te
 - **Central Transcript Stream**: Scrollable conversation stream with rich Markdown rendering, syntax-highlighted code blocks, and collapsible thought traces.
 - **Bottom Status Footer**: Live display of active subagent, lifecycle phase, tool status, and token metrics.
 - **Interactive Approval Dialogs**: Responsive modals for approval gates without timeouts.
+- **100% Transparent Terminal Canvas**: Full pass-through styling honoring host terminal emulator blur, opacity, or wallpaper shaders (Ghostty, Kitty, Alacritty, iTerm2) with Truecolor syntax fidelity and minimal single-line dividers.
 
 ---
 
@@ -87,5 +88,5 @@ coding --config config/agents.yaml
 
 ## Related Features & Specifications
 
-- [[features/transparent-terminal-background|Transparent Terminal Background (Phase 4: Developed - SPEC-TUI-TRANSPARENCY-001)]]: Full 100% transparent pass-through background styling across all screens, streams, input boxes, footers, code fences, and dialogs. Implemented in Commit [`4dea5b5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/) across 6 work items on branch `feature/transparent-terminal-background` with 30/30 unit tests passing (100%). Preserves Truecolor (`ansi_color=False`) syntax highlighting with zero solid background clipping and minimal structural dividers (`$primary`, `$accent`). Formalized in [[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009]]. Ready for Phase 5: Review.
+- [[features/transparent-terminal-background|Transparent Terminal Background (SPEC-TUI-TRANSPARENCY-001)]]: Full 100% transparent pass-through background styling across all screens, streams, input boxes, footers, code fences, and dialogs. Implemented in Commit [`4dea5b5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/) across 6 work items on branch `feature/transparent-terminal-background` with 30/30 unit tests passing (100%). Quality review verdict: **PASSED** (100% compliance, zero regressions, `ruff` clean). Preserves Truecolor (`ansi_color=False`) syntax highlighting with zero solid background clipping and minimal structural dividers (`$primary`, `$accent`). Formalized in [[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009]]. Pre-merge documentation tidy-up completed; ready for Phase 6: Merge to `master`.
 

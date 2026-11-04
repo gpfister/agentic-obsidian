@@ -2,6 +2,7 @@
 adr_id: "009"
 title: "TUI Transparent Pass-Through Rendering Architecture in agentic-coding-tui"
 status: "accepted"
+review_verdict: "passed"
 date: "2026-11-04"
 tags:
   - architecture-decision
@@ -10,12 +11,20 @@ tags:
   - transparency
   - terminal
   - truecolor
+  - review-passed
 aliases:
   - ADR-009
   - adr-009-tui-transparent-pass-through-rendering
 ---
 
 # ADR-009: TUI Transparent Pass-Through Rendering Architecture
+
+> [!NOTE] Architecture Status: Accepted & Review Passed
+> - **Status**: Accepted
+> - **Review Verdict**: **PASSED** (`[REVIEW_VERDICT_PASSED]`)
+> - **Specification**: `SPEC-TUI-TRANSPARENCY-001`
+> - **Target Repository**: [`agentic-coding-tui`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/) (branch: `feature/transparent-terminal-background`, commit: [`4dea5b5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/))
+> - **Verification**: 30/30 automated unit tests passing (100%), clean `ruff` linter/formatter.
 
 ## Context
 
