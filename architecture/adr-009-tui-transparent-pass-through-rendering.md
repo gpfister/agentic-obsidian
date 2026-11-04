@@ -19,12 +19,13 @@ aliases:
 
 # ADR-009: TUI Transparent Pass-Through Rendering Architecture
 
-> [!NOTE] Architecture Status: Accepted & Review Passed
-> - **Status**: Accepted
+> [!NOTE] Architecture Status: Accepted & Released in Master
+> - **Status**: Accepted & Released
 > - **Review Verdict**: **PASSED** (`[REVIEW_VERDICT_PASSED]`)
 > - **Specification**: `SPEC-TUI-TRANSPARENCY-001`
-> - **Target Repository**: [`agentic-coding-tui`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/) (branch: `feature/transparent-terminal-background`, commit: [`4dea5b5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/))
-> - **Verification**: 30/30 automated unit tests passing (100%), clean `ruff` linter/formatter.
+> - **Target Repository**: [`agentic-coding-tui`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/) (branch: `master`, commits: [`4dea5b5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/), [`e9e187f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/))
+> - **Verification**: 30/30 automated unit tests passing on `master` (100%), clean `ruff` linter/formatter.
+> - **Release Tracking**: [[features/transparent-terminal-background|Feature Note]], [[changelog|Workspace Release Changelog]]
 
 ## Context
 
