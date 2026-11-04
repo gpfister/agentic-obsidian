@@ -1,36 +1,31 @@
 ---
 title: "Workspace Git Status & Branch Tracking"
 date: "2026-11-04"
-active_branch: "master (all 10 repositories)"
+active_branch: "master (all 9 repositories)"
 phase: "Phase 6: Merge & Release (Completed)"
-audit_verdict: "PASS (30/30 Tests in agentic-coding-tui, 135/135 Tests in Companion Plugins, All Repositories Clean on master)"
-status: "Phase 6 Merge & Release Completed / All 10 Repositories on Master"
+audit_verdict: "PASS (135/135 Tests across Companion Plugins, All Repositories Clean on master)"
+status: "Phase 6 Merge & Release Completed / All 9 Repositories on Master"
 tags:
   - git-status
   - branch-tracking
   - plugin-rename
   - repository-renames
-  - transparent-terminal-background
-  - agentic-coding-tui
   - phase-6-completed
   - merged
   - released
   - multi-repo
-repositories_count: 10
+repositories_count: 9
 ---
 
 # Workspace Git Status & Branch Tracking
 
-> [!NOTE] Release Status: All Repositories on Master (feature/transparent-terminal-background Merged)
-> - **Released Feature**: `SPEC-TUI-TRANSPARENCY-001` in [`agentic-coding-tui`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/)
+> [!NOTE] Release Status: All Repositories on Master (SPEC-2026-PLUGIN-RENAME-001 Merged)
+> - **Released Feature**: `SPEC-2026-PLUGIN-RENAME-001` across companion plugins
 > - **Merge Strategy**: Fast-Forward (`--ff-only`) into `master`
-> - **Commits Merged**:
->   - [`4dea5b5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/): `feat(ui): implement transparent terminal background (SPEC-TUI-TRANSPARENCY-001)`
->   - [`e9e187f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/): `docs(ui): document transparent terminal background architecture and invariants`
-> - **Branch Cleanup**: `feature/transparent-terminal-background` deleted cleanly
-> - **Post-Merge Verification**: **30/30 unit tests passing on master (100%)**, linter clean (`ruff`)
-> - **Workspace Baseline**: Master branch clean across all 10 repositories (165/165 tests passing workspace-wide)
-> - **Specification & Release Notes**: [[features/transparent-terminal-background|Transparent Terminal Background in agentic-coding-tui]] / [[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009]] / [[changelog|Workspace Release Changelog]]
+> - **Branch Cleanup**: All `bugfix/*` branches deleted cleanly
+> - **Post-Merge Verification**: **135/135 unit tests passing workspace-wide (100%)**, linters clean
+> - **Workspace Baseline**: Master branch clean across all 9 repositories
+> - **Specification & Release Notes**: [[features/rename-plugin-repositories|Rename Plugin Repositories to Descriptive Action-Oriented Names]] / [[architecture/adr-004-standardize-plugin-repository-names|ADR-004]] / [[changelog|Workspace Release Changelog]]
 
 ---
 
@@ -38,9 +33,8 @@ repositories_count: 10
 
 | Repository | Active Branch | Remote Origin URL | Latest Commit | Commit Message | Working Tree | Test Verdict |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`agentic` (root)** | `master` | `git@github.com:gpfister/gp-agentic.git` | [`4e009ca`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | `docs: add agentic-coding-tui to workspace root README` | Clean | PASS (`make status` 9 sub-repos) |
+| **`agentic` (root)** | `master` | `git@github.com:gpfister/gp-agentic.git` | [`4e009ca`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | `docs: add agentic-coding-tui to workspace root README` | Clean | PASS (`make status` 8 sub-repos) |
 | **`agentic-coding-plugin`** | `master` | `git@github.com:gpfister/agentic-coding-plugin.git` | [`abac50b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | `chore: update cross-plugin references to standardized plugin names` | Clean | **16/16 passed** (100%) |
-| **`agentic-coding-tui`** | `master` | `git@github.com:gpfister/agentic-coding-tui.git` | [`e9e187f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/) | `docs(ui): document transparent terminal background architecture and invariants` | Clean (ahead: 2) | **PASS (30/30 passed on master)** |
 | **`agentic-issue-investigation-plugin`** | `master` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` | [`8f46739`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | `fix(investigate): scrub stale companion plugin references to standardized names` | Clean | **7/7 passed** (100%) |
 | **`agentic-obsidian` (vault)** | `master` | `git@github.com:gpfister/agentic-obsidian.git` | [`b00b2e4`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | `docs(release): mark transparent-terminal-background as released and merged in master` | Clean (ahead: 10) | Vault Docs (PASS) |
 | **`agentic-project-documenting-plugin`** | `master` | `git@github.com:gpfister/agentic-project-documenting-plugin.git` | [`00b7d03`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | `fix(docs): scrub stale companion plugin references to standardized names` | Clean | **10/10 passed** (100%) |
@@ -57,7 +51,6 @@ repositories_count: 10
 | :--- | :--- | :--- | :--- | :--- |
 | **`agentic` (root)** | `/Users/gpfister/Development/Projects/gpfister/agentic` | `107dd11` | `master` | `git@github.com:gpfister/gp-agentic.git` |
 | **`agentic-coding-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin` | `abac50b` | `master` | `git@github.com:gpfister/agentic-coding-plugin.git` |
-| **`agentic-coding-tui`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui` | `e9e187f` | `master` | `git@github.com:gpfister/agentic-coding-tui.git` |
 | **`agentic-issue-investigation-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin` | `8f46739` | `master` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` |
 | **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `b00b2e4` | `master` | `git@github.com:gpfister/agentic-obsidian.git` |
 | **`agentic-project-documenting-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin` | `00b7d03` | `master` | `git@github.com:gpfister/agentic-project-documenting-plugin.git` |
@@ -194,42 +187,5 @@ repositories_count: 10
 - **Remote Synchronization**: All commits pushed to `origin/master` across the ecosystem.
 - **Total Suite Passing**: 135/135 automated unit tests passing workspace-wide.
 
----
-
-## 6. Phase 6: Merge & Release Execution Ledger — `agentic-coding-tui` (SPEC-TUI-TRANSPARENCY-001)
-
-> [!NOTE] Phase 6 Complete: Fast-Forward Merged to Master & Released
-> Quality review and user merge confirmation having been completed, Phase 6 (Merge & Release) was executed cleanly by `@coding-merge`.
-> - **Target Repository**: [`agentic-coding-tui`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/)
-> - **Source Branch**: `feature/transparent-terminal-background`
-> - **Target Branch**: `master`
-> - **Merge Strategy**: Fast-Forward (`git merge --ff-only`)
-> - **Branch Cleanliness**: `feature/transparent-terminal-background` deleted cleanly post-merge
-> - **Merged Commits**:
->   - [`4dea5b5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/): `feat(ui): implement transparent terminal background (SPEC-TUI-TRANSPARENCY-001)`
->   - [`e9e187f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/): `docs(ui): document transparent terminal background architecture and invariants`
-> - **Test Suite Result**: **30/30 unit tests passing on master (100% pass rate in 3.53s)**, `ruff` linter clean.
-> - **Architecture Decision**: [[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009: TUI Transparent Pass-Through Rendering Architecture]].
-> - **Feature Note**: [[features/transparent-terminal-background|Transparent Terminal Background in agentic-coding-tui]].
-> - **Release Changelog**: [[changelog|Workspace Release Changelog]].
-> - **Status**: **Released & Merged**.
-
-### 6.1 Work Items Execution Ledger
-
-| Work Item | Target Component / File | Commit Diff Summary | Test Assertion | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **WI 1: Root Screen** | [`src/agentic_coding_tui/app.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/app.py) | `Screen, AgenticCodeTUIApp { background: transparent; }` | `test_transparent_background_unified` | **COMPLETED** |
-| **WI 2: Transcript Stream & Markdown** | [`src/agentic_coding_tui/ui/transcript.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/ui/transcript.py) | Transparent stream, messages, and Pygments code block fences | `test_minimalistic_ui_styles_and_no_icons` | **COMPLETED** |
-| **WI 3: Prompt & Command Input** | [`src/agentic_coding_tui/ui/prompt_input.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/ui/prompt_input.py) | Transparent input, border-top `$primary`, transparent helper | `test_slash_command_completion_helper` | **COMPLETED** |
-| **WI 4: Task Subagent Footer** | [`src/agentic_coding_tui/ui/status_bar.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/ui/status_bar.py) | Transparent status row, border-top `$primary`, no emoji clutter | `test_minimalistic_ui_styles_and_no_icons` | **COMPLETED** |
-| **WI 5: Approval & Question Dialog** | [`src/agentic_coding_tui/ui/dialogs.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/ui/dialogs.py) | Transparent modal scrim, border `$accent`, transparent radio/button | `test_transparent_background_unified` | **COMPLETED** |
-| **WI 6: UI Test Verification** | [`tests/test_ui.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/tests/test_ui.py) | 9 UI tests passing including layout geometry & CSS rules | 30/30 passed workspace-wide | **COMPLETED** |
-
-### 6.2 Post-Merge Release Verification & Status Summary
-
-1. **Working Tree & Tracking**: `agentic-coding-tui` is on `master` with a clean working tree, ahead of `origin/master` by 2 commits (`4dea5b5`, `e9e187f`).
-2. **Branch Hygiene**: Feature branch `feature/transparent-terminal-background` was deleted cleanly post-merge.
-3. **Automated Verification**: Full test suite executed on `master`: 30/30 unit tests passing (100%), 0 failures, 0 regressions.
-4. **Documentation Alignment**: Target repository docs ([`agentic-coding-tui/README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/README.md), [`CONTRIBUTING.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/CONTRIBUTING.md)), [[features/transparent-terminal-background|Feature Note]], [[plugins/agentic-coding-tui|Application Note]], [[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009]], [[features/index|Features Index]], and [[changelog|Workspace Release Changelog]] fully synchronized.
 
 
