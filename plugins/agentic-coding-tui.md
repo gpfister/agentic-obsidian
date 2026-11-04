@@ -87,5 +87,5 @@ coding --config config/agents.yaml
 
 ## Related Features & Specifications
 
-- [[features/transparent-terminal-background|Transparent Terminal Background (Phase 2: Approved Spec SPEC-TUI-TRANSPARENCY-001)]]: Full 100% transparent pass-through background styling across all screens, streams, input boxes, footers, code fences, and dialogs (`[GATE_APPROVED]`). Preserves Truecolor (`ansi_color=False`) syntax highlighting with zero solid background clipping and minimal structural dividers (`$primary`, `$accent`).
+- [[features/transparent-terminal-background|Transparent Terminal Background (Phase 4: Developed - SPEC-TUI-TRANSPARENCY-001)]]: Full 100% transparent pass-through background styling across all screens, streams, input boxes, footers, code fences, and dialogs. Implemented in Commit [`4dea5b5`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/) across 6 work items on branch `feature/transparent-terminal-background` with 30/30 unit tests passing (100%). Preserves Truecolor (`ansi_color=False`) syntax highlighting with zero solid background clipping and minimal structural dividers (`$primary`, `$accent`). Formalized in [[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009]]. Ready for Phase 5: Review.
 
