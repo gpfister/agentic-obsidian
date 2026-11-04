@@ -1,13 +1,16 @@
 ---
 title: "Transparent Terminal Background in agentic-coding-tui"
 date: "2026-11-04"
-status: "Phase 2 Specified ([GATE_APPROVED])"
-phase: "Phase 2: Specification (Approved)"
+status: "Phase 3 Planned ([GATE_APPROVED])"
+phase: "Phase 3: Planning (Approved)"
 specification_id: "SPEC-TUI-TRANSPARENCY-001"
 target_repo: "agentic-coding-tui"
+branch: "feature/transparent-terminal-background"
+adr: "[[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009]]"
 tags:
   - feature
   - specification
+  - plan
   - approved-gate
   - ui
   - tui
@@ -30,12 +33,14 @@ affected_components:
 
 # Feature: Transparent Terminal Background in `agentic-coding-tui`
 
-> [!NOTE] Milestone: Phase 2 Specification Approved ([GATE_APPROVED])
-> - **Current Phase**: Phase 2: Specification (Approved) &rarr; Advancing to Phase 3: Planning
+> [!NOTE] Milestone: Phase 3 Implementation Plan Approved ([GATE_APPROVED])
+> - **Current Phase**: Phase 3: Planning (Approved) &rarr; Advancing to Phase 4: Development
 > - **Specification ID**: `SPEC-TUI-TRANSPARENCY-001`
-> - **Approval Status**: `[GATE_APPROVED]`
+> - **Plan Status**: `[GATE_APPROVED]`
 > - **Feature Slug**: `transparent-terminal-background`
 > - **Target Repository**: [`agentic-coding-tui`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/)
+> - **Target Git Branch**: `feature/transparent-terminal-background`
+> - **Architecture Decision Record**: [[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009: TUI Transparent Pass-Through Rendering Architecture]]
 > - **Transparency Scope**: **100% Transparent Pass-Through Everywhere**
 > - **Color & Rendering Strategy**: **Truecolor with Transparent Backgrounds** (`ansi_color=False`)
 > - **Border & Divider Strategy**: **Minimal High-Contrast Borders** (`$primary` and `$accent`)
@@ -172,7 +177,167 @@ flowchart TD
 
 ---
 
-## 4. Test & Verification Plan
+## 4. Implementation Plan & Work Item Breakdown
+
+> [!NOTE] Implementation Plan Reference: `plan.md` ([`c1503089-457e-4599-8c0f-69bec18a165b`](file:///Users/gpfister/.gemini/antigravity/brain/c1503089-457e-4599-8c0f-69bec18a165b/plan.md))
+> - **Target Repository**: [`agentic-coding-tui`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui)
+> - **Target Git Branch**: `feature/transparent-terminal-background`
+> - **Base Branch**: `master`
+> - **Architecture Decision**: [[architecture/adr-009-tui-transparent-pass-through-rendering|ADR-009: TUI Transparent Pass-Through Rendering Architecture]]
+> - **Status**: Approved (`[GATE_APPROVED]`)
+
+```mermaid
+flowchart LR
+    WI1["WI 1: Root Screen<br/>(app.py)"] --> WI2["WI 2: Transcript & Code<br/>(transcript.py)"]
+    WI2 --> WI3["WI 3: Prompt Input<br/>(prompt_input.py)"]
+    WI3 --> WI4["WI 4: Subagent Footer<br/>(status_bar.py)"]
+    WI4 --> WI5["WI 5: Modal Dialogs<br/>(dialogs.py)"]
+    WI5 --> WI6["WI 6: UI Test Verification<br/>(tests/test_ui.py)"]
+```
+
+### Work Item 1: Root Screen Transparency
+- **File**: [`src/agentic_coding_tui/app.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/app.py)
+- **Target Rules**:
+  ```css
+  Screen, AgenticCodeTUIApp {
+      layout: vertical;
+      background: transparent;
+  }
+  ```
+- **Objective**: Eliminate Textual root screen solid canvas fills, passing rendering through directly to host terminal emulator.
+
+### Work Item 2: Transcript Stream & Markdown Fence Transparency
+- **File**: [`src/agentic_coding_tui/ui/transcript.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/ui/transcript.py)
+- **Target Rules**:
+  ```css
+  TranscriptStream {
+      height: 1fr;
+      background: transparent;
+      padding: 1 2;
+      overflow-y: scroll;
+  }
+
+  TranscriptStream Markdown,
+  TranscriptStream MarkdownBlock,
+  TranscriptStream MarkdownFence,
+  TranscriptStream MarkdownTable,
+  MarkdownFence {
+      background: transparent;
+  }
+
+  .user-message, .agent-message, .thought-block, .system-status {
+      background: transparent;
+  }
+  ```
+- **Objective**: Ensure Pygments syntax-highlighted code blocks, thought traces, and agent transcripts render without solid background bounding boxes.
+
+### Work Item 3: Prompt & Command Completion Input
+- **File**: [`src/agentic_coding_tui/ui/prompt_input.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/ui/prompt_input.py)
+- **Target Rules**:
+  ```css
+  PromptInput, TopPromptInput {
+      height: auto;
+      background: transparent;
+      padding: 0 1;
+      border-top: solid $primary;
+  }
+
+  #completion-helper {
+      height: auto;
+      background: transparent;
+      color: $text-muted;
+  }
+
+  #prompt-input, CommandInput {
+      width: 100%;
+      height: 1;
+      background: transparent;
+      border: none;
+      padding: 0;
+  }
+
+  #prompt-input:focus, CommandInput:focus {
+      border: none;
+      background: transparent;
+  }
+  ```
+- **Objective**: Retain clean single-line `$primary` divider while removing input field background fills during unfocused and focused states.
+
+### Work Item 4: Task Subagent Footer
+- **File**: [`src/agentic_coding_tui/ui/status_bar.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/ui/status_bar.py)
+- **Target Rules**:
+  ```css
+  TaskSubagentFooter {
+      height: 2;
+      background: transparent;
+      border-top: solid $primary;
+      padding: 0 1;
+  }
+
+  #status-row {
+      background: transparent;
+  }
+  ```
+- **Objective**: Transparent bottom status row bounded by a subtle `$primary` horizontal top divider line.
+
+### Work Item 5: Approval & Question Dialog Modal
+- **File**: [`src/agentic_coding_tui/ui/dialogs.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/src/agentic_coding_tui/ui/dialogs.py)
+- **Target Rules**:
+  ```css
+  AskQuestionDialog {
+      align: center middle;
+      background: transparent;
+  }
+
+  #dialog-box {
+      width: 70;
+      height: auto;
+      max-height: 24;
+      background: transparent;
+      border: solid $accent;
+      padding: 1 2;
+  }
+
+  #options-container, RadioSet, RadioButton {
+      background: transparent;
+  }
+
+  RadioSet:focus, RadioButton:focus {
+      background: transparent;
+  }
+
+  #dialog-buttons {
+      align: right middle;
+      height: 3;
+      background: transparent;
+  }
+
+  Button {
+      margin-left: 1;
+      background: transparent;
+      border: tall $primary;
+  }
+
+  Button:focus {
+      background: transparent;
+      border: tall $accent;
+  }
+  ```
+- **Objective**: Strip opaque modal backdrop and fill colors, framing dialog cleanly with an accent border and transparent option/button widgets.
+
+### Work Item 6: Test Suite Updates & CSS Verification
+- **File**: [`tests/test_ui.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/tests/test_ui.py)
+- **Target Additions**:
+  - `test_screen_and_app_transparency`: Verify `Screen` has `background: transparent`.
+  - `test_transcript_markdown_transparency`: Verify `Markdown`, `MarkdownBlock`, and `MarkdownFence` transparent CSS rules.
+  - `test_prompt_input_transparency`: Verify `PromptInput` and `CommandInput` focus transparent CSS rules.
+  - `test_footer_transparency`: Verify `TaskSubagentFooter` and `#status-row` transparent CSS rules.
+  - `test_dialog_transparency`: Verify `AskQuestionDialog`, `#dialog-box`, `RadioSet`, and `Button` transparent CSS rules.
+  - `test_app_run_with_transparent_theme`: Async headless Textual test verifying clean mounting and execution without layout crash.
+
+---
+
+## 5. Test & Verification Plan
 
 Verification of `SPEC-TUI-TRANSPARENCY-001` is automated via [`tests/test_ui.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/tests/test_ui.py):
 
@@ -181,11 +346,20 @@ Verification of `SPEC-TUI-TRANSPARENCY-001` is automated via [`tests/test_ui.py`
 | **`test_minimalistic_ui_styles_and_no_icons`** | Verifies `background: transparent`, `border-top: solid $primary`, `border: none` across `PromptInput` and `TaskSubagentFooter`. | Passes (verified in CSS definitions) |
 | **`test_transparent_background_unified`** | Asserts `background: transparent` in `AgenticCodeTUIApp.CSS` and `AskQuestionDialog.DEFAULT_CSS`. | Passes (verified in CSS definitions) |
 | **`test_app_layout_prompt_below_conversation`** | Runs headless Textual app via pilot and verifies stream -> prompt -> footer vertical geometry. | Passes (verified layout regions) |
+| **`test_transcript_markdown_transparency`** | Asserts `MarkdownFence` and `MarkdownBlock` specify `background: transparent;`. | Passes (verified in CSS definitions) |
+| **`test_dialog_transparency`** | Asserts modal overlay, dialog box, radio options, and buttons specify `background: transparent;`. | Passes (verified in CSS definitions) |
 | **Truecolor Code Highlighting Verification** | Checks Pygments theme configuration to ensure code fences do not emit solid canvas rectangles. | Validated in renderer pipelines |
+
+### Execution Commands
+```bash
+cd /Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui
+uv run pytest -v tests/test_ui.py
+uv run pytest -v
+```
 
 ---
 
-## 5. Scope Boundaries
+## 6. Scope Boundaries
 
 ### In Scope
 1. Enforcing `background: transparent;` across all application screens, widgets, inputs, scroll containers, and dialogs.
@@ -201,7 +375,7 @@ Verification of `SPEC-TUI-TRANSPARENCY-001` is automated via [`tests/test_ui.py`
 
 ---
 
-## 6. Lifecycle Phase Tracking & Handoff
+## 7. Lifecycle Phase Tracking & Handoff
 
 | Step | Owner | Description | Status |
 | :--- | :--- | :--- | :--- |
@@ -209,7 +383,8 @@ Verification of `SPEC-TUI-TRANSPARENCY-001` is automated via [`tests/test_ui.py`
 | **Phase 1: Documentation** | `@coding-document` | Index clarified requirements in Obsidian knowledge vault (`agentic-obsidian/features/transparent-terminal-background.md`). | **Completed** |
 | **Phase 2: Specification** | `@coding-specify` | Produce formal technical contract `SPEC-TUI-TRANSPARENCY-001` with interactive approval gate. | **Approved (`[GATE_APPROVED]`)** |
 | **Phase 2: Documentation** | `@coding-document` | Index approved specification in Obsidian knowledge vault (`agentic-obsidian/features/transparent-terminal-background.md`). | **Completed** |
-| **Phase 3: Planning** | `@coding-plan` | Author step-by-step implementation plan `plan.md`. | **Awaiting Handoff** |
-| **Phase 4: Development** | `@coding-develop` | Apply transparent CSS rules and update Textual UI tests. | Pending |
+| **Phase 3: Planning** | `@coding-plan` | Author step-by-step implementation plan `plan.md` (6 Work Items). | **Approved (`[GATE_APPROVED]`)** |
+| **Phase 3: Documentation** | `@coding-document` | Document implementation plan, work breakdown, and formalize [[architecture/adr-009-tui-transparent-pass-through-rendering\|ADR-009]]. | **Completed** |
+| **Phase 4: Development** | `@coding-develop` | Apply transparent CSS rules and update Textual UI tests. | **Ready / Active Handoff** |
 | **Phase 5: Review** | `@coding-review` | Audit UI changes against specification and run test suites. | Pending |
 | **Phase 6: Merge & Release** | `@coding-merge` | Merge feature branch to master and update release changelogs. | Pending |

@@ -85,6 +85,7 @@ flowchart TD
 | [`agentic-prompt-triage-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) | Dynamic Laya Router System 1 prompt triage hook adapting to installed plugins. |
 | [`agentic-task-monitoring-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | Telemetry and stream surveillance companion (`@coding-monitor`). |
 | [`agentic-topic-researching-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | Deep web and literature research companion (`@coding-research`). |
+| [`agentic-coding-tui/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-tui/) | Standalone terminal user interface (TUI) integrating Textual, Google ADK workflows, and dynamic prompt triage. |
 
 ---
 
@@ -96,3 +97,5 @@ flowchart TD
 | [[architecture/adr-002-agent-display-names-and-plugin-renames\|ADR-002]] | Agent Display Names Standardization & Dual Plugin Repository Rename | Accepted |
 | [[architecture/adr-003-project-grooming-plugin\|ADR-003]] | Project Grooming Architecture, Skill-Only Execution, Grilling Protocol, Interactive Approval Gate, and Cross-Plugin Delegation | Accepted |
 | [[architecture/adr-004-standardize-plugin-repository-names\|ADR-004]] | Standardize Antigravity Plugin Repository Names to Descriptive Action Grammar | Accepted |
+| [[architecture/adr-008-agentic-code-tui-architecture\|ADR-008]] | Agentic Coding TUI Architecture: Textual UI, Google ADK Workflows, and Antigravity Agent Binding | Accepted |
+| [[architecture/adr-009-tui-transparent-pass-through-rendering\|ADR-009]] | TUI Transparent Pass-Through Rendering Architecture in agentic-coding-tui | Accepted |
