@@ -82,3 +82,10 @@ make run
 # or
 coding --config config/agents.yaml
 ```
+
+---
+
+## Related Features & Specifications
+
+- [[features/transparent-terminal-background|Transparent Terminal Background (Phase 2: Approved Spec SPEC-TUI-TRANSPARENCY-001)]]: Full 100% transparent pass-through background styling across all screens, streams, input boxes, footers, code fences, and dialogs (`[GATE_APPROVED]`). Preserves Truecolor (`ansi_color=False`) syntax highlighting with zero solid background clipping and minimal structural dividers (`$primary`, `$accent`).
+
