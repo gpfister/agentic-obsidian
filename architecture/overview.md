@@ -14,7 +14,7 @@ The **Agentic** workspace is designed to author, test, and maintain a federation
 ### Key Tenets
 1. **Multi-Repo Federation**: Each plugin is self-contained with its own Git history, `uv`-managed virtual environment, tests, and configuration. The parent directory acts as an orchestrator.
 2. **Declarative Multi-Agent Orchestration**: Plugins define specialized subagents as markdown files (`agents/*.md`) registered at `SessionStart` and routed at `PreInvocation` via the **Laya Router** System 1 classifier.
-3. **Interactive Artifact Gates**: Key lifecycle milestones (`specification.md`, `plan.md`, `issue-assessment.md`) use Antigravity's interactive `RequestFeedback=True` approval modals before advancing execution.
+3. **Interactive Artifact Gates & Relay Protocols**: Key lifecycle milestones (`specification.md`, `plan.md`, `issue-assessment.md`) use Antigravity's interactive `RequestFeedback=True` approval modals at the root orchestrator level, relayed via standardized protocol envelopes to avoid subagent execution timeouts.
 4. **Knowledge Continuity**: Agent interactions, reasoning steps, tool usage, and generated artifacts from both `~/.gemini/antigravity/brain` and `~/.gemini/antigravity-cli/brain` are exported to `agentic-obsidian/sessions/` using structured callouts and frontmatter metadata.
 5. **Progressive Disclosure**: Skills and rules adhere strictly to Antigravity guidelines, minimizing context overhead while providing targeted guidance.
 6. **Standard Antigravity Packaging**: All plugins comply with native manifest and lifecycle specs (`plugin.json`, `agents/`, `rules/AGENTS.md`, `skills/`, `hooks.json`, `mcp_config.json`).
@@ -97,3 +97,4 @@ flowchart TD
 | [[architecture/adr-003-project-grooming-plugin\|ADR-003]] | Project Grooming Architecture, Skill-Only Execution, Grilling Protocol, Interactive Approval Gate, and Cross-Plugin Delegation | Accepted |
 | [[architecture/adr-004-standardize-plugin-repository-names\|ADR-004]] | Standardize Antigravity Plugin Repository Names to Descriptive Action Grammar | Accepted |
 | [[architecture/adr-005-question-relay-protocol\|ADR-005]] | Question Relay Protocol for Subagent User Inquiries | Accepted |
+| [[architecture/adr-006-artifact-approval-relay-protocol\|ADR-006]] | Artifact Approval Relay Protocol for Subagent Approval Gates | Accepted |

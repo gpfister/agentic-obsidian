@@ -1,0 +1,1 @@
+../architecture/adr-006-artifact-approval-relay-protocol.md
