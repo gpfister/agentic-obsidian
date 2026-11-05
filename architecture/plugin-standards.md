@@ -91,3 +91,12 @@ To prevent the Antigravity host runtime **60-second execution timeout** on backg
 - **Pure Subagents** (`@coding-clarify`, `@coding-deploy`, `@coding-review`): Never declare or invoke `ask_question`. Inquiries are dispatched to the parent caller via `send_message` wrapped in `[QUESTION_RELAY_REQUEST]`.
 - **Dual-Mode Agents** (`@coding-investigate`, `/project-grooming`, `@coding-monitor`, `@coding-research`): Check for caller ID. If running under a caller, relay questions via `[QUESTION_RELAY_REQUEST]`; if running standalone at session root, prompt via `ask_question`.
 - **Top-Level Orchestrators** (`@coding` and root agents): Intercept `[QUESTION_RELAY_REQUEST]`, prompt the user with `ask_question` in the root turn (unconstrained by timeouts), and return `[QUESTION_RELAY_RESPONSE]` to the subagent via `send_message`. See [[architecture/adr-005-question-relay-protocol|ADR-005]].
+
+---
+
+## 8. Subagent Artifact Approval Gates & Artifact Approval Relay Protocol (ADR-006)
+
+To prevent the Antigravity host runtime **60-second execution timeout** on background subagents presenting interactive artifacts:
+- **Pure Subagents** (`@coding-specify`, `@coding-plan`, `@coding-deploy`): Author deliverables directly to disk without `RequestFeedback=True` (or omitting `ArtifactMetadata`). Relay interactive gate presentation via `send_message` wrapped in `[ARTIFACT_APPROVAL_REQUEST]` to `caller_id`. Enter idle state and await reactive wakeup upon receiving `[ARTIFACT_APPROVAL_RESPONSE]`.
+- **Dual-Mode Subagents** (`@coding-investigate`, `/project-grooming`, `@coding-research`): Check for caller ID. If running under a caller (`caller_id` present), author file on disk and dispatch `[ARTIFACT_APPROVAL_REQUEST]` via `send_message`; if running standalone at session root without caller context, author file with `RequestFeedback=True` as the sole and final tool call of the turn.
+- **Top-Level Orchestrators** (`@coding` and root agents): Intercept `[ARTIFACT_APPROVAL_REQUEST]`, inspect deliverable on disk, present interactive approval gate with `write_file(RequestFeedback=True)` in the root turn (unconstrained by timeouts), and return `[ARTIFACT_APPROVAL_RESPONSE]` (`status: "APPROVED"` or `"REJECTED"` with user feedback) to the subagent via `send_message`. See [[architecture/adr-006-artifact-approval-relay-protocol|ADR-006]] and [[architecture/artifact-approval-relay-protocol|Architecture Plan]].
