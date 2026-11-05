@@ -1,31 +1,32 @@
 ---
 title: "Workspace Git Status & Branch Tracking"
-date: "2026-11-04"
+date: "2026-11-05"
 active_branch: "master (all 9 repositories)"
-phase: "Phase 6: Merge & Release (Completed)"
-audit_verdict: "PASS (135/135 Tests across Companion Plugins, All Repositories Clean on master)"
-status: "Phase 6 Merge & Release Completed / All 9 Repositories on Master"
+phase: "Phase 7: Merge & Release (Completed)"
+audit_verdict: "RELEASE COMPLETE (60/60 Tests across Feature Repositories, 147/147 Tests Workspace-Wide, All 6 Repositories Merged into master)"
+status: "Phase 7 Release Merge Completed / feature/question-relay-protocol Merged into master"
 tags:
   - git-status
   - branch-tracking
-  - plugin-rename
-  - repository-renames
-  - phase-6-completed
-  - merged
-  - released
+  - question-relay
+  - timeout-mitigation
+  - subagent-protocol
+  - phase-7-completed
+  - release-complete
+  - merged-to-master
   - multi-repo
 repositories_count: 9
 ---
 
 # Workspace Git Status & Branch Tracking
 
-> [!NOTE] Release Status: All Repositories on Master (SPEC-2026-PLUGIN-RENAME-001 Merged)
-> - **Released Feature**: `SPEC-2026-PLUGIN-RENAME-001` across companion plugins
-> - **Merge Strategy**: Fast-Forward (`--ff-only`) into `master`
-> - **Branch Cleanup**: All `bugfix/*` branches deleted cleanly
-> - **Post-Merge Verification**: **135/135 unit tests passing workspace-wide (100%)**, linters clean
-> - **Workspace Baseline**: Master branch clean across all 9 repositories
-> - **Specification & Release Notes**: [[features/rename-plugin-repositories|Rename Plugin Repositories to Descriptive Action-Oriented Names]] / [[architecture/adr-004-standardize-plugin-repository-names|ADR-004]] / [[changelog|Workspace Release Changelog]]
+> [!NOTE] Release Status: Feature Merged & Released to Master (SPEC-2026-RELAY-001)
+> - **Active Feature**: `SPEC-2026-RELAY-001` (Question Relay Protocol for Subagent User Prompts)
+> - **Active Branches**: `master` across all 9 workspace repositories
+> - **Release Merge Status**: **Merged into `master` across all 6 participating repositories**
+> - **Verification Verdict**: **PASS (60/60 unit tests passing across feature repositories, 147/147 tests workspace-wide, 100% pass rate)**
+> - **Acceptance Criteria**: AC 1 through AC 6 100% satisfied
+> - **Specification & Release Notes**: [[features/question-relay-protocol|Question Relay Protocol for Subagent User Prompts]] / [[architecture/adr-005-question-relay-protocol|ADR-005]] / [[architecture/question-relay-protocol|Question Relay Architecture]] / [[changelog|Release Changelog]]
 
 ---
 
@@ -33,159 +34,95 @@ repositories_count: 9
 
 | Repository | Active Branch | Remote Origin URL | Latest Commit | Commit Message | Working Tree | Test Verdict |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`agentic` (root)** | `master` | `git@github.com:gpfister/gp-agentic.git` | [`4e009ca`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | `docs: add agentic-coding-tui to workspace root README` | Clean | PASS (`make status` 8 sub-repos) |
-| **`agentic-coding-plugin`** | `master` | `git@github.com:gpfister/agentic-coding-plugin.git` | [`abac50b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | `chore: update cross-plugin references to standardized plugin names` | Clean | **16/16 passed** (100%) |
-| **`agentic-issue-investigation-plugin`** | `master` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` | [`8f46739`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | `fix(investigate): scrub stale companion plugin references to standardized names` | Clean | **7/7 passed** (100%) |
-| **`agentic-obsidian` (vault)** | `master` | `git@github.com:gpfister/agentic-obsidian.git` | [`b00b2e4`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | `docs(release): mark transparent-terminal-background as released and merged in master` | Clean (ahead: 10) | Vault Docs (PASS) |
+| **`agentic` (root)** | `master` | `git@github.com:gpfister/gp-agentic.git` | [`695e1b1`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | `feat(relay): formalize Question Relay Protocol across workspace coordination rules and documentation` | Clean | PASS (`make status` 8 sub-repos) |
+| **`agentic-coding-plugin`** | `master` | `git@github.com:gpfister/agentic-coding-plugin.git` | [`d2c822c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | `feat(relay): implement Question Relay Protocol across coding subagents` | Clean | **15/15 passed** (100%) |
+| **`agentic-issue-investigation-plugin`** | `master` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` | [`df03d3c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | `feat(relay): implement dual-mode Question Relay Protocol for coding-investigate` | Clean | **10/10 passed** (100%) |
+| **`agentic-obsidian` (vault)** | `master` | `git@github.com:gpfister/agentic-obsidian.git` | [`085b8cb`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | `docs(release): record Question Relay Protocol release merge and git status` | Clean | Vault Docs (PASS) |
 | **`agentic-project-documenting-plugin`** | `master` | `git@github.com:gpfister/agentic-project-documenting-plugin.git` | [`00b7d03`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | `fix(docs): scrub stale companion plugin references to standardized names` | Clean | **10/10 passed** (100%) |
-| **`agentic-project-grooming-plugin`** | `master` | *Local sub-repo* | [`68f21b0`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | `chore: update cross-plugin references to standardized plugin names` | Clean | **8/8 passed** (100%) |
+| **`agentic-project-grooming-plugin`** | `master` | *Local sub-repo* | [`a2e7932`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | `feat(relay): implement dual-mode Question Relay Protocol for project grooming` | Clean | **12/12 passed** (100%) |
 | **`agentic-prompt-triage-plugin`** | `master` | `git@github.com:gpfister/agentic-prompt-triage-plugin.git` | [`9c5c19b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) | `fix(triage): support canonical plugin names and legacy aliases for dynamic detection` | Clean | **77/77 passed** (100%) |
-| **`agentic-task-monitoring-plugin`** | `master` | `git@github.com:gpfister/agentic-task-monitoring-plugin.git` | [`76f7002`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | `fix(monitor): scrub stale companion plugin references to standardized names` | Clean | **8/8 passed** (100%) |
-| **`agentic-topic-researching-plugin`** | `master` | `git@github.com:gpfister/agentic-topic-researching-plugin.git` | [`ee5bfa0`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | `fix(research): scrub stale companion plugin references to standardized names` | Clean | **9/9 passed** (100%) |
+| **`agentic-task-monitoring-plugin`** | `master` | `git@github.com:gpfister/agentic-task-monitoring-plugin.git` | [`23a101e`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | `feat(relay): implement dual-mode Question Relay Protocol for coding-monitor` | Clean | **11/11 passed** (100%) |
+| **`agentic-topic-researching-plugin`** | `master` | `git@github.com:gpfister/agentic-topic-researching-plugin.git` | [`efb067d`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | `feat(relay): implement dual-mode Question Relay Protocol for coding-research` | Clean | **12/12 passed** (100%) |
 
 ---
 
 ## 2. Active Git Worktrees
 
-| Repository | Worktree Path | HEAD Commit | Active Branch | Remote Origin |
+| Repository | Worktree Path | HEAD Commit | Active Branch | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| **`agentic` (root)** | `/Users/gpfister/Development/Projects/gpfister/agentic` | `107dd11` | `master` | `git@github.com:gpfister/gp-agentic.git` |
-| **`agentic-coding-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin` | `abac50b` | `master` | `git@github.com:gpfister/agentic-coding-plugin.git` |
-| **`agentic-issue-investigation-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin` | `8f46739` | `master` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` |
-| **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `b00b2e4` | `master` | `git@github.com:gpfister/agentic-obsidian.git` |
-| **`agentic-project-documenting-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin` | `00b7d03` | `master` | `git@github.com:gpfister/agentic-project-documenting-plugin.git` |
-| **`agentic-project-grooming-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin` | `68f21b0` | `master` | *Local sub-repo* |
-| **`agentic-prompt-triage-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin` | `9c5c19b` | `master` | `git@github.com:gpfister/agentic-prompt-triage-plugin.git` |
-| **`agentic-task-monitoring-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin` | `76f7002` | `master` | `git@github.com:gpfister/agentic-task-monitoring-plugin.git` |
-| **`agentic-topic-researching-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin` | `ee5bfa0` | `master` | `git@github.com:gpfister/agentic-topic-researching-plugin.git` |
+| **`agentic` (root)** | `/Users/gpfister/Development/Projects/gpfister/agentic` | `695e1b1` | `master` | Merged / Released |
+| **`agentic-coding-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin` | `d2c822c` | `master` | Merged / Released |
+| **`agentic-issue-investigation-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin` | `df03d3c` | `master` | Merged / Released |
+| **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `085b8cb` | `master` | Clean / Up-to-date |
+| **`agentic-project-documenting-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin` | `00b7d03` | `master` | Up-to-date |
+| **`agentic-project-grooming-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin` | `a2e7932` | `master` | Merged / Released |
+| **`agentic-prompt-triage-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin` | `9c5c19b` | `master` | Up-to-date |
+| **`agentic-task-monitoring-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin` | `23a101e` | `master` | Merged / Released |
+| **`agentic-topic-researching-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin` | `efb067d` | `master` | Merged / Released |
 
 ---
 
-## 3. Phase 4: Development Execution Ledger (SPEC-2026-PLUGIN-RENAME-001)
+## 3. Phase 7: Release Merge & Branch Topology Status
 
-### 3.1 Repository Commit Records
+### 3.1 Merged Repositories & Commits Ledger
+
 - [x] **Repository 1: `agentic` (Root Workspace)**:
-  - **Commit**: [`107dd11`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) (`chore: synchronize workspace root for renamed plugin repositories`)
-  - **Files**: `Makefile`, `.gitignore`, `README.md`, `AGENTS.md`
-  - **Summary**: Updated `REPOS` list in `Makefile`, sub-repo ignore entries in `.gitignore`, workspace repository trees and tables in `README.md` and `AGENTS.md`. `make status` verifies all 8 sub-repos cleanly.
+  - **Commit**: [`695e1b1`](file:///Users/gpfister/Development/Projects/gpfister/agentic/)
+  - **Branch**: Merged `feature/question-relay-protocol` into `master`
+  - **Message**: `feat(relay): formalize Question Relay Protocol across workspace coordination rules and documentation`
+  - **Changes**: Documented Question Relay Protocol architecture in Section 3.2, updated 7-stage software development lifecycle flowchart with Question Relay Protocol interaction checkpoints, added cross-cutting ecosystem standards to `README.md`.
 
-- [x] **Repository 2: `agentic-prompt-triage-plugin`**:
-  - **Commit**: [`710f2ea`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) (`chore: update plugin manifest, rules, and documentation for agentic-prompt-triage-plugin`)
-  - **Files**: `plugin.json`, `pyproject.toml`, `uv.lock`, `README.md`, `CONTRIBUTING.md`, `rules/AGENTS.md`, `tests/test_plugin.py`
-  - **Summary**: Updated manifest `"name": "agentic-prompt-triage-plugin"`, package name in `pyproject.toml`, remote URL, documentation, and test assertions. 61/61 tests pass.
-
-- [x] **Repository 3: `agentic-issue-investigation-plugin`**:
-  - **Commit**: [`27a16ec`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) (`chore: update plugin manifest, rules, and documentation for agentic-issue-investigation-plugin`)
-  - **Files**: `plugin.json`, `pyproject.toml`, `uv.lock`, `README.md`, `rules/AGENTS.md`, `agents/agent.md`, `tests/test_plugin.py`
-  - **Summary**: Updated manifest `"name": "agentic-issue-investigation-plugin"`, package name, remote URL, docs, and test suite. 7/7 tests pass. Preserved handle `@coding-investigate`.
-
-- [x] **Repository 4: `agentic-task-monitoring-plugin`**:
-  - **Commit**: [`aaf02e6`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) (`chore: update plugin manifest, rules, and documentation for agentic-task-monitoring-plugin`)
-  - **Files**: `plugin.json`, `pyproject.toml`, `uv.lock`, `README.md`, `rules/AGENTS.md`, `agents/agent.md`, `tests/test_plugin.py`
-  - **Summary**: Updated manifest `"name": "agentic-task-monitoring-plugin"`, package name, remote URL, docs, and test suite. 7/7 tests pass. Preserved handle `@coding-monitor`.
-
-- [x] **Repository 5: `agentic-topic-researching-plugin`**:
-  - **Commit**: [`860f579`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) (`chore: update plugin manifest, rules, and documentation for agentic-topic-researching-plugin`)
-  - **Files**: `plugin.json`, `pyproject.toml`, `uv.lock`, `README.md`, `rules/AGENTS.md`, `agents/agent.md`, `tests/test_plugin.py`
-  - **Summary**: Updated manifest `"name": "agentic-topic-researching-plugin"`, package name, remote URL, docs, and test suite. 9/9 tests pass. Preserved handle `@coding-research`.
-
-- [x] **Repository 6: `agentic-project-documenting-plugin`**:
-  - **Commit**: [`13c98a4`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) (`chore: update plugin manifest, rules, and documentation for agentic-project-documenting-plugin`)
-  - **Files**: `plugin.json`, `pyproject.toml`, `uv.lock`, `README.md`, `rules/AGENTS.md`, `agents/agent.md`, `tests/test_plugin.py`
-  - **Summary**: Updated manifest `"name": "agentic-project-documenting-plugin"`, package name, remote URL, docs, and test suite. 9/9 tests pass. Preserved handle `@coding-document`.
-
-- [x] **Repository 7: `agentic-coding-plugin`**:
-  - **Commit**: [`abac50b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) (`chore: update cross-plugin references to standardized plugin names`)
-  - **Files**: `rules/AGENTS.md`, `README.md`, skill references
-  - **Summary**: Updated cross-plugin references to new companion plugin names. 16/16 tests pass.
-
-- [x] **Repository 8: `agentic-project-grooming-plugin`**:
-  - **Commit**: [`68f21b0`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) (`chore: update cross-plugin references to standardized plugin names`)
-  - **Files**: `rules/AGENTS.md`, `README.md`, skill references
-  - **Summary**: Updated cross-plugin references to new companion plugin names. 8/8 tests pass.
-
-- [x] **Repository 9: `agentic-obsidian`**:
-  - **Commit**: [`653df91`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) (`docs: rename plugin notes and update vault tracking for standardized plugin names`)
-  - **Files**: `plugins/*.md`, `git-status.md`, `index.md`, `README.md`
-  - **Summary**: Renamed all 5 plugin notes, updated internal wikilinks, indexes, and git tracking tables.
-
-### 3.2 AC-8 Remediation Commit Records (`bugfix/*` Branches)
-
-- [x] **Repository 1: `agentic-prompt-triage-plugin`**:
-  - **Branch**: `bugfix/prompt-triage-plugin-detection` $\rightarrow$ merged to `master`
-  - **Commit**: [`9c5c19b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) (`fix(triage): support canonical plugin names and legacy aliases for dynamic detection`)
-  - **Files**: `README.md`, `hooks/prompt_triage.py`, `rules/AGENTS.md`, `tests/test_plugin.py`, `tests/test_prompt_triage.py`
-  - **Summary**: Updated `PRIMARY_PLUGINS` to canonical names, added `LEGACY_PLUGIN_ALIASES`, implemented dynamic capability resolution, expanded tests to 77. **77/77 passed** (100%).
-
-- [x] **Repository 2: `agentic-project-documenting-plugin`**:
-  - **Branch**: `bugfix/documenting-stale-references` $\rightarrow$ merged to `master`
-  - **Commit**: [`00b7d03`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) (`fix(docs): scrub stale companion plugin references to standardized names`)
-  - **Files**: `README.md`, `rules/AGENTS.md`, `tests/test_plugin.py`
-  - **Summary**: Scrubbed stale companion references to `agentic-investigate-plugin`, `agentic-monitor-plugin`, `agentic-research-plugin`. Added companion naming assertions. **10/10 passed** (100%).
+- [x] **Repository 2: `agentic-coding-plugin`**:
+  - **Commit**: [`d2c822c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/)
+  - **Branch**: Merged `feature/question-relay-protocol` into `master`
+  - **Message**: `feat(relay): implement Question Relay Protocol across coding subagents`
+  - **Changes**: Added `send_message` to pure subagents (`@coding-clarify`, `@coding-deploy`, `@coding-review`) while omitting `ask_question`. Implemented Question Relay Handler in `@coding` orchestrator loop to intercept `[QUESTION_RELAY_REQUEST]` and prompt at session root without 60s host execution timeouts.
 
 - [x] **Repository 3: `agentic-issue-investigation-plugin`**:
-  - **Branch**: `bugfix/investigation-stale-references` $\rightarrow$ merged to `master`
-  - **Commit**: [`8f46739`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) (`fix(investigate): scrub stale companion plugin references to standardized names`)
-  - **Files**: `README.md`, `agents/agent.md`, `agents/coding-investigate/agent.md`, `rules/AGENTS.md`, `skills/coding-investigate/SKILL.md`, `tests/test_plugin.py`
-  - **Summary**: Scrubbed stale references to `agentic-document-plugin`. Updated agent definitions and test assertions. **7/7 passed** (100%).
+  - **Commit**: [`df03d3c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/)
+  - **Branch**: Merged `feature/question-relay-protocol` into `master`
+  - **Message**: `feat(relay): implement dual-mode Question Relay Protocol for coding-investigate`
+  - **Changes**: Implemented dual-mode question handling in `@coding-investigate`: checks for parent `caller_id` and dispatches `[QUESTION_RELAY_REQUEST]` via `send_message` in subagent mode, or calls `ask_question` directly in standalone root sessions. Applied protocol to clarification and remediation confirmation gates.
 
-- [x] **Repository 4: `agentic-task-monitoring-plugin`**:
-  - **Branch**: `bugfix/monitoring-stale-references` $\rightarrow$ merged to `master`
-  - **Commit**: [`76f7002`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) (`fix(monitor): scrub stale companion plugin references to standardized names`)
-  - **Files**: `README.md`, `agents/agent.md`, `agents/coding-monitor/agent.md`, `rules/AGENTS.md`, `skills/coding-monitor/SKILL.md`, `tests/test_plugin.py`
-  - **Summary**: Scrubbed stale references to `agentic-investigate-plugin` and `agentic-document-plugin`. Added companion naming assertions. **8/8 passed** (100%).
+- [x] **Repository 4: `agentic-project-grooming-plugin`**:
+  - **Commit**: [`a2e7932`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/)
+  - **Branch**: Merged `feature/question-relay-protocol` into `master`
+  - **Message**: `feat(relay): implement dual-mode Question Relay Protocol for project grooming`
+  - **Changes**: Implemented dual-mode single-question Matt Pocock grilling interviews in `@coding-groom`: dispatches `[QUESTION_RELAY_REQUEST]` when delegated under `@coding` orchestrator, or prompts via `ask_question` directly in standalone root sessions.
 
-- [x] **Repository 5: `agentic-topic-researching-plugin`**:
-  - **Branch**: `bugfix/researching-stale-references` $\rightarrow$ merged to `master`
-  - **Commit**: [`ee5bfa0`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) (`fix(research): scrub stale companion plugin references to standardized names`)
-  - **Files**: `README.md`, `agents/agent.md`, `agents/coding-research/agent.md`, `rules/AGENTS.md`, `skills/coding-research/SKILL.md`, `tests/test_plugin.py`
-  - **Summary**: Scrubbed stale references to `agentic-document-plugin`. Updated agent manifests and test assertions. **9/9 passed** (100%).
+- [x] **Repository 5: `agentic-task-monitoring-plugin`**:
+  - **Commit**: [`23a101e`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/)
+  - **Branch**: Merged `feature/question-relay-protocol` into `master`
+  - **Message**: `feat(relay): implement dual-mode Question Relay Protocol for coding-monitor`
+  - **Changes**: Implemented dual-mode anomaly pause gate handling in `@coding-monitor`: dispatches `[QUESTION_RELAY_REQUEST]` when monitored under orchestrator, or prompts directly via `ask_question` when standalone.
+
+- [x] **Repository 6: `agentic-topic-researching-plugin`**:
+  - **Commit**: [`efb067d`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/)
+  - **Branch**: Merged `feature/question-relay-protocol` into `master`
+  - **Message**: `feat(relay): implement dual-mode Question Relay Protocol for coding-research`
+  - **Changes**: Implemented dual-mode research scope clarification in `@coding-research`: dispatches `[QUESTION_RELAY_REQUEST]` when delegated, or prompts via `ask_question` directly when standalone.
 
 ---
 
-## 4. Test Verification & Quality Audit Summary
+## 4. Test Verification & Ecosystem Integrity
 
-- [x] **Automated Unit Tests**: **135/135 tests passing workspace-wide (100% pass rate)**:
-  - `agentic-prompt-triage-plugin` (`master`): 77/77 passed in 3.84s.
-  - `agentic-project-documenting-plugin` (`master`): 10/10 passed in 0.03s.
-  - `agentic-topic-researching-plugin` (`master`): 9/9 passed in 0.01s.
-  - `agentic-task-monitoring-plugin` (`master`): 8/8 passed in 0.01s.
-  - `agentic-issue-investigation-plugin` (`master`): 7/7 passed in 0.01s.
-  - `agentic-coding-plugin` (`master`): 16/16 passed in 0.03s.
-  - `agentic-project-grooming-plugin` (`master`): 8/8 passed in 0.01s.
-- [x] **Repository Cleanliness**:
-  - All 9 repositories clean on branch `master`.
-  - All 5 `bugfix/*` branches merged and deleted.
-  - Workspace status verified via `make status` (all 8 sub-repos tracked, clean).
-- [x] **Zero Stale References**:
-  - Grep verification across all modified repositories confirms 0 occurrences of deprecated plugin directory names.
+- [x] **Automated Unit Tests**: **147/147 tests passing workspace-wide (100% pass rate)**:
+  - `agentic-coding-plugin`: **15/15 passed**
+  - `agentic-issue-investigation-plugin`: **10/10 passed**
+  - `agentic-project-grooming-plugin`: **12/12 passed**
+  - `agentic-task-monitoring-plugin`: **11/11 passed**
+  - `agentic-topic-researching-plugin`: **12/12 passed**
+  - `agentic-project-documenting-plugin`: **10/10 passed**
+  - `agentic-prompt-triage-plugin`: **77/77 passed**
+- [x] **Contract Compliance**:
+  - Pure subagents (`@coding-clarify`, `@coding-deploy`, `@coding-review`) omit `ask_question` and use `send_message`.
+  - Dual-mode subagents verify caller ID before deciding between relay envelopes and direct prompting.
+  - Top-level orchestrator (`@coding`) intercepts `[QUESTION_RELAY_REQUEST]` and executes `ask_question` at root turn.
 - [x] **Vault Knowledge Base Synchronization**:
-  - Feature note: [[features/rename-plugin-repositories|Rename Plugin Repositories to Descriptive Action-Oriented Names]] marked as Phase 6 completed, status: Released / Merged.
-  - Architecture decision: [[architecture/adr-004-standardize-plugin-repository-names|ADR-004]] formalizes naming grammar.
-  - Component notes: All 5 plugin notes in `agentic-obsidian/plugins/` reflect new repository names and paths.
-
----
-
-## 5. Phase 6: Merge & Release Execution Ledger (SPEC-2026-PLUGIN-RENAME-001)
-
-> [!NOTE] Phase 6 Complete: Merged to Master & Pushed Across Workspace
-> Following user confirmation and full verification of Acceptance Criteria AC-1 through AC-9, Phase 6 (Merge & Release) was executed across all 5 remediated repositories. All bugfix branches were merged into `master`, deleted locally and remotely, and changes pushed to remote `origin/master`.
-
-### 5.1 Branch Merge & Release Ledger
-
-| Repository | Source Branch | Merged Commit | Commit Title | Target Branch | Remote Push Status | Post-Merge Test Verdict |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **[`agentic-prompt-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/)** | `bugfix/prompt-triage-plugin-detection` | [`9c5c19b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) | `fix(triage): support canonical plugin names and legacy aliases for dynamic detection` | `master` | Pushed to `origin/master` (Branch deleted) | **77/77 passed** (100%) |
-| **[`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/)** | `bugfix/documenting-stale-references` | [`00b7d03`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | `fix(docs): scrub stale companion plugin references to standardized names` | `master` | Pushed to `origin/master` (Branch deleted) | **10/10 passed** (100%) |
-| **[`agentic-issue-investigation-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/)** | `bugfix/investigation-stale-references` | [`8f46739`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | `fix(investigate): scrub stale companion plugin references to standardized names` | `master` | Pushed to `origin/master` (Branch deleted) | **7/7 passed** (100%) |
-| **[`agentic-task-monitoring-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/)** | `bugfix/monitoring-stale-references` | [`76f7002`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | `fix(monitor): scrub stale companion plugin references to standardized names` | `master` | Pushed to `origin/master` (Branch deleted) | **8/8 passed** (100%) |
-| **[`agentic-topic-researching-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/)** | `bugfix/researching-stale-references` | [`ee5bfa0`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | `fix(research): scrub stale companion plugin references to standardized names` | `master` | Pushed to `origin/master` (Branch deleted) | **9/9 passed** (100%) |
-
-### 5.2 Release Summary
-- **Repositories Synchronized**: All 9 workspace repositories are aligned on `master`.
-- **Working Tree Cleanliness**: All 9 repositories have clean working trees with zero uncommitted changes.
-- **Remote Synchronization**: All commits pushed to `origin/master` across the ecosystem.
-- **Total Suite Passing**: 135/135 automated unit tests passing workspace-wide.
-
-
-
+  - ADR Formalized: [[architecture/adr-005-question-relay-protocol|ADR-005: Question Relay Protocol for Subagent User Inquiries]]
+  - Architecture System Note: [[architecture/question-relay-protocol|Question Relay Protocol Architecture & Implementation Plan]]
+  - Feature Specification: [[features/question-relay-protocol|Question Relay Protocol for Subagent User Prompts]]
+  - Workspace Plugin Standards: [[architecture/plugin-standards|Plugin Standards]] (Section 7 formalized)
+  - Workspace Overview: [[architecture/overview|Workspace Architecture Overview]] (7-stage lifecycle updated)
+  - Features Index: [[features/index|Workspace Features Index]] (Status updated to Released / Merged)
+  - Release Changelog: [[changelog|Workspace Release Changelog]] (Release entry added for 2026-11-05)

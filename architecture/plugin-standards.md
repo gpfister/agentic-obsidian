@@ -82,3 +82,12 @@ Skills are loaded on demand via progressive disclosure to save context tokens. A
 Hooks execute self-contained Python scripts via `uv run` and return `{"injectSteps": [{"systemMessage": {"systemMessage": "..."}}]}` payloads on stdout:
 - **`SessionStart`**: Discovers markdown agents in `agents/*.md`, registers subagents with tool permissions (`enable_write_tools`, `enable_subagent_tools`, `enable_mcp_tools`), and injects orchestration and artifact approval protocols.
 - **`PreInvocation`**: Triages incoming user prompts (`invocationNum == 0`) to classify intent and inject routing directives.
+
+---
+
+## 7. Subagent User Inquiries & Question Relay Protocol (ADR-005)
+
+To prevent the Antigravity host runtime **60-second execution timeout** on background subagents:
+- **Pure Subagents** (`@coding-clarify`, `@coding-deploy`, `@coding-review`): Never declare or invoke `ask_question`. Inquiries are dispatched to the parent caller via `send_message` wrapped in `[QUESTION_RELAY_REQUEST]`.
+- **Dual-Mode Agents** (`@coding-investigate`, `/project-grooming`, `@coding-monitor`, `@coding-research`): Check for caller ID. If running under a caller, relay questions via `[QUESTION_RELAY_REQUEST]`; if running standalone at session root, prompt via `ask_question`.
+- **Top-Level Orchestrators** (`@coding` and root agents): Intercept `[QUESTION_RELAY_REQUEST]`, prompt the user with `ask_question` in the root turn (unconstrained by timeouts), and return `[QUESTION_RELAY_RESPONSE]` to the subagent via `send_message`. See [[architecture/adr-005-question-relay-protocol|ADR-005]].

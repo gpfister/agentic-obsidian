@@ -74,10 +74,10 @@ flowchart TD
 
 | Repository / Path | Purpose |
 | :--- | :--- |
-| [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md) | Root workspace coordination instructions, cross-plugin interoperability guidelines, and 6-stage flowchart. |
+| [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md) | Root workspace coordination instructions, cross-plugin interoperability guidelines, Question Relay Protocol, and 7-stage flowchart. |
 | [`scripts/sync_sessions.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/sync_sessions.py) | Exports Antigravity session transcripts and artifacts into `agentic-obsidian/sessions/`. |
 | [`scripts/worktree.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/worktree.py) | Manages isolated Git worktrees across root and sub-repositories for parallel sessions. |
-| [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | 6-stage software development companion (`@coding`) with after-each-phase documentation maintenance. |
+| [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | 7-stage software development companion (`@coding`) with Question Relay Protocol inquiry routing, local deployment verification (`@coding-deploy`), and after-each-phase documentation maintenance. |
 | [`agentic-issue-investigation-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | Autonomous multi-repo issue investigation plugin (`@coding-investigate`). |
 | [`agentic-obsidian/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | Centralized Obsidian vault for plugin specs, architecture docs, and session logs. |
 | [`agentic-project-documenting-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | Centralized Obsidian documentation companion (`@coding-document`). |

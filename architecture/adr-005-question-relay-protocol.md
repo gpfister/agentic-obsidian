@@ -196,3 +196,20 @@ The implementation spans 6 repositories:
   - *Mitigation*: Schema validation in orchestrator ensures exactly one question per request envelope.
 - **Risk: Malformed JSON payload**:
   - *Mitigation*: Orchestrators support both JSON-structured payloads and parsed markdown key-value blocks, returning an error response on syntax failures.
+
+---
+
+## Implementation & Verification Status
+
+| Repository | Scope | Verification Status | Merged Commit | Tests Passing |
+| :--- | :--- | :--- | :--- | :--- |
+| **`agentic-coding-plugin`** | Pure subagents (`@coding-clarify`, `@coding-deploy`, `@coding-review`), `@coding` relay loop, rules, skill | Merged to `master` | [`d2c822c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | **15/15** passed (100%) |
+| **`agentic-issue-investigation-plugin`** | Dual-mode `@coding-investigate`, rules, skill, remediation gate | Merged to `master` | [`df03d3c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | **10/10** passed (100%) |
+| **`agentic-project-grooming-plugin`** | Dual-mode `@coding-groom`, rules, skill, 7-category Matt Pocock interview | Merged to `master` | [`a2e7932`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | **12/12** passed (100%) |
+| **`agentic-task-monitoring-plugin`** | Dual-mode `@coding-monitor`, rules, skill, anomaly pause gate | Merged to `master` | [`23a101e`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | **11/11** passed (100%) |
+| **`agentic-topic-researching-plugin`** | Dual-mode `@coding-research`, rules, skill, scope clarification | Merged to `master` | [`efb067d`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | **12/12** passed (100%) |
+| **`agentic` (root)** | Ecosystem coordination in `AGENTS.md` and `README.md` | Merged to `master` | [`695e1b1`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | Clean |
+| **Total Ecosystem Tests** | **All 5 Companion Plugins** | **Fully Released** | **6 Repositories Merged** | **60/60 passed (100%)** |
+
+> [!NOTE] Release Outcome
+> All acceptance criteria (AC 1 through AC 6) have been verified and all 6 participating repositories have merged `feature/question-relay-protocol` into `master`. All 147/147 workspace-wide unit tests are passing cleanly.

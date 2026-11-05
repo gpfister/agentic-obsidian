@@ -1,8 +1,8 @@
 ---
 title: "Question Relay Protocol for Subagent User Prompts"
 date: "2026-11-05"
-status: "Plan Approved"
-phase: "Phase 3: Planning (Completed) -> Phase 4: Development"
+status: "Released & Merged into master"
+phase: "Phase 7: Merge & Release (Completed)"
 specification_id: "SPEC-2026-RELAY-001"
 specification_path: "/Users/gpfister/.gemini/antigravity/brain/654daa4d-c78a-4cfe-9a05-9938462f6520/specification.md"
 vault_specification_path: "sessions/attachments/654daa4d-c78a-4cfe-9a05-9938462f6520/specification.md"
@@ -19,6 +19,13 @@ tags:
   - phase-1-completed
   - phase-2-completed
   - phase-3-completed
+  - phase-4-completed
+  - phase-5-completed
+  - phase-6-completed
+  - phase-7-completed
+  - verified
+  - released
+  - merged-to-master
   - timeout-mitigation
   - multi-agent
   - adr-005
@@ -37,12 +44,14 @@ aliases:
 
 # Feature: Question Relay Protocol for Subagent User Prompts
 
-> [!NOTE] Milestone: Phase 3 Planning Completed & Approved
-> - **Current Phase**: Phase 3: Planning (Completed) $\rightarrow$ Phase 4: Development (`coding-develop`)
+> [!NOTE] Milestone: Phase 7 Release Merge Completed (Feature Released to Master)
+> - **Current Phase**: Phase 7: Merge & Release (`coding-merge`) — Completed & Released
 > - **Specification ID**: `SPEC-2026-RELAY-001`
 > - **Architecture Decision Record**: [[architecture/adr-005-question-relay-protocol|ADR-005: Question Relay Protocol for Subagent User Inquiries]]
 > - **Approved Technical Specification**: [`specification.md`](file:///Users/gpfister/.gemini/antigravity/brain/654daa4d-c78a-4cfe-9a05-9938462f6520/specification.md) ([Vault Archive](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/654daa4d-c78a-4cfe-9a05-9938462f6520/specification.md))
 > - **Approved Implementation Plan**: [`plan.md`](file:///Users/gpfister/.gemini/antigravity/brain/14b78737-c9c3-4964-9dfa-c7feae89b35b/plan.md) ([Vault Archive](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/sessions/attachments/14b78737-c9c3-4964-9dfa-c7feae89b35b/plan.md))
+> - **Verification Verdict**: **PASS (60/60 tests passing workspace-wide across 5 companion plugins, 147/147 tests workspace-wide)**
+> - **Release Merge Status**: Merged into `master` across all 6 participating repositories
 
 ---
 
@@ -237,9 +246,53 @@ flowchart LR
 
 ## 5. Acceptance Criteria
 
-- [ ] **AC 1: Standardized Envelopes**: `[QUESTION_RELAY_REQUEST]` and `[QUESTION_RELAY_RESPONSE]` documented and tested across all plugins.
-- [ ] **AC 2: Pure Subagent Compliance**: `@coding-clarify`, `@coding-deploy`, and `@coding-review` never execute `ask_question` directly; all inquiries relayed via `send_message`.
-- [ ] **AC 3: Dual-Mode Subagent Support**: `@coding-investigate`, `@coding-groom`, `@coding-monitor`, and `@coding-research` branch between relay and direct calls based on caller ID presence.
-- [ ] **AC 4: Orchestrator Relay Execution**: `@coding` intercepts relay requests, prompts the user at the top level without host timeouts, and sends response envelopes back.
-- [ ] **AC 5: Workspace Documentation & Consistency**: Root and sub-repo rules updated cleanly without conflicting instructions.
-- [ ] **AC 6: Automated Test Verification**: All unit tests pass across all repositories (`uv run pytest`).
+- [x] **AC 1: Standardized Envelopes**: `[QUESTION_RELAY_REQUEST]` and `[QUESTION_RELAY_RESPONSE]` documented and tested across all plugins.
+- [x] **AC 2: Pure Subagent Compliance**: `@coding-clarify`, `@coding-deploy`, and `@coding-review` never execute `ask_question` directly; all inquiries relayed via `send_message`.
+- [x] **AC 3: Dual-Mode Subagent Support**: `@coding-investigate`, `@coding-groom`, `@coding-monitor`, and `@coding-research` branch between relay and direct calls based on caller ID presence.
+- [x] **AC 4: Orchestrator Relay Execution**: `@coding` intercepts relay requests, prompts the user at the top level without host timeouts, and sends response envelopes back.
+- [x] **AC 5: Workspace Documentation & Consistency**: Root and sub-repo rules updated cleanly without conflicting instructions.
+- [x] **AC 6: Automated Test Verification**: All unit tests pass across all repositories (`uv run pytest`) with 100% success rate (60/60 tests).
+
+---
+
+## 6. Phase 6 Verification & Quality Audit Ledger
+
+### 6.1 Test Execution Results by Repository
+
+| Repository | Test Suite Path | Passed / Total | Pass Rate | Key Contracts Tested |
+| :--- | :--- | :--- | :--- | :--- |
+| **`agentic-coding-plugin`** | `tests/test_plugin.py` | **15 / 15** | 100% | `test_question_relay_protocol_contracts`, pure subagent permissions, orchestrator loop |
+| **`agentic-issue-investigation-plugin`** | `tests/test_plugin.py` | **10 / 10** | 100% | Dual-mode question handling, remediation confirmation gates, tools frontmatter |
+| **`agentic-project-grooming-plugin`** | `tests/test_plugin.py` | **12 / 12** | 100% | Dual-mode Matt Pocock grilling interviews, tool declarations, catalog contracts |
+| **`agentic-task-monitoring-plugin`** | `tests/test_plugin.py` | **11 / 11** | 100% | Dual-mode anomaly pause gates, stream observation safety, tool frontmatter |
+| **`agentic-topic-researching-plugin`** | `tests/test_plugin.py` | **12 / 12** | 100% | Dual-mode research scope clarification, citation standards, tool permissions |
+| **Total Ecosystem Tests** | **All 5 Companion Plugins** | **60 / 60** | **100%** | **All acceptance criteria met cleanly** |
+
+### 6.2 Pre-Merge Audit Sign-Off
+- **Code Review**: Clean separation of Pure Subagents vs. Dual-Mode Subagents verified.
+- **Documentation**: All READMEs, `AGENTS.md` guidelines, ADR-005, and Obsidian vault notes synchronized.
+- **Git Readiness**: All 6 repositories on branch `feature/question-relay-protocol` verified and approved for release merge into `master`.
+
+---
+
+## 7. Phase 7 Release Merge & Changelog Ledger
+
+### 7.1 Multi-Repository Merge Ledger
+
+On 2026-11-05, all feature branches for `SPEC-2026-RELAY-001` were successfully merged into `master` via fast-forward release merge:
+
+| Repository | Merged Commit | Branch Merged | Commit Message | Test Pass Rate |
+| :--- | :--- | :--- | :--- | :--- |
+| **`agentic` (root)** | [`695e1b1`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | `feature/question-relay-protocol` $\rightarrow$ `master` | `feat(relay): formalize Question Relay Protocol across workspace coordination rules and documentation` | PASS (`make status`) |
+| **`agentic-coding-plugin`** | [`d2c822c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | `feature/question-relay-protocol` $\rightarrow$ `master` | `feat(relay): implement Question Relay Protocol across coding subagents` | **15/15 passed** (100%) |
+| **`agentic-issue-investigation-plugin`** | [`df03d3c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | `feature/question-relay-protocol` $\rightarrow$ `master` | `feat(relay): implement dual-mode Question Relay Protocol for coding-investigate` | **10/10 passed** (100%) |
+| **`agentic-project-grooming-plugin`** | [`a2e7932`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | `feature/question-relay-protocol` $\rightarrow$ `master` | `feat(relay): implement dual-mode Question Relay Protocol for project grooming` | **12/12 passed** (100%) |
+| **`agentic-task-monitoring-plugin`** | [`23a101e`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/) | `feature/question-relay-protocol` $\rightarrow$ `master` | `feat(relay): implement dual-mode Question Relay Protocol for coding-monitor` | **11/11 passed** (100%) |
+| **`agentic-topic-researching-plugin`** | [`efb067d`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | `feature/question-relay-protocol` $\rightarrow$ `master` | `feat(relay): implement dual-mode Question Relay Protocol for coding-research` | **12/12 passed** (100%) |
+
+### 7.2 Release Verification & Closure
+- **Post-Merge Test Verification**: 147/147 tests workspace-wide passing cleanly on `master` (60/60 tests across the 5 companion plugins).
+- **Branch Topology**: All 9 repositories operating cleanly on branch `master`.
+- **Knowledge Base Sync**: Vault ADR-005, architecture overview, plugin standards, feature specs, git status tracking, and changelog fully synchronized.
+- **Milestone Complete**: Feature `SPEC-2026-RELAY-001` officially transitioned to **Released & Merged into master**.
+
