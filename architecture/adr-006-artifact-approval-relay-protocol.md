@@ -15,6 +15,8 @@ tags:
   - timeout-mitigation
   - subagent-protocol
   - inter-agent-communication
+  - merged
+  - released
 aliases:
   - ADR-006
   - adr-006-artifact-approval-relay-protocol
@@ -208,13 +210,14 @@ The implementation spans 5 repositories:
 
 ## Implementation & Verification Status
 
-| Repository | Scope | Verification Status | Target Branch | Commit | Tests Passing |
+| Repository | Scope | Verification Status | Merged Commit | Feature Branch | Tests Passing |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`agentic` (root)** | Ecosystem coordination in `AGENTS.md` (Sections 3.3 and 4) | **Verified (Ready for Merge)** | `feature/artifact-approval-relay` | [`419cd50`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | Documentation audit (AC 1, AC 6 satisfied) |
-| **`agentic-coding-plugin`** | Pure subagents (`@coding-specify`, `@coding-plan`, `@coding-deploy`), `@coding` relay loop, rules, skill, tests | **Verified (Ready for Merge)** | `feature/artifact-approval-relay` | [`8302109`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | **16/16 passed** (100%) |
-| **`agentic-issue-investigation-plugin`** | Dual-mode `@coding-investigate`, rules, skill, `issue-assessment.md`, tests | **Verified (Ready for Merge)** | `feature/artifact-approval-relay` | [`0939f82`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | **13/13 passed** (100%) |
-| **`agentic-project-grooming-plugin`** | Dual-mode `@coding-groom`, rules, skill, `Project_Request_Grooming.md`, tests | **Verified (Ready for Merge)** | `feature/artifact-approval-relay` | [`2729c34`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | **16/16 passed** (100%) |
-| **`agentic-topic-researching-plugin`** | Dual-mode `@coding-research`, rules, skill, `research-report.md`, tests | **Verified (Ready for Merge)** | `feature/artifact-approval-relay` | [`5c0931f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | **15/15 passed** (100%) |
+| **`agentic` (root)** | Ecosystem coordination in `AGENTS.md` (Sections 3.3 and 4) | Merged to `master` | [`419cd50`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) | Deleted | Documentation audit (AC 1, AC 6 satisfied) |
+| **`agentic-coding-plugin`** | Pure subagents (`@coding-specify`, `@coding-plan`, `@coding-deploy`), `@coding` relay loop, rules, skill, tests | Merged to `master` | [`8302109`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | Deleted | **16/16 passed** (100%) |
+| **`agentic-issue-investigation-plugin`** | Dual-mode `@coding-investigate`, rules, skill, `issue-assessment.md`, tests | Merged to `master` | [`0939f82`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | Deleted | **13/13 passed** (100%) |
+| **`agentic-project-grooming-plugin`** | Dual-mode `@coding-groom`, rules, skill, `Project_Request_Grooming.md`, tests | Merged to `master` | [`2729c34`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/) | Deleted | **16/16 passed** (100%) |
+| **`agentic-topic-researching-plugin`** | Dual-mode `@coding-research`, rules, skill, `research-report.md`, tests | Merged to `master` | [`5c0931f`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/) | Deleted | **15/15 passed** (100%) |
+| **Total Ecosystem Tests** | **All 5 Feature Repositories** | **Fully Released** | **5 Repositories Merged** | **Feature Branches Deleted** | **60/60 passed (158/158 workspace-wide)** |
 
-> [!NOTE] Current Milestone: Verified & Ready for Merge (Phase 5 Completed)
-> Technical Specification `SPEC-2026-RELAY-002`, Implementation Plan, and code deliverables have been implemented and verified with 100% test pass rate (60/60 unit tests across feature repositories, 158/158 tests workspace-wide). Pre-merge clean code reviews completed and approved. All repositories ready for Phase 6 (Merge & Release into `master`).
+> [!NOTE] Release Outcome
+> All acceptance criteria (AC 1 through AC 6) have been verified and all 5 participating repositories have merged `feature/artifact-approval-relay` into `master` with feature branches deleted. All 158/158 workspace-wide unit tests are passing cleanly. Recorded in [[changelog|Workspace Release Changelog]].

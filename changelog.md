@@ -7,11 +7,41 @@ tags:
   - releases
   - multi-repo
   - question-relay
+  - artifact-approval-relay
 ---
 
 # Workspace Release Changelog
 
 Chronological log of cross-repository releases, feature merges, and architectural upgrades across the `agentic` workspace.
+
+---
+
+## [2026-11-05] — Artifact Approval Relay Protocol for Subagent Gates (SPEC-2026-RELAY-002)
+
+> [!NOTE] Release Summary: SPEC-2026-RELAY-002 Merged across 5 Repositories
+> - **Specification**: `SPEC-2026-RELAY-002`
+> - **Architecture Decision**: [[architecture/adr-006-artifact-approval-relay-protocol|ADR-006: Artifact Approval Relay Protocol for Subagent Approval Gates]]
+> - **Feature Note**: [[features/artifact-approval-relay-protocol|Artifact Approval Relay Protocol for Subagent Gates]]
+> - **Architecture Note**: [[architecture/artifact-approval-relay-protocol|Artifact Approval Relay Protocol Architecture & Implementation Plan]]
+> - **Verification**: 158/158 automated unit tests passing workspace-wide (60/60 across feature repositories, 100% pass rate). Pre-merge clean code reviews approved.
+> - **Branch Topology**: Fast-forward merged into `master` across all 5 participating repositories; `feature/artifact-approval-relay` branches deleted.
+
+### Overview & Key Capabilities Delivered
+Standardized an event-driven Artifact Approval Relay Protocol (`[ARTIFACT_APPROVAL_REQUEST]` / `[ARTIFACT_APPROVAL_RESPONSE]`) across all companion plugins to completely eliminate host 60-second execution timeout failures when background subagents author milestone deliverables requiring human approval:
+- **Pure Subagents vs. Dual-Mode Subagents**:
+  - Pure subagents (`@coding-specify`, `@coding-plan`, `@coding-deploy`) write deliverables (`specification.md`, `plan.md`, `deployment-issue.md`) directly to disk without `RequestFeedback=True` and relay interactive approval gates to the parent orchestrator via `send_message`.
+  - Dual-Mode subagents (`@coding-investigate`, `/project-grooming` `@coding-groom`, `@coding-research`) inspect caller context dynamically: they relay milestone approval gates (`issue-assessment.md`, `Project_Request_Grooming.md`, `research-report.md`) via `[ARTIFACT_APPROVAL_REQUEST]` when operating under an orchestrator, or author directly with `RequestFeedback=True` as the sole and final tool call when invoked in standalone root sessions.
+- **Top-Level Orchestration Relay Handling**:
+  - The root orchestrator (`@coding`) intercepts `[ARTIFACT_APPROVAL_REQUEST]`, verifies the deliverable on disk, renders the interactive feedback gate (`write_file(RequestFeedback=True)`) at the session root without background execution timeouts, and returns `[ARTIFACT_APPROVAL_RESPONSE]` to reactively awaken the subagent.
+- **Workspace Coordination Guidelines**:
+  - Formalized Section 3.3 (Artifact Approval Relay Protocol) in root [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md), plugin rules, and skills runbooks.
+
+### Merged Repositories & Commits
+- [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): Commit `419cd50` on `master` — `docs: add Artifact Approval Relay Protocol to AGENTS.md` (branch `feature/artifact-approval-relay` deleted)
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): Commit `8302109` on `master` — `feat(approval-relay): implement Artifact Approval Relay Protocol across subagents and orchestrator` (16/16 tests passed; branch `feature/artifact-approval-relay` deleted)
+- [`agentic-issue-investigation-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/): Commit `0939f82` on `master` — `feat(relay): implement dual-mode Artifact Approval Relay Protocol in issue investigator` (13/13 tests passed; branch `feature/artifact-approval-relay` deleted)
+- [`agentic-project-grooming-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/): Commit `2729c34` on `master` — `feat(relay): implement dual-mode Artifact Approval Relay Protocol for coding-groom` (16/16 tests passed; branch `feature/artifact-approval-relay` deleted)
+- [`agentic-topic-researching-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/): Commit `5c0931f` on `master` — `feat(relay): implement dual-mode Artifact Approval Relay Protocol for coding-research` (15/15 tests passed; branch `feature/artifact-approval-relay` deleted)
 
 ---
 
