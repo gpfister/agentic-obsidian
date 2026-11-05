@@ -1,0 +1,1 @@
+../architecture/adr-003-project-grooming-plugin.md

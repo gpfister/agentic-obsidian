@@ -1,0 +1,1 @@
+../architecture/adr-004-standardize-plugin-repository-names.md

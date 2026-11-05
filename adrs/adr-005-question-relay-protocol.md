@@ -1,0 +1,1 @@
+../architecture/adr-005-question-relay-protocol.md

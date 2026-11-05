@@ -1,0 +1,1 @@
+../architecture/adr-002-agent-display-names-and-plugin-renames.md
