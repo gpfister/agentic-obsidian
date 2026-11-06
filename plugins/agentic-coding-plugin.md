@@ -32,7 +32,7 @@ Subagent instructions are authored as modular markdown specifications within ded
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
 | [`agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/agent.md) | `coding-catalog` | **Subagents & Workflow Specification**: Architecture, subagent registry, tool privilege model, and coding workflow guide. | `write=False`, `subagent=False`, `mcp=False` |
-| [`coding/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding/) | `@coding` | **Coding Workflow Orchestrator**: Coordinates the 7-stage software development lifecycle across repositories using `invoke_subagent`, `send_message`, and `manage_subagents`. | `write=True`, `subagent=True`, `mcp=True` |
+| [`coding/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding/) | `@coding` | **Coding Workflow Orchestrator (Dual-Mode)**: Coordinates the 7-stage software development lifecycle across repositories using `invoke_subagent`, `send_message`, and `manage_subagents`. Operates in Dual-Mode (Multi-Hop Relay in Subagent Mode; Direct Gate Rendering & Prompting in Standalone Mode). Bound by Anti-Direct-Coding Guardrails. | `write=True` (Standalone gates only), `subagent=True`, `mcp=True` |
 | [`coding-clarify/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-clarify/) | `@coding-clarify` | **Requirement Clarifier**: Matt Pocock `/grill-me` style requirement interrogation asking one question at a time via `ask_question`, inspecting code first, and searching docs. | `write=False`, `subagent=False`, `mcp=True` |
 | [`coding-specify/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-specify/) | `@coding-specify` | **Specification Architect**: Synthesizes clarified requirements into `specification.md` and manages the interactive approval gate. | `write=True`, `subagent=False`, `mcp=True` |
 | [`coding-plan/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-plan/) | `@coding-plan` | **Architecture Planner**: Deconstructs approved specifications into per-repository tasks, assesses local deployment requirements, and plans branch names in `plan.md`. | `write=True`, `subagent=False`, `mcp=True` |
@@ -126,13 +126,23 @@ flowchart TD
     MergeConfirmGate -->|"User Denied"| AbortWorkflow
 ```
 
-### 2. Antigravity Interactive Artifact Approval Protocol
-- **Mandatory Approval Gates**: `specification.md` (Stage 2), `plan.md` (Stage 3), and `deployment-issue.md` (Stage 5 on failure) require interactive user approval before proceeding.
-- **Artifact Metadata**: Written to `<appDataDir>/brain/<conversation-id>/<artifact>.md` with `ArtifactMetadata={"RequestFeedback": True, "UserFacing": True}`.
-- **Sole & Final Tool Call Rule**: `write_file(..., RequestFeedback=True)` must be the sole and final tool call of that turn so Antigravity presents the interactive **Approve / Reject** UI modal.
+### 2. Dual-Mode Orchestration & Multi-Hop Relay Protocol
+To prevent duplicate UI modals and 60-second host runtime timeouts in background subagents:
+- **Subagent Mode (`caller_id` present)**: When `@coding` runs under an upstream caller, it **MUST NOT** invoke `write_file(RequestFeedback=True)` or `ask_question`. It forwards `[ARTIFACT_APPROVAL_REQUEST]` and `[QUESTION_RELAY_REQUEST]` envelopes upward to `caller_id` via `send_message`, yields immediately, and routes responses downward to the waiting subagent upon reactive wakeup.
+- **Standalone Mode (no `caller_id`)**: When running directly at the session root, `@coding` renders interactive milestone artifacts via `write_file(RequestFeedback=True)` as the sole and final tool call of that turn, and prompts the user via `ask_question`.
+
+### 3. Hard Anti-Direct-Coding Guardrails
+- `@coding` is strictly a meta-orchestrator. It **MUST NEVER** edit or write application source code, configs, or test suites directly.
+- `write_file` is restricted to presenting interactive milestone artifacts in Standalone Mode.
+- `run_command` is restricted to workspace inspection (`git status`).
+- Implementation is strictly delegated to `@coding-develop`, local deployment checks to `@coding-deploy`, code review to `@coding-review`, and release/merge to `@coding-merge`.
+
+### 4. Pre-Clarified Fast-Path
+- Automatically skips Phase 1 (`coding-clarify`) when invoked with pre-clarified requirements or an approved issue assessment.
+- Fast-paths directly to Phase 2 (`coding-specify`) or Phase 3 (`coding-plan`), preserving formal approval gates before development begins.
 
 ---
 
 ## Testing
-Automated tests in [`agentic-coding-plugin/tests/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/) validate manifest integrity, agent frontmatter & registration, and lifecycle rules:
-- [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/test_plugin.py)
+Automated tests in [`agentic-coding-plugin/tests/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/) validate manifest integrity, agent frontmatter & registration, lifecycle rules, dual-mode orchestration, multi-hop relay, and anti-direct-coding constraints:
+- [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/test_plugin.py) (21/21 tests passing, 100% pass rate)

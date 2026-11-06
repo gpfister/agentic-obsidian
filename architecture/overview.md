@@ -77,7 +77,7 @@ flowchart TD
 | [`AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/AGENTS.md) | Root workspace coordination instructions, cross-plugin interoperability guidelines, Question Relay Protocol, and 7-stage flowchart. |
 | [`scripts/sync_sessions.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/sync_sessions.py) | Exports Antigravity session transcripts and artifacts into `agentic-obsidian/sessions/`. |
 | [`scripts/worktree.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/worktree.py) | Manages isolated Git worktrees across root and sub-repositories for parallel sessions. |
-| [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | 7-stage software development companion (`@coding`) with Question Relay Protocol inquiry routing, local deployment verification (`@coding-deploy`), and after-each-phase documentation maintenance. |
+| [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | Structured 7-stage software development companion (`@coding`), operating as a Dual-Mode Orchestrator with Multi-Hop Relay, Anti-Direct-Coding Guardrails, clean code reviews, local deployment verification (`@coding-deploy`), and after-each-phase documentation maintenance. |
 | [`agentic-issue-investigation-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | Autonomous multi-repo issue investigation plugin (`@coding-investigate`). |
 | [`agentic-obsidian/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | Centralized Obsidian vault for plugin specs, architecture docs, and session logs. |
 | [`agentic-project-documenting-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | Centralized Obsidian documentation companion (`@coding-document`). |
@@ -99,3 +99,4 @@ flowchart TD
 | [[architecture/adr-005-question-relay-protocol\|ADR-005]] | Question Relay Protocol for Subagent User Inquiries | Accepted |
 | [[architecture/adr-006-artifact-approval-relay-protocol\|ADR-006]] | Artifact Approval Relay Protocol for Subagent Approval Gates | Accepted |
 | [[architecture/adr-007-coding-merge-remote-pr-and-sync\|ADR-007]] | Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge | Accepted |
+| [[architecture/adr-008-dual-mode-coding-orchestrator\|ADR-008]] | Dual-Mode Coding Orchestrator with Multi-Hop Relay and Anti-Direct-Coding Guardrails | Accepted |

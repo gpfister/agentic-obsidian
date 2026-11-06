@@ -6,6 +6,11 @@ tags:
   - changelog
   - releases
   - multi-repo
+  - dual-mode
+  - multi-hop-relay
+  - anti-direct-coding
+  - guardrails
+  - coding-orchestrator
   - question-relay
   - artifact-approval-relay
   - coding-merge
@@ -14,6 +19,41 @@ tags:
 # Workspace Release Changelog
 
 Chronological log of cross-repository releases, feature merges, and architectural upgrades across the `agentic` workspace.
+
+---
+
+## [2026-11-06] — Dual-Mode Coding Orchestrator with Multi-Hop Relay and Anti-Direct-Coding Guardrails (SPEC-2026-DUAL-MODE-001)
+
+> [!NOTE] Release Summary: SPEC-2026-DUAL-MODE-001 Merged & Released across 3 Repositories
+> - **Specification**: `SPEC-2026-DUAL-MODE-001`
+> - **Architecture Decision**: [[architecture/adr-008-dual-mode-coding-orchestrator|ADR-008: Dual-Mode Coding Orchestrator with Multi-Hop Relay and Anti-Direct-Coding Guardrails]]
+> - **Feature Note**: [[features/dual-mode-coding-orchestrator|Dual-Mode Coding Orchestrator with Multi-Hop Relay and Anti-Direct-Coding Guardrails]]
+> - **Architecture Note**: [[architecture/dual-mode-coding-orchestrator|Dual-Mode Coding Orchestrator Architecture & Implementation Plan]]
+> - **Verification**: 21/21 automated unit tests passing in `agentic-coding-plugin` (100%), 14/14 automated unit tests passing in `agentic-issue-investigation-plugin` (100%). Pre-merge clean code review approved (0 blockers).
+> - **Branch Lifecycle**: Merged via GitHub Pull Requests (Squash & Merge) into `master`; upstream fast-forward synchronized; feature branches `feat/dual-mode-coding-orchestrator` safely deleted.
+
+### Overview & Key Capabilities Delivered
+Upgraded `@coding` (the central software development lifecycle orchestrator) in `agentic-coding-plugin` to eliminate host 60-second execution timeouts, prevent duplicate approval gate UI modals, enforce architectural integrity via anti-direct-coding guardrails, and provide seamless automated handoffs:
+- **Dual-Mode Orchestration (`caller_id` Detection)**:
+  - Dynamically distinguishes between Subagent Mode (`caller_id` present) and Standalone Mode (no `caller_id`).
+  - In **Subagent Mode**: `@coding` operates as a transparent relay node, forwarding worker requests upward to `caller_id` via `send_message` and never calling `write_file(RequestFeedback=True)` or `ask_question` directly.
+  - In **Standalone Mode**: `@coding` directly renders the single interactive approval modal at the root turn via `write_file(RequestFeedback=True)` and interactively prompts the user via `ask_question`.
+- **Multi-Hop Relay Protocol**:
+  - Implemented multi-hop forwarding for both interactive approval gates (`[ARTIFACT_APPROVAL_REQUEST]`) and user clarification inquiries (`[QUESTION_RELAY_REQUEST]`).
+  - Halts execution into an idle state while awaiting parent caller responses (`[ARTIFACT_APPROVAL_RESPONSE]`, `[QUESTION_RELAY_RESPONSE]`), waking reactively to relay decisions downward to worker subagents.
+- **Hard Anti-Direct-Coding Guardrails**:
+  - Established hard negative constraints preventing `@coding` from directly editing application code files or running build/test tools.
+  - Restricts `write_file` strictly to interactive approval gate rendering in standalone mode; restricts `run_command` strictly to non-destructive workspace inspection (`git status`).
+  - Enforces 100% lifecycle delegation to worker subagents (`@coding-develop`, `@coding-deploy`, `@coding-review`, `@coding-merge`).
+- **Pre-Clarified Fast-Path**:
+  - Automatically detects pre-clarified requirements (such as handoffs from `@coding-investigate` or `/project-grooming`) and skips Phase 1 (`coding-clarify`), advancing straight to Phase 2 (`coding-specify`) and Phase 3 (`coding-plan`) while strictly preserving their human approval gates.
+- **Standardized Upstream Invocation Template**:
+  - Standardized caller prompt template (`Orchestrate the 7-stage software development lifecycle to implement the following feature / correction based on the approved assessment: <details/path>. Do not implement directly; delegate all phases through worker subagents.`) across workspace documentation and companion subagents.
+
+### Merged Repositories & Release Commits
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): [PR #2](https://github.com/gpfister/agentic-coding-plugin/pull/2) merged into `master` via squash commit [`3e04ac1`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) — `feat(coding): implement dual-mode orchestrator with multi-hop relay protocols and hard anti-direct-coding boundary (#2)`. 21/21 tests passed; feature branch deleted; `master` fast-forward synced.
+- [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): [PR #2](https://github.com/gpfister/gp-agentic/pull/2) merged into `master` via squash commit [`fa5164a`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) — `feat(orchestrator): document dual-mode coding orchestrator, artifact approval relay, and standardized upstream invocation (#2)`. Feature branch deleted; `master` fast-forward synced.
+- [`agentic-issue-investigation-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/): [PR #1](https://github.com/gpfister/agentic-issue-investigation-plugin/pull/1) merged into `master` via squash commit [`34629b3`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) — `feat(investigate): standardize upstream @coding invocation prompt and subagent relay delegation (#1)`. 14/14 tests passed; feature branch deleted; `master` fast-forward synced.
 
 ---
 

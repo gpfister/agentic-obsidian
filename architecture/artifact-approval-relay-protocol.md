@@ -158,7 +158,7 @@ flowchart TD
 | `@coding-investigate` | Dual-Mode Agent | Relays via `[ARTIFACT_APPROVAL_REQUEST]` to orchestrator. | Directly authors `issue-assessment.md` with `RequestFeedback=True` as sole & final call. |
 | `/project-grooming` (`@coding-groom`) | Dual-Mode Agent | Relays via `[ARTIFACT_APPROVAL_REQUEST]` to caller orchestrator. | Directly authors `Project_Request_Grooming.md` with `RequestFeedback=True` as sole & final call. |
 | `@coding-research` | Dual-Mode Agent | Relays via `[ARTIFACT_APPROVAL_REQUEST]` to caller orchestrator. | Directly authors `research-report.md` with `RequestFeedback=True` as sole & final call. |
-| `@coding` (Orchestrator) | Root Orchestrator | Intercepts `[ARTIFACT_APPROVAL_REQUEST]`, renders `write_file` with `ArtifactMetadata={"RequestFeedback": True}`, awaits user gate, replies `[ARTIFACT_APPROVAL_RESPONSE]`. | Top-level lifecycle management. |
+| `@coding` (Orchestrator) | Dual-Mode Orchestrator ([[architecture/adr-008-dual-mode-coding-orchestrator\|ADR-008]]) | In Subagent Mode (`caller_id` present), relays `[ARTIFACT_APPROVAL_REQUEST]` upward to `caller_id` via `send_message` without calling `write_file(RequestFeedback=True)` (Multi-Hop Relay). | In Standalone Mode (Root Turn), intercepts `[ARTIFACT_APPROVAL_REQUEST]`, renders `write_file` with `ArtifactMetadata={"RequestFeedback": True}`, awaits user gate, replies `[ARTIFACT_APPROVAL_RESPONSE]`. |
 
 ---
 

@@ -42,26 +42,40 @@ Subagents are organized in dedicated directories with frontmatter metadata:
 ## Investigation & Remediation Workflow
 
 ```text
-Multi-Repo Search ──> Solution Found? ──(No)──> Grill User (ask_question) ──┐
-                            │                                                │
-                          (Yes) <────────────────────────────────────────────┘
+Multi-Repo Search ──> Solution Found? ──(No)──> Dual-Mode Grilling ([QUESTION_RELAY_REQUEST] / ask_question) ──┐
+                            │                                                                                  │
+                          (Yes) <──────────────────────────────────────────────────────────────────────────────┘
                             ▼
-                Write issue-assessment.md (RequestFeedback=True)
+        Author issue-assessment.md (Dual-Mode: [ARTIFACT_APPROVAL_REQUEST] or write_file(RequestFeedback=True))
                             │
                      [Approved by User]
                             ▼
-            Ask Correction Confirmation (Yes / No)
+         Dual-Mode Remediation Confirmation Gate (Yes / No)
                      │                    │
                    (Yes)                 (No)
                      ▼                    ▼
-              Invoke @coding            Stop
+   Invoke @coding (Standardized Template) Stop
 ```
 
-### Interactive Artifact Approval Protocol
-1. **Artifact Location**: `<appDataDir>/brain/<conversation-id>/issue-assessment.md`.
-2. **Metadata**: `ArtifactMetadata={"RequestFeedback": True, "UserFacing": True}`.
-3. **Sole & Final Tool Call Rule**: `write_file(..., RequestFeedback=True)` MUST be the sole and final tool call of that turn so Antigravity renders the interactive **Approve / Reject** buttons.
-4. **Correction Confirmation Gate**: Once approved, prompts the user via `ask_question` whether to start the correction. If confirmed, invokes `@coding` (`invoke_subagent`).
+### Dual-Mode Interactive Protocols
+1. **Artifact Approval Relay (Dual-Mode)**:
+   - **Subagent Mode (`caller_id` present)**: Writes `issue-assessment.md` to disk directly without feedback metadata and dispatches `[ARTIFACT_APPROVAL_REQUEST]` to `caller_id` via `send_message` to prevent 60-second host runtime timeouts.
+   - **Standalone Mode (no `caller_id`)**: Authors `issue-assessment.md` directly via `write_file(RequestFeedback=True)` as the sole and final tool call of that turn.
+2. **Question Relay Protocol (Dual-Mode)**:
+   - **Subagent Mode**: Relays single-question inquiries and remediation confirmation gates via `[QUESTION_RELAY_REQUEST]` through `send_message`.
+   - **Standalone Mode**: Prompts the user directly via `ask_question`.
+3. **Standardized Upstream Invocation Template**:
+   When handing off an approved remediation plan to `@coding`, `@coding-investigate` formats the invocation prompt using the mandatory template:
+   ```text
+   Orchestrate the 7-stage software development lifecycle to implement the following feature / correction based on the approved assessment: <details/path>. Do not implement directly; delegate all phases through worker subagents.
+   ```
+   This enforces the Pre-Clarified Fast-Path and activates `@coding`'s hard Anti-Direct-Coding Guardrails.
+
+---
+
+## Testing
+Automated tests in [`agentic-issue-investigation-plugin/tests/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/tests/) validate manifest integrity, agent registration, dual-mode relay protocols, and standardized invocation prompts:
+- [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/tests/test_plugin.py) (14/14 tests passing, 100% pass rate)
 
 ---
 

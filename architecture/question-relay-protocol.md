@@ -140,8 +140,8 @@ flowchart TD
 1. **Pure Subagents** (`@coding-clarify`, `@coding-deploy`, `@coding-review`):
    - Only run under `@coding`.
    - Never call `ask_question`. Tool declarations omit `ask_question` and declare `send_message`.
-2. **Dual-Mode Subagents** (`@coding-investigate`, `/project-grooming`, `@coding-monitor`, `@coding-research`):
-   - When invoked by a parent/caller: dispatch `[QUESTION_RELAY_REQUEST]`.
+2. **Dual-Mode Subagents & Orchestrators** (`@coding-investigate`, `/project-grooming`, `@coding-monitor`, `@coding-research`, and `@coding` via [[architecture/adr-008-dual-mode-coding-orchestrator|ADR-008]]):
+   - When invoked by a parent/caller: dispatch/forward `[QUESTION_RELAY_REQUEST]` upward via `send_message` (Multi-Hop Relay).
    - When invoked directly by human as root agent: invoke `ask_question` directly.
 
 ---
