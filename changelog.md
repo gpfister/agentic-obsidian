@@ -1,6 +1,6 @@
 ---
 title: "Workspace Release Changelog"
-date: "2026-11-05"
+date: "2026-11-06"
 status: "active"
 tags:
   - changelog
@@ -8,11 +8,43 @@ tags:
   - multi-repo
   - question-relay
   - artifact-approval-relay
+  - coding-merge
 ---
 
 # Workspace Release Changelog
 
 Chronological log of cross-repository releases, feature merges, and architectural upgrades across the `agentic` workspace.
+
+---
+
+## [2026-11-06] — Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge (SPEC-2026-MERGE-001)
+
+> [!NOTE] Release Status: Pre-Merge Verification Approved (Ready for Stage 7 Merge)
+> - **Specification**: `SPEC-2026-MERGE-001`
+> - **Architecture Decision**: [[architecture/adr-007-coding-merge-remote-pr-and-sync|ADR-007: Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge]]
+> - **Feature Note**: [[features/coding-merge-remote-pr-and-sync|Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge]]
+> - **Architecture Note**: [[architecture/coding-merge-remote-pr-and-sync|Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization Architecture & Implementation Plan]]
+> - **Verification**: 17/17 automated unit tests passing in `agentic-coding-plugin` (100% pass rate). Pre-merge clean code review approved (0 blockers).
+> - **Target Branch**: `feature/coding-merge-pr-waiting-gate` (in `agentic-coding-plugin` and root `agentic`)
+
+### Overview & Key Capabilities Delivered
+Upgraded Stage 7 release engineering subagent (`@coding-merge`) in `agentic-coding-plugin` to support remote Pull Request workflows, eliminating 60-second host timeout failures during human review and automating post-merge cleanup:
+- **Remote Repository Detection & Validation**:
+  - Automatically inspects remotes (`git remote -v`); selects local merge strategy for local-only repositories and remote PR strategy for repositories with configured origins.
+- **Resilient Remote PR Creation & Fallback**:
+  - Validates GitHub CLI authentication (`gh auth status`) and creates PR via `gh pr create`.
+  - When `gh` is unauthenticated or missing, constructs a web browser compare URL (`https://github.com/<owner>/<repo>/compare/...`) and guides the user via the Question Relay Protocol.
+- **Subagent-Safe PR Waiting Gate**:
+  - Polls PR status non-blockingly via `gh pr view --json state,reviewDecision`. When `state == "OPEN"`, halts subagent execution and delegates review options (`Re-check`, `Enable auto-merge`, `Proceed pending`) to the parent orchestrator via `[QUESTION_RELAY_REQUEST]`, completely eliminating Antigravity's 60-second subagent timeouts.
+- **Post-Merge Base Synchronization & Local Branch Cleanup**:
+  - Upon remote merge confirmation (`state == "MERGED"`), checks out base branch (`git checkout <base>`), fast-forward pulls upstream changes (`git pull --ff-only origin <base>`), and safely prunes the local feature branch (`git branch -d <branch>`).
+- **Tooling & Pure Subagent Matrix Alignment**:
+  - Added `send_message` to `coding-merge/agent.md` frontmatter tools.
+  - Classified `@coding-merge` as a Pure Subagent alongside `@coding-clarify`, `@coding-deploy`, and `@coding-review` across rules and workspace `AGENTS.md`.
+
+### Participating Repositories & Delivered Commits
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): Commit [`486131c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) on `feature/coding-merge-pr-waiting-gate` — `feat(coding-merge): add PR creation, Question Relay waiting gate, and post-merge branch synchronization` (17/17 tests passed).
+- [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): Commit [`1aa5e88`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) on `feature/coding-merge-pr-waiting-gate` — `docs(agents): update AGENTS.md for coding-merge remote PR waiting gate and sync`.
 
 ---
 

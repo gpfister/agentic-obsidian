@@ -39,7 +39,7 @@ Subagent instructions are authored as modular markdown specifications within ded
 | [`coding-develop/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-develop/) | `@coding-develop` | **Software Engineer**: Isolated single-repository implementation, unit tests, linting, documentation, CI/CD, and fix remediation. | `write=True`, `subagent=False`, `mcp=True` |
 | [`coding-deploy/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-deploy/) | `@coding-deploy` | **Local Deployment Specialist**: Executes local deployments (Docker, Minikube, Terraform, scripts), monitors health in real time, investigates issues, and orchestrates remediation. | `write=True`, `subagent=True`, `mcp=True` |
 | [`coding-review/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-review/) | `@coding-review` | **Quality Assurance Lead**: Cross-repository verification against `specification.md`, automated test execution, deployment status auditing, and discrepancy routing. | `write=True`, `subagent=False`, `mcp=True` |
-| [`coding-merge/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-merge/) | `@coding-merge` | **Release Engineer**: Executes local git merge or opens a GitHub Pull Request after all develop and deploy steps conclude. | `write=True`, `subagent=False`, `mcp=True` |
+| [`coding-merge/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-merge/) | `@coding-merge` | **Release Engineer**: Executes local git merge or remote PR creation (`gh pr create` with compare URL fallback), handles interactive PR review waiting gates via Question Relay Protocol (`[QUESTION_RELAY_REQUEST]`), and performs post-merge base branch synchronization (`git pull --ff-only`) and branch cleanup (`git branch -d`). | `write=True`, `subagent=False`, `mcp=True` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill | File | Description |
@@ -111,7 +111,7 @@ flowchart TD
     InvokeDocPreMerge --> P7Merge
 
     %% Phase 7: Release & Merge
-    P7Merge --> ExecMerge["Wait for all develop & deploy<br/>Execute git merge or open GitHub PR"]
+    P7Merge --> ExecMerge["Execute git merge or remote PR creation<br/>Question Relay waiting gate & post-merge sync"]
     ExecMerge --> DocPostMergeCheck{"agentic-project-documenting-plugin<br/>installed?"}
     DocPostMergeCheck -->|"Yes"| InvokeDocPostMerge["Invoke @coding-document<br/>(Post-merge: update git status, branch tracking & changelogs)"]
     DocPostMergeCheck -->|"No"| Complete(["Workflow Completed"])

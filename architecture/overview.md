@@ -98,3 +98,4 @@ flowchart TD
 | [[architecture/adr-004-standardize-plugin-repository-names\|ADR-004]] | Standardize Antigravity Plugin Repository Names to Descriptive Action Grammar | Accepted |
 | [[architecture/adr-005-question-relay-protocol\|ADR-005]] | Question Relay Protocol for Subagent User Inquiries | Accepted |
 | [[architecture/adr-006-artifact-approval-relay-protocol\|ADR-006]] | Artifact Approval Relay Protocol for Subagent Approval Gates | Accepted |
+| [[architecture/adr-007-coding-merge-remote-pr-and-sync\|ADR-007]] | Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge | Accepted |

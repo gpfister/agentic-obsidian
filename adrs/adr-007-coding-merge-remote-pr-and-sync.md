@@ -1,0 +1,1 @@
+../architecture/adr-007-coding-merge-remote-pr-and-sync.md
