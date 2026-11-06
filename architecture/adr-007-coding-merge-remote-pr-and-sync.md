@@ -20,7 +20,15 @@ tags:
   - release-engineering
   - pre-merge-approved
   - implementation-verified
-commits:
+  - post-merge-synchronized
+  - released
+pull_requests:
+  agentic_coding_plugin: "https://github.com/gpfister/agentic-coding-plugin/pull/1"
+  agentic_root: "https://github.com/gpfister/agentic/pull/1"
+merge_commits:
+  agentic_coding_plugin: "2061642"
+  agentic_root: "3f09b7c"
+feature_commits:
   agentic_coding_plugin: "486131ceb0316ae582fe750573dab59337d7e012"
   agentic_root: "1aa5e88a6e91f57497bfdda64494ccdc782f9816"
 aliases:

@@ -19,13 +19,13 @@ Chronological log of cross-repository releases, feature merges, and architectura
 
 ## [2026-11-06] — Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge (SPEC-2026-MERGE-001)
 
-> [!NOTE] Release Status: Pre-Merge Verification Approved (Ready for Stage 7 Merge)
+> [!NOTE] Release Summary: SPEC-2026-MERGE-001 Merged & Released across 2 Repositories
 > - **Specification**: `SPEC-2026-MERGE-001`
 > - **Architecture Decision**: [[architecture/adr-007-coding-merge-remote-pr-and-sync|ADR-007: Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge]]
 > - **Feature Note**: [[features/coding-merge-remote-pr-and-sync|Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge]]
 > - **Architecture Note**: [[architecture/coding-merge-remote-pr-and-sync|Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization Architecture & Implementation Plan]]
 > - **Verification**: 17/17 automated unit tests passing in `agentic-coding-plugin` (100% pass rate). Pre-merge clean code review approved (0 blockers).
-> - **Target Branch**: `feature/coding-merge-pr-waiting-gate` (in `agentic-coding-plugin` and root `agentic`)
+> - **Branch Lifecycle**: Merged via GitHub Pull Requests (Squash & Merge) into `master`; upstream fast-forward synchronized; feature branches `feature/coding-merge-pr-waiting-gate` safely deleted.
 
 ### Overview & Key Capabilities Delivered
 Upgraded Stage 7 release engineering subagent (`@coding-merge`) in `agentic-coding-plugin` to support remote Pull Request workflows, eliminating 60-second host timeout failures during human review and automating post-merge cleanup:
@@ -42,9 +42,9 @@ Upgraded Stage 7 release engineering subagent (`@coding-merge`) in `agentic-codi
   - Added `send_message` to `coding-merge/agent.md` frontmatter tools.
   - Classified `@coding-merge` as a Pure Subagent alongside `@coding-clarify`, `@coding-deploy`, and `@coding-review` across rules and workspace `AGENTS.md`.
 
-### Participating Repositories & Delivered Commits
-- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): Commit [`486131c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) on `feature/coding-merge-pr-waiting-gate` — `feat(coding-merge): add PR creation, Question Relay waiting gate, and post-merge branch synchronization` (17/17 tests passed).
-- [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): Commit [`1aa5e88`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) on `feature/coding-merge-pr-waiting-gate` — `docs(agents): update AGENTS.md for coding-merge remote PR waiting gate and sync`.
+### Merged Repositories & Release Commits
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): [PR #1](https://github.com/gpfister/agentic-coding-plugin/pull/1) merged into `master` via squash commit [`2061642`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) — `feat(coding-merge): PR creation, waiting gate, and branch sync (#1)`. Feature branch deleted and `master` fast-forward synced.
+- [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): [PR #1](https://github.com/gpfister/agentic/pull/1) merged into `master` via squash commit [`3f09b7c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) — `docs(agents): document coding-merge PR waiting gate and sync in AGENTS.md (#1)`. Feature branch deleted and `master` fast-forward synced.
 
 ---
 
