@@ -1,0 +1,1 @@
+../architecture/adr-008-dual-mode-coding-orchestrator.md
