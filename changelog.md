@@ -1,6 +1,6 @@
 ---
 title: "Workspace Release Changelog"
-date: "2026-11-06"
+date: "2026-11-08"
 status: "active"
 tags:
   - changelog
@@ -14,11 +14,52 @@ tags:
   - question-relay
   - artifact-approval-relay
   - coding-merge
+  - branch-cleanup
+  - git-prune
+  - base-branch-sync
 ---
 
 # Workspace Release Changelog
 
 Chronological log of cross-repository releases, feature merges, and architectural upgrades across the `agentic` workspace.
+
+---
+
+## [2026-11-08] — Complete Branch Cleanup, Base Branch Checkout, and Remote Tracking Prune for @coding-merge (SPEC-2026-MERGE-002)
+
+> [!NOTE] Release Summary: SPEC-2026-MERGE-002 Merged & Released in agentic-coding-plugin
+> - **Specification**: `SPEC-2026-MERGE-002`
+> - **Architecture Decision**: [[architecture/adr-009-coding-merge-complete-branch-cleanup-and-remote-sync|ADR-009: Complete Branch Cleanup, Base Branch Checkout, and Remote Tracking Prune for @coding-merge]]
+> - **Feature Note**: [[features/coding-merge-complete-branch-cleanup-and-remote-sync|Complete Branch Cleanup, Base Branch Checkout, and Remote Tracking Prune for @coding-merge]]
+> - **Architecture Note**: [[architecture/coding-merge-complete-branch-cleanup-and-remote-sync|Complete Branch Cleanup, Base Branch Checkout, and Remote Tracking Synchronization Architecture Plan]]
+> - **Verification**: 22/22 automated unit tests passing in `agentic-coding-plugin` (100% pass rate). Pre-merge clean code review approved (0 blockers).
+> - **Branch Lifecycle**: Merged via GitHub Pull Request #3 (Squash & Merge) into `main`; upstream fast-forward synchronized; feature branch `feature/merge-branch-cleanup-and-remote-sync` deleted locally and remotely; remote tracking references pruned (`git fetch --prune origin`); repository working tree clean on `main`.
+
+### Overview & Key Capabilities Delivered
+Upgraded Stage 7 release engineering subagent ([`@coding-merge`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-merge/agent.md)) in `agentic-coding-plugin` to enforce complete post-merge branch hygiene, working tree assurance, and remote tracking reference synchronization:
+- **Local Release Strategy Branch Cleanup & Base Switch**:
+  - Mandated that `@coding-merge` verifies working tree checkout on `<base>` (`git checkout <base>`, `git branch --show-current`).
+  - Merges the feature branch into `<base>` and immediately deletes the local feature branch safely (`git branch -d <branch>`).
+  - Emits structured `MergeReport` with `cleanup: true` and `deleted_branches: { "local": "<branch>" }`, eliminating stale local branch accumulation in repositories without remotes.
+- **Remote Release Strategy Complete Cleanup & Pruning**:
+  - Following confirmed Pull Request merge (`gh pr view` reports `state == "MERGED"`), checks out `<base>` and pulls remote updates (`git pull --ff-only origin <base>`).
+  - Deletes the remote feature branch on `origin` (`git push origin --delete <branch>`), handling pre-deleted branches idempotently.
+  - Deletes the local feature branch (`git branch -d <branch>`, with fallback to `-D` only when PR merge is verified and base branch is synchronized).
+  - Executes `git fetch --prune origin` to purge obsolete remote-tracking branches from `.git/refs/remotes/origin/`, eliminating lingering ghost branches in `git branch -a`.
+  - Verifies active branch is `<base>` and emits structured `MergeReport` with `cleanup: true`, `deleted_branches: { "local": "<branch>", "remote": "<branch>" }`, and `pruned: true`.
+- **Documentation & Agent Specification Alignment**:
+  - Updated [`agents/coding-merge/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-merge/agent.md) Sections 2 & 5 with complete cleanup steps and updated `MergeReport` schemas.
+  - Updated Stage 7 descriptions and Mermaid sequence diagrams in [`agents/coding/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding/agent.md) and [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/agent.md).
+  - Updated Phase 7 instructions in [`skills/coding-orchestrator/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-orchestrator/SKILL.md).
+  - Added "Release & Merge Hygiene" section to [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/README.md).
+- **Automated Test Verification**:
+  - Expanded `tests/test_plugin.py` to assert `git push origin --delete`, `git fetch --prune`, local merge cleanup, and base branch checkout.
+  - Achieved 100% test pass rate (22/22 unit tests passing).
+
+### Merged Repositories & Release Commits
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): [PR #3](https://github.com/gpfister/agentic-coding-plugin/pull/3) merged into `main` via squash commit [`b201d28`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) — `feat(coding-merge): implement complete branch cleanup and remote tracking synchronization (#3)`. 22/22 tests passed; feature branch deleted locally and remotely; `main` fast-forward synced; remote tracking pruned.
+- [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): Commit [`ef13d6c`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) on `main` — `docs: pre-merge documentation tidy-up for coding-merge complete branch cleanup and remote sync`.
+- [`agentic-obsidian`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/): Commits [`9d0de36`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) and [`f6147ad`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) on `main` — `docs(plan): document architecture plan, feature spec, and formalize ADR-009` and `docs(vault): pre-merge documentation tidy-up`.
 
 ---
 
