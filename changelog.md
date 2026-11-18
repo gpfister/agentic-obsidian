@@ -1,16 +1,21 @@
 ---
 title: "Workspace Release Changelog"
-date: "2026-11-08"
+date: "2026-11-18"
 status: "active"
 tags:
   - changelog
   - releases
   - multi-repo
+  - git-worktree
+  - anti-direct-coding
+  - coding-develop
   - dual-mode
   - multi-hop-relay
-  - anti-direct-coding
   - guardrails
   - coding-orchestrator
+  - coding-review
+  - plan-audit
+  - unplanned-changes
   - question-relay
   - artifact-approval-relay
   - coding-merge
@@ -22,6 +27,69 @@ tags:
 # Workspace Release Changelog
 
 Chronological log of cross-repository releases, feature merges, and architectural upgrades across the `agentic` workspace.
+
+---
+
+## [2026-11-18] — Worktree-Based Development & Exclusive Code-Change Authority
+
+> [!NOTE] Release Summary: Worktree-Based Development & Exclusive Code-Change Authority Merged & Released across 7 Repositories
+> - **Architecture Decisions**:
+>   - [[architecture/adr-011-worktree-based-development-lifecycle|ADR-011: Worktree-Based Development Lifecycle (.worktrees/<slug> Isolation)]]
+>   - [[architecture/adr-012-exclusive-code-change-authority|ADR-012: Exclusive Code-Change Authority for @coding-develop]]
+> - **Feature Note**: [[features/worktree-based-development-and-exclusive-code-change-authority|Worktree-Based Development & Exclusive Code-Change Authority]]
+> - **Architecture Note**: [[architecture/worktree-based-development-and-exclusive-code-change-authority|Worktree-Based Development & Exclusive Code-Change Authority Architecture Plan]]
+> - **Verification**: 26/26 tests passing in `agentic-coding-plugin`, 18/18 in `agentic-project-grooming-plugin`, and 12/12 in `agentic-task-monitoring-plugin`; global `grep -rn "edit_file"` audit confirms `edit_file` is declared exclusively on `@coding-develop`.
+> - **Branch & Worktree Lifecycle**: Merged via 7 GitHub Pull Requests into `main`; all 7 isolated worktrees (`.worktrees/worktree-exclusive-code-authority`) removed & pruned; all `feature/worktree-exclusive-code-authority` branches deleted; primary repositories synchronized on `main`.
+
+### Overview & Key Capabilities Delivered
+Enforced two structural invariants across the `agentic` plugin ecosystem:
+- **Worktree-Based Development Lifecycle (ADR-011)**:
+  - Primary repository working trees remain strictly on `main` or `master` at all times during development, deployment, and review.
+  - `@coding-develop` creates or reuses `<repo_root>/.worktrees/<slug>` via `git worktree add`, ensures `.worktrees/` is ignored, performs all code/test/config/repo-local doc edits exclusively inside `worktree_path`, and returns `worktree_path` + `branch` in `DevelopReport`.
+  - `@coding` captures and propagates `worktree_path` to `@coding-deploy`, `@coding-review`, and `@coding-merge`.
+  - `@coding-merge` merges into `main` in the primary repository and cleans up via `git worktree remove` + `git worktree prune`.
+- **Exclusive Code-Change Authority (ADR-012)**:
+  - `@coding-develop` is the sole agent authorized to declare `edit_file` and modify repository source code, configuration files, test suites, or repo-local documentation.
+  - Removed `edit_file` from `@coding-deploy` and `@coding-document` (and their agent registry tables).
+  - Restricted `write_file` across all other agents strictly to session artifacts (`<appDataDir>/brain/<conversation-id>/*.md`, or `*-obsidian/` for `@coding-document`) and restricted `run_command` to non-mutating / read-only / operational commands.
+  - Updated `/project-grooming` fallback (when `agentic-coding-plugin` is absent) to output manual scaffolding guidance instead of writing repository files directly.
+
+### Merged Repositories & Pull Requests
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): [PR #5](https://github.com/gpfister/agentic-coding-plugin/pull/5) (`MERGED`, **26/26 tests passed**)
+- [`agentic-project-grooming-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/): [PR #1](https://github.com/gpfister/agentic-project-grooming-plugin/pull/1) (`MERGED`, **18/18 tests passed**)
+- [`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/): [PR #1](https://github.com/gpfister/agentic-project-documenting-plugin/pull/1) (`MERGED`)
+- [`agentic-issue-investigation-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/): [PR #2](https://github.com/gpfister/agentic-issue-investigation-plugin/pull/2) (`MERGED`)
+- [`agentic-task-monitoring-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/): [PR #1](https://github.com/gpfister/agentic-task-monitoring-plugin/pull/1) (`MERGED`, **12/12 tests passed**)
+- [`agentic-topic-researching-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/): [PR #1](https://github.com/gpfister/agentic-topic-researching-plugin/pull/1) (`MERGED`)
+- [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): [PR #3](https://github.com/gpfister/agentic/pull/3) (`MERGED`)
+
+---
+
+## [2026-11-17] — Plan-vs-Changes Audit, `review-<slug>.md` Artifact, and Unplanned Changes Validation Gate for @coding-review (SPEC-2026-REVIEW-001)
+
+> [!NOTE] Release Summary: SPEC-2026-REVIEW-001 Merged & Released in agentic-coding-plugin
+> - **Specification**: `SPEC-2026-REVIEW-001`
+> - **Architecture Decision**: [[architecture/adr-010-coding-review-plan-audit-and-unplanned-changes-gate|ADR-010: Plan-vs-Changes Audit, Non-Blocking Review Artifact, and Unplanned Changes Validation Gate for @coding-review]]
+> - **Feature Note**: [[features/coding-review-plan-audit-and-unplanned-changes-gate|Plan-vs-Changes Audit, review-<slug>.md Artifact, and Unplanned Changes Validation Gate for @coding-review]]
+> - **Architecture Note**: [[architecture/coding-review-plan-audit-and-unplanned-changes-gate|Plan-vs-Changes Audit, review-<slug>.md Artifact, and Unplanned Changes Validation Gate Architecture Plan]]
+> - **Verification**: 25/25 automated unit tests passing in `agentic-coding-plugin` (100% pass rate).
+> - **Branch Lifecycle**: Merged via GitHub [PR #4](https://github.com/gpfister/agentic-coding-plugin/pull/4) into `main` at [`151f203`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/); feature branch `feature/review-plan-audit` deleted locally and remotely; remote tracking pruned; working tree clean on `main`.
+
+### Overview & Key Capabilities Delivered
+Upgraded Stage 6 ([`@coding-review`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-review/agent.md)) and [`@coding`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding/agent.md) in `agentic-coding-plugin` to enforce plan-vs-changes verification, persistent review artifacts, and user validation of unplanned changes prior to merge confirmation:
+- **Plan-vs-Changes Git Audit**:
+  - `@coding` passes the approved `plan.md` path alongside `specification.md`, `DevelopReport`s, and `DeployReport`s to `@coding-review`.
+  - `@coding-review` inspects `git status` and `git diff` across all participating repositories against `plan.md` and classifies any out-of-plan modifications as *unplanned changes*.
+- **Non-Blocking `review-<slug>.md` Artifact**:
+  - Generated on every review run in `<appDataDir>/brain/<conversation-id>/review-<slug>.md` without `RequestFeedback=True` or `[ARTIFACT_APPROVAL_REQUEST]`, containing all 5 mandatory audit sections (reporting `"None"` when no unplanned changes exist).
+  - `write_file` added to `coding-review`'s allowed tools strictly scoped to `<appDataDir>/brain/<conversation-id>/review-<slug>.md`.
+- **Conditional Unplanned Changes Validation Gate & `[REVIEW_ARTIFACT]` Ordering**:
+  - When unplanned changes are detected, `@coding-review` sends `[REVIEW_ARTIFACT]` to `@coding` (forwarded to `caller_id` in Subagent Mode, or presented/linked before `ask_question` in Standalone Mode) **before** dispatching `[QUESTION_RELAY_REQUEST]` (`"Do you approve the changes ?"` with `(Recommended) Yes`, `No, revert all these changes`, and native custom write-in support).
+  - Reverts and custom revisions are returned in `ReviewReport` for `@coding` to delegate to `@coding-develop` before re-running `@coding-review`.
+  - Merge Confirmation remains a separate final gate executed only after unplanned changes (if any) are approved and all quality checks pass.
+
+### Merged Repositories & Release Commits
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): [PR #4](https://github.com/gpfister/agentic-coding-plugin/pull/4) merged into `main` at [`151f203`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/). 25/25 tests passed; `feature/review-plan-audit` deleted locally and remotely; `main` synchronized.
 
 ---
 

@@ -100,3 +100,7 @@ flowchart TD
 | [[architecture/adr-006-artifact-approval-relay-protocol\|ADR-006]] | Artifact Approval Relay Protocol for Subagent Approval Gates | Accepted |
 | [[architecture/adr-007-coding-merge-remote-pr-and-sync\|ADR-007]] | Remote PR Creation, Question Relay Waiting Gate, and Post-Merge Synchronization for @coding-merge | Accepted |
 | [[architecture/adr-008-dual-mode-coding-orchestrator\|ADR-008]] | Dual-Mode Coding Orchestrator with Multi-Hop Relay and Anti-Direct-Coding Guardrails | Accepted |
+| [[architecture/adr-009-coding-merge-complete-branch-cleanup-and-remote-sync\|ADR-009]] | Complete Branch Cleanup, Base Branch Checkout, and Remote Tracking Prune for @coding-merge | Accepted |
+| [[architecture/adr-010-coding-review-plan-audit-and-unplanned-changes-gate\|ADR-010]] | Plan-vs-Changes Audit, Non-Blocking Review Artifact, and Unplanned Changes Validation Gate for @coding-review | Accepted |
+| [[architecture/adr-011-worktree-based-development-lifecycle\|ADR-011]] | Worktree-Based Development Lifecycle (.worktrees/<slug> Isolation) | Accepted |
+| [[architecture/adr-012-exclusive-code-change-authority\|ADR-012]] | Exclusive Code-Change Authority for @coding-develop Across All Agentic Plugins | Accepted |

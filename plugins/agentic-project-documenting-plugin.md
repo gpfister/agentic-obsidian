@@ -30,14 +30,14 @@ It introduces the autonomous subagent [`@coding-document`](file:///Users/gpfiste
 - **Rules**: [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/rules/AGENTS.md) enforcing:
   - **Comprehensive Obsidian Vault Coverage**: Projects, features, architecture, sessions, artifacts, git statuses.
   - **Clickable Links & Wikilinks**: Combining `[[Note Name]]` with `file://` scheme links.
-  - **Permissions & Safety**: Explicit read, write, edit, git inspection, and subagent communication tools while strictly forbidding unauthorized edits to application logic.
+  - **Permissions & Safety**: Explicit read, Obsidian-scoped `write_file` (`*-obsidian/` vault documentation and session artifacts only; `edit_file` removed), git inspection, and subagent communication tools while strictly forbidding edits to application logic or code repositories (repo-local docs like `README.md` are delegated to `@coding-develop`).
   - **Cross-Plugin Coordination**: Standardized hooks for pre-merge documentation tidy-ups, post-merge git updates, and deliverable archival.
 
 ### 2. Declarative Markdown Subagents (`agents/`)
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
 | [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/agents/agent.md) | `coding-obsidian-catalog` | **Coding - Obsidian Vault Documentation Subagents & Architecture**: Subagent registry, tool configurations, and operating models. | `write=False`, `subagent=False`, `mcp=False` |
-| [`agents/coding-document/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/agents/coding-document/agent.md) | `@coding-document` (Alias: `coding-document`) | **Coding - Autonomous Documentation Specialist**: Documents projects, features, architecture, sessions, artifacts, code changes, and git status in Obsidian vaults. | `read_file`, `write_file`, `edit_file`, `list_dir`, `run_command`, `ask_question`, `send_message` |
+| [`agents/coding-document/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/agents/coding-document/agent.md) | `@coding-document` (Alias: `coding-document`) | **Coding - Autonomous Documentation Specialist**: Documents projects, features, architecture, sessions, artifacts, code changes, and git status strictly in `*-obsidian/` vaults and session artifacts (`edit_file` removed; repo-local docs delegated to `@coding-develop`). | `read_file`, `write_file` (`*-obsidian/` & artifacts only), `list_dir`, `run_command` (read-only git & `sync_sessions.py`), `ask_question`, `send_message` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill Name | Path | Description | Invocation |

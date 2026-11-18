@@ -94,21 +94,21 @@ flowchart TD
     Gate -->|"Approved"| CodingCheck{"agentic-coding-plugin<br/>Installed?"}
     Gate -->|"Rejected"| GrillMe
     
-    CodingCheck -->|"Yes"| CallCoding["Invoke @coding<br/>(6-stage delivery lifecycle)"]
-    CodingCheck -->|"No"| LocalScaffold["Direct Scaffolding Execution"]
+    CodingCheck -->|"Yes"| CallCoding["Invoke @coding<br/>(7-stage delivery lifecycle)"]
+    CodingCheck -->|"No"| LocalScaffold["Output Manual Scaffolding Guidance<br/>(Commands & templates only)"]
     
     CallCoding --> DocCheck{"agentic-project-documenting-plugin<br/>Installed?"}
     LocalScaffold --> DocCheck
     
     DocCheck -->|"Yes"| CallDoc["Invoke @coding-document<br/>(Initialize vault & specs)"]
-    DocCheck -->|"No"| LocalDoc["Create standard &lt;project&gt;-obsidian/"]
+    DocCheck -->|"No"| LocalDoc["Output Vault Structure Guidance"]
 ```
 
 | Companion Plugin | Integration Protocol when Installed | Graceful Fallback if Not Installed |
 | :--- | :--- | :--- |
 | **`agentic-prompt-triage-plugin`** | Classifies project initiation or grooming prompts and routes them dynamically to `/project-grooming <prompt>`. | User invokes `/project-grooming` manually in chat. |
-| **`agentic-coding-plugin`** | Orchestrates 6-stage development lifecycle (`@coding`) for creating repositories, code files, and test infrastructure. | Executes deterministic local file generation, git initialization, and directory setup directly. |
-| **`agentic-project-documenting-plugin`** | Initializes the project knowledge base vault (`<project>-obsidian/`) and indexes architecture specifications via `@coding-document`. | Directly scaffolds a standard `<project>-obsidian/` directory structure with starter README. |
+| **`agentic-coding-plugin`** | Orchestrates 7-stage development lifecycle (`@coding`) for creating repositories, code files, and test infrastructure. | Outputs manual scaffolding guidance (commands and file templates in chat or `Project_Request_Grooming.md`) instead of writing repository files directly. |
+| **`agentic-project-documenting-plugin`** | Initializes the project knowledge base vault (`<project>-obsidian/`) and indexes architecture specifications via `@coding-document`. | Outputs `<project>-obsidian/` directory structure and starter README templates as guidance without writing repository files directly. |
 
 ---
 
