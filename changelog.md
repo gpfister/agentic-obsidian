@@ -24,6 +24,7 @@ tags:
   - change-request-loop
   - penpot
   - mcp
+  - github-publication
   - git-worktree
   - anti-direct-coding
   - coding-develop
@@ -45,6 +46,31 @@ tags:
 # Workspace Release Changelog
 
 Chronological log of cross-repository releases, feature merges, and architectural upgrades across the `agentic` workspace.
+
+---
+
+## [2026-11-26] — `agentic-design-plugin`: Remove Bundled `mcp_config.json` & Publish to GitHub
+
+> [!NOTE] Release Summary: `remove-mcp-config-and-publish` Merged & Published (`agentic-design-plugin`)
+> - **Feature Note**: [[features/remove-mcp-config-and-publish|agentic-design-plugin GitHub Remote Setup & Working Tree Finalization]]
+> - **Architecture Note**: [[architecture/remove-mcp-config-and-publish|Architecture & Implementation Plan: agentic-design-plugin Cleanup & GitHub Publication]]
+> - **Plugin Spec**: [[plugins/agentic-design-plugin|agentic-design-plugin]]
+> - **Related ADR**: [[architecture/adr-013-coding-design-plugin-and-penpot-mcp|ADR-013: Coding Design Plugin (@coding-design) with Official PenPot MCP Integration]]
+> - **Verification**: `7/7` automated tests passing in `agentic-design-plugin` (`uv run pytest -v` in `0.02s`), QA review **PASS** with zero unplanned changes.
+> - **GitHub & Branch Lifecycle**: `task/remove-mcp-config-and-publish` (`3fa6b0f`) fast-forward merged into `main`; `.worktrees/remove-mcp-config-and-publish` removed & pruned; local branch deleted; [`https://github.com/gpfister/agentic-design-plugin`](https://github.com/gpfister/agentic-design-plugin) created (`PUBLIC`, mirrored settings from `gpfister/agentic-coding-plugin`); `origin` configured as `git@github.com:gpfister/agentic-design-plugin.git` and `main` pushed.
+
+### Overview & Key Capabilities Delivered
+Finalized the [`agentic-design-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin) working tree and published the repository to GitHub:
+- **Externalized PenPot MCP Configuration**:
+  - Removed bundled `mcp_config.json` (`git rm -f mcp_config.json`).
+  - Updated [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin/README.md) (`## PenPot MCP Configuration`) to document host Antigravity MCP registration, `PENPOT_MCP_URL` (`http://localhost:4401/mcp`), and the stdio (`npx`) alternative.
+  - Replaced `test_mcp_config_valid_and_portable` with `test_mcp_config_not_bundled` in [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin/tests/test_plugin.py) (`7/7` passing).
+- **GitHub Publication & Mirrored Repository Settings**:
+  - Created [`gpfister/agentic-design-plugin`](https://github.com/gpfister/agentic-design-plugin) (`PUBLIC`) with description from [`plugin.json`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin/plugin.json) and settings mirrored from `gpfister/agentic-coding-plugin` (`allow_squash_merge=true`, `allow_merge_commit=false`, `allow_rebase_merge=false`, `allow_auto_merge=true`, `delete_branch_on_merge=true`, `allow_update_branch=true`, `has_issues/projects/wiki/discussions=false`).
+  - Configured `origin` (`git@github.com:gpfister/agentic-design-plugin.git`) and pushed `main` (`3fa6b0f`) with upstream tracking.
+
+### Merged Repositories & Release Commits
+- [`agentic-design-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin): Fast-forward merged into `main` and pushed to `origin/main` at `3fa6b0f` — `chore: remove bundled mcp_config.json and update README and tests` (**7/7 tests passed**).
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Architecture & Implementation Plan: agentic-design-plugin Cleanup & GitHub Publication"
 date: "2026-11-26"
-status: "Ready to Merge (Review Approved)"
+status: "Merged & Released"
 slug: "remove-mcp-config-and-publish"
 specification_path: "/Users/gpfister/.gemini/antigravity/brain/f9451afa-521e-429c-9a1e-11830bd1ce85/specification.md"
 plan_path: "/Users/gpfister/.gemini/antigravity/brain/33bab1a3-fa8f-4437-85a7-49f372d0dffc/plan.md"
@@ -12,7 +12,7 @@ tags:
   - agentic-design-plugin
   - worktree-isolation
   - github-publication
-  - ready-to-merge
+  - merged
 ---
 
 # Architecture & Implementation Plan: `agentic-design-plugin` Cleanup & GitHub Publication
@@ -31,11 +31,11 @@ tags:
 ### Externalized PenPot MCP Configuration
 Originally, [[architecture/adr-013-coding-design-plugin-and-penpot-mcp|ADR-013]] bundled a portable `mcp_config.json` inside `agentic-design-plugin/`. Removing `mcp_config.json` shifts PenPot MCP server registration to the user's host Antigravity MCP configuration while retaining `PENPOT_MCP_URL` (defaulting to `http://localhost:4401/mcp`) as the documented endpoint contract in [`README.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin/README.md).
 
-### Worktree Isolation & Scope
-- **Target Repository**: [`agentic-design-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin)
-- **Worktree**: `.worktrees/remove-mcp-config-and-publish` on branch `task/remove-mcp-config-and-publish` (commit `3fa6b0f` on top of `main` at `9b434b4`)
-- **Primary Branch Invariant**: `main` remains checked out in the primary repository working tree during development and review.
-- **Local Deployment**: **Not Required** (no `Dockerfile`, `compose.yaml`, local deployment scripts, Terraform/K8s manifests, or `Makefile` in `agentic-design-plugin`). `coding-deploy` is skipped.
+### Worktree Isolation & Release Scope
+- **Target Repository**: [`agentic-design-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin) (`gpfister/agentic-design-plugin`)
+- **Worktree & Merge**: `.worktrees/remove-mcp-config-and-publish` on `task/remove-mcp-config-and-publish` (`3fa6b0f`) fast-forward merged into `main`, worktree removed & pruned, and local branch deleted.
+- **GitHub Publication**: Created [`https://github.com/gpfister/agentic-design-plugin`](https://github.com/gpfister/agentic-design-plugin) (`PUBLIC`) mirroring `gpfister/agentic-coding-plugin` (`allow_squash_merge=true`, `allow_merge_commit=false`, `allow_rebase_merge=false`, `allow_auto_merge=true`, `delete_branch_on_merge=true`, `allow_update_branch=true`, `has_issues/projects/wiki/discussions=false`), configured `origin` (`git@github.com:gpfister/agentic-design-plugin.git`), and pushed `main` (`3fa6b0f`).
+- **Local Deployment**: **Not Required** (no `Dockerfile`, `compose.yaml`, local deployment scripts, Terraform/K8s manifests, or `Makefile` in `agentic-design-plugin`). `coding-deploy` skipped.
 
 ---
 
@@ -44,7 +44,7 @@ Originally, [[architecture/adr-013-coding-design-plugin-and-penpot-mcp|ADR-013]]
 ```mermaid
 flowchart LR
     D["Stage 1: @coding-develop (Completed: 3fa6b0f)\nWorktree task/remove-mcp-config-and-publish\n- git rm -f mcp_config.json\n- Update README.md & tests/test_plugin.py\n- 7/7 uv run pytest -v passed"] --> R["Stage 3: @coding-review (Approved)\n- Plan vs. actual audit (0 unplanned changes)\n- 7/7 uv run pytest -v passed\n- Parent Makefile untouched"]
-    R --> M["Stage 4: @coding-merge (Pending)\n- Clean main & merge task/remove-mcp-config-and-publish\n- Remove worktree & delete branch\n- Inspect gpfister/agentic-coding-plugin\n- Create & configure gpfister/agentic-design-plugin\n- Add origin & git push -u origin main"]
+    R --> M["Stage 4: @coding-merge (Completed)\n- Fast-forward merged 3fa6b0f into main\n- Removed worktree & deleted branch\n- Created PUBLIC gpfister/agentic-design-plugin\n- Added origin & pushed main (3fa6b0f)"]
 ```
 
 ### Stage Breakdown
@@ -59,18 +59,17 @@ flowchart LR
 3. **Stage 3 (`@coding-review`) — Approved**:
    - Audited `git status` and `git diff main..task/remove-mcp-config-and-publish`: zero unplanned changes, primary repo on `main`, parent `Makefile` and sibling repositories clean.
    - Verified `uv run pytest -v`: **7 passed in 0.02s** (`0` failed, `0` skipped).
-4. **Stage 4 (`@coding-merge`) — Pending**:
-   - Restore unstaged deletion of `mcp_config.json` on `main` (`git restore mcp_config.json`), merge `task/remove-mcp-config-and-publish` into `main`, remove `.worktrees/remove-mcp-config-and-publish`, prune worktrees, and delete `task/remove-mcp-config-and-publish`.
-   - Inspect `gpfister/agentic-coding-plugin` via `gh repo view` / `gh api`.
-   - Create `gpfister/agentic-design-plugin` on GitHub (idempotently) with `plugin.json` description and mirrored visibility/merge settings.
-   - Configure `origin` (`git@github.com:gpfister/agentic-design-plugin.git`), run `git push -u origin main`, and verify `git remote -v`, `git branch -vv`, and `git status`.
+4. **Stage 4 (`@coding-merge`) — Completed**:
+   - Fast-forward merged `task/remove-mcp-config-and-publish` (`3fa6b0f`) into `main`, removed & pruned `.worktrees/remove-mcp-config-and-publish`, and deleted `task/remove-mcp-config-and-publish`.
+   - Inspected `gpfister/agentic-coding-plugin` via `gh` and created `https://github.com/gpfister/agentic-design-plugin` (`PUBLIC`) with mirrored settings.
+   - Configured `origin` (`git@github.com:gpfister/agentic-design-plugin.git`), pushed `main` (`git push -u origin main`), and verified clean working tree tracking `origin/main`.
 
 ---
 
 ## 3. Verification Matrix
 
-| Phase | Command | Status / Outcome |
+| Phase | Command / Check | Status / Outcome |
 | :--- | :--- | :--- |
 | Development / Review | `uv run pytest -v` | **Passed** (`7/7` tests in `tests/test_plugin.py` passed in `0.02s`) |
-| Merge / Publish | `gh repo view gpfister/agentic-design-plugin` | Pending Stage 4 (`@coding-merge`) |
-| Merge / Publish | `git remote -v && git branch -vv && git status` | Pending Stage 4 (`@coding-merge`) |
+| Merge / Publish | `gh repo view gpfister/agentic-design-plugin` | **Verified** (`PUBLIC`, mirrored settings from `gpfister/agentic-coding-plugin`) |
+| Merge / Publish | `git remote -v && git branch -vv && git status` | **Verified** (`main...origin/main` at `3fa6b0f`, working tree clean) |
