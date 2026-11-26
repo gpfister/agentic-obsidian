@@ -1,11 +1,15 @@
 ---
 title: "Workspace Release Changelog"
-date: "2026-11-18"
+date: "2026-11-26"
 status: "active"
 tags:
   - changelog
   - releases
   - multi-repo
+  - coding-document
+  - obsidian-vault
+  - defer-pr
+  - pull-request
   - git-worktree
   - anti-direct-coding
   - coding-develop
@@ -27,6 +31,33 @@ tags:
 # Workspace Release Changelog
 
 Chronological log of cross-repository releases, feature merges, and architectural upgrades across the `agentic` workspace.
+
+---
+
+## [2026-11-26] — Obsidian Vault Git Worktree & PR Lifecycle (`@coding-document`)
+
+> [!NOTE] Release Summary: `obsidian-worktree-pr-lifecycle` Merged & Released across 2 Repositories
+> - **Architecture Decision**: [[architecture/adr-016-obsidian-vault-worktree-and-pr-lifecycle|ADR-016: Obsidian Vault Git Worktree & PR Lifecycle]]
+> - **Feature Note**: [[features/obsidian-worktree-pr-lifecycle|Obsidian Vault Git Worktree & PR Lifecycle (@coding-document)]]
+> - **Architecture Note**: [[architecture/obsidian-worktree-pr-lifecycle|Obsidian Vault Git Worktree & PR Lifecycle Architecture Plan]]
+> - **Verification**: `15/15` automated tests passing in `agentic-project-documenting-plugin` (`uv run pytest -v`), `28/28` automated tests passing in `agentic-coding-plugin` (`uv run pytest -v`), QA review **PASS** with zero unplanned changes.
+> - **Branch & Worktree Lifecycle**: Merged via GitHub [PR #3](https://github.com/gpfister/agentic-project-documenting-plugin/pull/3) (`bb6ce00`) and [PR #8](https://github.com/gpfister/agentic-coding-plugin/pull/8) (`b843fbe`) into `main`; `.worktrees/obsidian-worktree-pr-lifecycle` removed & pruned in both repositories; `feature/obsidian-worktree-pr-lifecycle` deleted locally & remotely; primary repositories clean on `main`.
+
+### Overview & Key Capabilities Delivered
+Enabled `@coding-document` to self-manage the complete `*-obsidian/` Git worktree, branch (`docs/<slug>`), incremental commit, push, PR creation, Hybrid PR Waiting Gate, base sync, and cleanup lifecycle, coordinated by `@coding` via `defer_pr`:
+- **Self-Managed `*-obsidian/` Worktree Isolation**:
+  - Primary `<vault_root>` remains on `<base>` (`main`/`master`); all documentation edits target `<vault_root>/.worktrees/<slug>` on `docs/<slug>`.
+  - `@coding-merge` remains scoped exclusively to code repositories.
+- **Multi-Phase `defer_pr` Accumulation (`@coding`)**:
+  - `@coding` passes consistent `slug=<slug>` and `defer_pr=true` on Post-Plan and Pre-Merge hooks (incremental commits without push/PR/cleanup) and `defer_pr=false` on Post-Merge (final status/changelog commit + Release & Cleanup).
+  - Single-shot callers (`@coding-design`, `@coding-investigate`, `@coding-research`, `@coding-monitor`, direct invocations) default to `defer_pr=false`.
+- **Release & Cleanup Strategies & Dual-Mode Question Relay**:
+  - Supports Remote Release (`git push`, `gh pr create` / compare URL fallback, non-blocking Hybrid PR Waiting Gate, Post-Merge Base Sync & Cleanup), Local-Only Release, and Non-Git Fallback.
+  - `@coding-document` uses `[QUESTION_RELAY_REQUEST]` / `[QUESTION_RELAY_RESPONSE]` in Subagent Mode (`caller_id` present) and `ask_question` directly in Standalone Mode.
+
+### Merged Repositories & Release Commits
+- [`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin): [PR #3](https://github.com/gpfister/agentic-project-documenting-plugin/pull/3) merged into `main` at `bb6ce00` — `feat(document): add Obsidian git worktree, defer_pr, PR lifecycle, and Question Relay (#3)` (**15/15 tests passed**).
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin): [PR #8](https://github.com/gpfister/agentic-coding-plugin/pull/8) merged into `main` at `b843fbe` — `feat: coordinate @coding-document worktree defer_pr lifecycle and question relay (#8)` (**28/28 tests passed**).
 
 ---
 

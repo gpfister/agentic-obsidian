@@ -1,16 +1,19 @@
 ---
 title: "Workspace Git Status & Branch Tracking"
-date: "2026-11-18"
+date: "2026-11-26"
 active_branch: "main"
 phase: "Phase 7: Merge & Release Complete (Post-Merge Synchronized)"
-audit_verdict: "RELEASED & POST-MERGE SYNCHRONIZED (All 7 PRs merged into main across agentic-coding-plugin [#5], agentic-project-grooming-plugin [#1], agentic-project-documenting-plugin [#1], agentic-issue-investigation-plugin [#2], agentic-task-monitoring-plugin [#1], agentic-topic-researching-plugin [#1], and agentic [#3]; all 7 worktrees removed & pruned; feature branches deleted; primary repos on main)"
+audit_verdict: "RELEASED & POST-MERGE SYNCHRONIZED (agentic-project-documenting-plugin PR #3 merged into main [bb6ce00]; agentic-coding-plugin PR #8 merged into main [b843fbe]; worktrees .worktrees/obsidian-worktree-pr-lifecycle removed & pruned; feature/obsidian-worktree-pr-lifecycle deleted locally & remotely; primary repos clean on main)"
 status: "Merged / Completed"
 tags:
   - git-status
   - branch-tracking
   - git-worktree
-  - coding-develop
-  - anti-direct-coding
+  - coding-document
+  - obsidian-vault
+  - defer-pr
+  - pull-request
+  - question-relay
   - coding-merge
   - branch-cleanup
   - git-prune
@@ -23,86 +26,80 @@ tags:
   - post-merge-synchronized
   - verified
   - multi-repo
-repositories_count: 9
+repositories_count: 10
 ---
 
 # Workspace Git Status & Branch Tracking
 
-> [!NOTE] Release Status: Feature Merged & Released (`Worktree-Based Development & Exclusive Code-Change Authority`)
-> - **Feature**: Worktree-Based Development & Exclusive Code-Change Authority
+> [!NOTE] Release Status: Feature Merged & Released (`obsidian-worktree-pr-lifecycle` — Obsidian Vault Git Worktree & PR Lifecycle)
+> - **Feature**: Self-managed `*-obsidian/` Git worktree isolation (`<vault_root>/.worktrees/<slug>` on `docs/<slug>`), incremental commits, `defer_pr` multi-phase `@coding` accumulation (Post-Plan, Pre-Merge, Post-Merge), Remote (`gh pr create` + Hybrid PR Waiting Gate + base sync/cleanup), Local-Only, and Non-Git Fallback release strategies, plus Dual-Mode Question Relay (`[QUESTION_RELAY_REQUEST]` / `[QUESTION_RELAY_RESPONSE]`) for `@coding-document`.
 > - **Status**: **Merged / Completed** (`MERGED`).
-> - **Active Workspace Branch**: `main` (All primary repositories on `main`).
-> - **Merged Pull Requests (7 Repositories)**:
->   1. [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): GitHub [PR #5](https://github.com/gpfister/agentic-coding-plugin/pull/5) (`MERGED`, **26/26 tests passed**)
->   2. [`agentic-project-grooming-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin/): GitHub [PR #1](https://github.com/gpfister/agentic-project-grooming-plugin/pull/1) (`MERGED`, **18/18 tests passed**)
->   3. [`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/): GitHub [PR #1](https://github.com/gpfister/agentic-project-documenting-plugin/pull/1) (`MERGED`)
->   4. [`agentic-issue-investigation-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/): GitHub [PR #2](https://github.com/gpfister/agentic-issue-investigation-plugin/pull/2) (`MERGED`)
->   5. [`agentic-task-monitoring-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin/): GitHub [PR #1](https://github.com/gpfister/agentic-task-monitoring-plugin/pull/1) (`MERGED`, **12/12 tests passed**)
->   6. [`agentic-topic-researching-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin/): GitHub [PR #1](https://github.com/gpfister/agentic-topic-researching-plugin/pull/1) (`MERGED`)
->   7. [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): GitHub [PR #3](https://github.com/gpfister/agentic/pull/3) (`MERGED`)
-> - **Post-Merge Cleanup & Sync**: All 7 isolated worktrees (`.worktrees/worktree-exclusive-code-authority`) removed & pruned (`git worktree remove`, `git worktree prune`), `feature/worktree-exclusive-code-authority` branches deleted locally and remotely, and primary repositories synchronized on `main`.
-> - **Specification & Vault Links**: [[features/worktree-based-development-and-exclusive-code-change-authority|Feature Specification]] / [[architecture/adr-011-worktree-based-development-lifecycle|ADR-011]] / [[architecture/adr-012-exclusive-code-change-authority|ADR-012]] / [[architecture/worktree-based-development-and-exclusive-code-change-authority|Architecture Plan]] / [[changelog|Workspace Release Changelog]]
+> - **Active Primary Branch**: `main` (Both [`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin) at `bb6ce00` and [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin) at `b843fbe` clean on `main`; all `agentic` repositories on `main`).
+> - **Merged Repositories**:
+>   - [`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin): GitHub [PR #3](https://github.com/gpfister/agentic-project-documenting-plugin/pull/3) (`MERGED` `feature/obsidian-worktree-pr-lifecycle` -> `main` at `bb6ce00`).
+>   - [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin): GitHub [PR #8](https://github.com/gpfister/agentic-coding-plugin/pull/8) (`MERGED` `feature/obsidian-worktree-pr-lifecycle` -> `main` at `b843fbe`).
+> - **Post-Merge Cleanup & Sync**: Isolated worktrees `.worktrees/obsidian-worktree-pr-lifecycle` removed and pruned (`git worktree remove`, `git worktree prune`) in both repositories, `feature/obsidian-worktree-pr-lifecycle` deleted locally and remotely, remote-tracking references pruned, and primary repositories confirmed clean on `main` (up to date with `origin/main`).
+> - **Specification & Vault Links**: [[features/obsidian-worktree-pr-lifecycle|Feature Note]] / [[architecture/obsidian-worktree-pr-lifecycle|Architecture Plan]] / [[architecture/adr-016-obsidian-vault-worktree-and-pr-lifecycle|ADR-016]] / [[changelog|Workspace Release Changelog]]
 
 ---
 
 ## 1. Multi-Repository State Overview
 
-| Repository | Active Branch | Remote Origin URL | Release PR / Status | Test Verdict |
+| Repository | Active Branch | Remote Origin URL | HEAD / Release Status | Test Verdict |
 | :--- | :--- | :--- | :--- | :--- |
-| **`agentic` (root)** | `main` | `git@github.com:gpfister/agentic.git` | [PR #3](https://github.com/gpfister/agentic/pull/3) (`MERGED`) | Workspace Docs (PASS) |
-| **`agentic-coding-plugin`** | `main` | `git@github.com:gpfister/agentic-coding-plugin.git` | [PR #5](https://github.com/gpfister/agentic-coding-plugin/pull/5) (`MERGED`) | **26/26 passed** (100%) |
-| **`agentic-issue-investigation-plugin`** | `main` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` | [PR #2](https://github.com/gpfister/agentic-issue-investigation-plugin/pull/2) (`MERGED`) | Verified (`git diff`, `grep` audit) |
-| **`agentic-obsidian` (vault)** | `main` | `git@github.com:gpfister/agentic-obsidian.git` | Post-Merge Vault Update | Vault Docs (PASS) |
-| **`agentic-project-documenting-plugin`** | `main` | `git@github.com:gpfister/agentic-project-documenting-plugin.git` | [PR #1](https://github.com/gpfister/agentic-project-documenting-plugin/pull/1) (`MERGED`) | Verified (`git diff`, `grep` audit) |
-| **`agentic-project-grooming-plugin`** | `main` | `git@github.com:gpfister/agentic-project-grooming-plugin.git` | [PR #1](https://github.com/gpfister/agentic-project-grooming-plugin/pull/1) (`MERGED`) | **18/18 passed** (100%) |
-| **`agentic-prompt-triage-plugin`** | `main` | `git@github.com:gpfister/agentic-prompt-triage-plugin.git` | Unchanged (Baseline `9c5c19b`) | **77/77 passed** (100%) |
-| **`agentic-task-monitoring-plugin`** | `main` | `git@github.com:gpfister/agentic-task-monitoring-plugin.git` | [PR #1](https://github.com/gpfister/agentic-task-monitoring-plugin/pull/1) (`MERGED`) | **12/12 passed** (100%) |
-| **`agentic-topic-researching-plugin`** | `main` | `git@github.com:gpfister/agentic-topic-researching-plugin.git` | [PR #1](https://github.com/gpfister/agentic-topic-researching-plugin/pull/1) (`MERGED`) | Verified (`git diff`, `grep` audit) |
+| **`agentic-project-documenting-plugin`** | `main` | `git@github.com:gpfister/agentic-project-documenting-plugin.git` | [PR #3](https://github.com/gpfister/agentic-project-documenting-plugin/pull/3) (`MERGED`, `bb6ce00`) | **15/15 passed** (100%, `uv run pytest -v`) |
+| **`agentic-coding-plugin`** | `main` | `git@github.com:gpfister/agentic-coding-plugin.git` | [PR #8](https://github.com/gpfister/agentic-coding-plugin/pull/8) (`MERGED`, `b843fbe`) | **28/28 passed** (100%, `uv run pytest -v`) |
+| **`agentic` (root)** | `main` | `git@github.com:gpfister/agentic.git` | Unchanged (`f234f6a`, PR #4) | Clean on `main` |
+| **`agentic-design-plugin`** | `main` | Local-only (no `origin` configured) | Unchanged (`9b434b4`; `D mcp_config.json` local) | — |
+| **`agentic-issue-investigation-plugin`** | `main` | `git@github.com:gpfister/agentic-issue-investigation-plugin.git` | Unchanged (`1d315d0`, PR #2) | Clean on `main` |
+| **`agentic-obsidian` (vault)** | `main` | `git@github.com:gpfister/agentic-obsidian.git` | Post-Merge Vault Update (`docs/obsidian-worktree-pr-lifecycle`) | Vault Docs (PASS) |
+| **`agentic-project-grooming-plugin`** | `main` | `git@github.com:gpfister/agentic-project-grooming-plugin.git` | Unchanged (`af7c4ff`, PR #1) | Clean on `main` |
+| **`agentic-prompt-triage-plugin`** | `main` | `git@github.com:gpfister/agentic-prompt-triage-plugin.git` | Unchanged (`ff5a3ae`, PR #2) | Clean on `main` |
+| **`agentic-task-monitoring-plugin`** | `main` | `git@github.com:gpfister/agentic-task-monitoring-plugin.git` | Unchanged (`4896566`, PR #1) | Clean on `main` |
+| **`agentic-topic-researching-plugin`** | `main` | `git@github.com:gpfister/agentic-topic-researching-plugin.git` | Unchanged (`95cfb17`, PR #1) | Clean on `main` |
 
 ---
 
 ## 2. Branch Topology & Git Worktrees
 
-All 7 feature worktrees (`.worktrees/worktree-exclusive-code-authority` on `feature/worktree-exclusive-code-authority`) have been removed and pruned post-merge, leaving only the primary repository working trees on `main`:
+The `.worktrees/obsidian-worktree-pr-lifecycle` worktrees and `feature/obsidian-worktree-pr-lifecycle` branches in both `agentic-project-documenting-plugin` and `agentic-coding-plugin` have been removed and pruned post-merge, leaving both primary working trees clean on `main`:
 
 | Repository | Primary Worktree Path | Active Branch | Feature Worktree Status |
 | :--- | :--- | :--- | :--- |
-| **`agentic` (root)** | `/Users/gpfister/Development/Projects/gpfister/agentic` | `main` | Removed & pruned (PR #3 merged) |
-| **`agentic-coding-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin` | `main` | Removed & pruned (PR #5 merged) |
-| **`agentic-issue-investigation-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin` | `main` | Removed & pruned (PR #2 merged) |
-| **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `main` | Post-merge vault updates applied |
-| **`agentic-project-documenting-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin` | `main` | Removed & pruned (PR #1 merged) |
-| **`agentic-project-grooming-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin` | `main` | Removed & pruned (PR #1 merged) |
-| **`agentic-prompt-triage-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin` | `main` | N/A (not part of release) |
-| **`agentic-task-monitoring-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin` | `main` | Removed & pruned (PR #1 merged) |
-| **`agentic-topic-researching-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin` | `main` | Removed & pruned (PR #1 merged) |
+| **`agentic-project-documenting-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin` | `main` | `.worktrees/obsidian-worktree-pr-lifecycle` removed & pruned (PR #3 merged, `bb6ce00`); `feature/obsidian-worktree-pr-lifecycle` deleted locally & remotely |
+| **`agentic-coding-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin` | `main` | `.worktrees/obsidian-worktree-pr-lifecycle` removed & pruned (PR #8 merged, `b843fbe`); `feature/obsidian-worktree-pr-lifecycle` deleted locally & remotely |
+| **`agentic` (root)** | `/Users/gpfister/Development/Projects/gpfister/agentic` | `main` | None (clean on `main`) |
+| **`agentic-design-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin` | `main` | None |
+| **`agentic-issue-investigation-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin` | `main` | None (clean on `main`) |
+| **`agentic-obsidian`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian` | `main` | `.worktrees/obsidian-worktree-pr-lifecycle` (`docs/obsidian-worktree-pr-lifecycle`) active for Post-Merge release |
+| **`agentic-project-grooming-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-grooming-plugin` | `main` | None (clean on `main`) |
+| **`agentic-prompt-triage-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin` | `main` | None (clean on `main`) |
+| **`agentic-task-monitoring-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-task-monitoring-plugin` | `main` | None (clean on `main`) |
+| **`agentic-topic-researching-plugin`** | `/Users/gpfister/Development/Projects/gpfister/agentic/agentic-topic-researching-plugin` | `main` | None (clean on `main`) |
 
 ---
 
 ## 3. Post-Merge Release Ledger
 
-Release execution details for **Worktree-Based Development & Exclusive Code-Change Authority**:
+Release execution details for **Obsidian Vault Git Worktree & PR Lifecycle (`obsidian-worktree-pr-lifecycle`)**:
 
 ### 3.1 Pull Request & Merge Details
 
-| Repository | Pull Request | Target Branch | Worktree Branch | Status | Verification Result |
+| Repository | Pull Request / Merge | Target Branch | Feature Branch (Deleted) | HEAD Commit | Verification Result |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`agentic-coding-plugin`** | [PR #5](https://github.com/gpfister/agentic-coding-plugin/pull/5) | `main` | `feature/worktree-exclusive-code-authority` | `MERGED` | **26/26 passed** (100%) |
-| **`agentic-project-grooming-plugin`** | [PR #1](https://github.com/gpfister/agentic-project-grooming-plugin/pull/1) | `main` | `feature/worktree-exclusive-code-authority` | `MERGED` | **18/18 passed** (100%) |
-| **`agentic-project-documenting-plugin`** | [PR #1](https://github.com/gpfister/agentic-project-documenting-plugin/pull/1) | `main` | `feature/worktree-exclusive-code-authority` | `MERGED` | `git diff` & `grep` audit PASS |
-| **`agentic-issue-investigation-plugin`** | [PR #2](https://github.com/gpfister/agentic-issue-investigation-plugin/pull/2) | `main` | `feature/worktree-exclusive-code-authority` | `MERGED` | `git diff` & `grep` audit PASS |
-| **`agentic-task-monitoring-plugin`** | [PR #1](https://github.com/gpfister/agentic-task-monitoring-plugin/pull/1) | `main` | `feature/worktree-exclusive-code-authority` | `MERGED` | **12/12 passed** (100%) |
-| **`agentic-topic-researching-plugin`** | [PR #1](https://github.com/gpfister/agentic-topic-researching-plugin/pull/1) | `main` | `feature/worktree-exclusive-code-authority` | `MERGED` | `git diff` & `grep` audit PASS |
-| **`agentic` (root)** | [PR #3](https://github.com/gpfister/agentic/pull/3) | `main` | `feature/worktree-exclusive-code-authority` | `MERGED` | Root docs & `grep` audit PASS |
-| **`agentic-obsidian`** | — | `main` | — | Post-Merge Update | Vault notes, ADR-011, ADR-012, feature index & changelog synchronized |
+| **`agentic-project-documenting-plugin`** | [PR #3](https://github.com/gpfister/agentic-project-documenting-plugin/pull/3) (`MERGED`) | `main` | `feature/obsidian-worktree-pr-lifecycle` | `bb6ce00` | `uv run pytest -v` (`15/15` passed), QA review PASS (0 unplanned changes) |
+| **`agentic-coding-plugin`** | [PR #8](https://github.com/gpfister/agentic-coding-plugin/pull/8) (`MERGED`) | `main` | `feature/obsidian-worktree-pr-lifecycle` | `b843fbe` | `uv run pytest -v` (`28/28` passed), QA review PASS (0 unplanned changes) |
+| **`agentic-obsidian`** | Post-Merge Update (`docs/obsidian-worktree-pr-lifecycle`) | `main` | — | — | Feature note, `features/index.md`, `git-status.md`, & `changelog.md` synchronized |
 
 ### 3.2 Post-Merge Synchronization & Complete Branch / Worktree Cleanup
-- All 7 Pull Requests merged into `origin/main` on GitHub.
-- All 7 isolated worktrees (`.worktrees/worktree-exclusive-code-authority`) removed and pruned (`git worktree remove`, `git worktree prune`).
-- All `feature/worktree-exclusive-code-authority` branches deleted locally and remotely; stale remote-tracking references pruned (`git fetch --prune origin`).
-- All 7 primary repositories confirmed on `main`.
+- GitHub [PR #3](https://github.com/gpfister/agentic-project-documenting-plugin/pull/3) (`feature/obsidian-worktree-pr-lifecycle` -> `main`) merged into `origin/main` at `bb6ce00` (`feat(document): add Obsidian git worktree, defer_pr, PR lifecycle, and Question Relay (#3)`).
+- GitHub [PR #8](https://github.com/gpfister/agentic-coding-plugin/pull/8) (`feature/obsidian-worktree-pr-lifecycle` -> `main`) merged into `origin/main` at `b843fbe` (`feat: coordinate @coding-document worktree defer_pr lifecycle and question relay (#8)`).
+- Isolated `.worktrees/obsidian-worktree-pr-lifecycle` worktrees removed and pruned (`git worktree remove`, `git worktree prune`) in both repositories.
+- `feature/obsidian-worktree-pr-lifecycle` deleted locally and remotely; stale remote-tracking references pruned.
+- Both primary working trees confirmed clean on `main` and up to date with `origin/main`.
 
 ### 3.3 Historical Release Ledger
+- **Worktree-Based Development & Exclusive Code-Change Authority (ADR-011 / ADR-012)**: Merged via 7 PRs (`agentic-coding-plugin` PR #5, `agentic-project-grooming-plugin` PR #1, `agentic-project-documenting-plugin` PR #1, `agentic-issue-investigation-plugin` PR #2, `agentic-task-monitoring-plugin` PR #1, `agentic-topic-researching-plugin` PR #1, `agentic` PR #3).
 - **SPEC-2026-REVIEW-001**: Merged via PR #4 in `agentic-coding-plugin` ([`151f203`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/)).
 - **SPEC-2026-MERGE-002**: Merged via PR #3 in `agentic-coding-plugin` ([`b201d28`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/)), `ef13d6c` in `agentic`, `6a3b23d` in `agentic-obsidian`.
 - **SPEC-2026-DUAL-MODE-001**: Merged via PR #2 in `agentic-coding-plugin` ([`3e04ac1`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/)), PR #2 in `agentic` ([`fa5164a`](file:///Users/gpfister/Development/Projects/gpfister/agentic/)), PR #1 in `agentic-issue-investigation-plugin` ([`34629b3`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/)).
@@ -114,13 +111,7 @@ Release execution details for **Worktree-Based Development & Exclusive Code-Chan
 
 ## 4. Test Verification & Acceptance Matrix
 
-- [x] **Automated Unit Tests**:
-  - `agentic-coding-plugin`: **26/26 passed (100%)**
-  - `agentic-project-grooming-plugin`: **18/18 passed (100%)**
-  - `agentic-task-monitoring-plugin`: **12/12 passed (100%)**
-- [x] **Acceptance Criteria Verification**:
-  - [x] **FR-1 (Worktree-Based Development)**: Primary repositories remain on `main`/`master`; `@coding-develop` creates/reuses `.worktrees/<slug>` and emits `worktree_path` + `branch`; `@coding` propagates `worktree_path` to `@coding-deploy`, `@coding-review`, and `@coding-merge`; `@coding-merge` removes and prunes worktrees post-merge.
-  - [x] **FR-2 (Exclusive Code-Change Authority)**: `edit_file` declared exclusively on `@coding-develop` across all `agents/` directories; `write_file` restricted to session artifacts (or `*-obsidian/` for `@coding-document`); `run_command` non-mutating on other agents; `/project-grooming` fallback outputs manual scaffolding guidance.
-  - [x] **Root Workspace Coordination**: `agentic/AGENTS.md` updated and `.gitignore` ignores `.worktrees/`.
-- [x] **Local Deployment**: Assessed as **Not Required** across all 7 repositories.
+- [x] **Unit & Plugin Test Suite (`agentic-project-documenting-plugin`)**: `uv run pytest -v` -> **`15 passed, 0 failed`**.
+- [x] **Unit & Plugin Test Suite (`agentic-coding-plugin`)**: `uv run pytest -v` -> **`28 passed, 0 failed`**.
+- [x] **QA Review (`review-obsidian-worktree-pr-lifecycle.md`)**: **PASS**, zero unplanned changes across both repositories.
 - [x] **Release Engineering Verdict**: **RELEASE COMPLETE & POST-MERGE SYNCHRONIZED**.
