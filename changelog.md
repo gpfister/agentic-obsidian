@@ -10,6 +10,20 @@ tags:
   - obsidian-vault
   - defer-pr
   - pull-request
+  - agentic-prompt-triage-plugin
+  - laya-router
+  - system-1
+  - semantic-classification
+  - minigma-ai-web-app
+  - spartan-ui
+  - tailwind-v4
+  - angular-19
+  - agentic-coding-plugin
+  - agentic-design-plugin
+  - coding-design
+  - change-request-loop
+  - penpot
+  - mcp
   - git-worktree
   - anti-direct-coding
   - coding-develop
@@ -58,6 +72,121 @@ Enabled `@coding-document` to self-manage the complete `*-obsidian/` Git worktre
 ### Merged Repositories & Release Commits
 - [`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin): [PR #3](https://github.com/gpfister/agentic-project-documenting-plugin/pull/3) merged into `main` at `bb6ce00` — `feat(document): add Obsidian git worktree, defer_pr, PR lifecycle, and Question Relay (#3)` (**15/15 tests passed**).
 - [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin): [PR #8](https://github.com/gpfister/agentic-coding-plugin/pull/8) merged into `main` at `b843fbe` — `feat: coordinate @coding-document worktree defer_pr lifecycle and question relay (#8)` (**28/28 tests passed**).
+
+---
+
+## [2026-11-26] — `agentic-prompt-triage-plugin`: Semantic Laya Triage & Parallel `choice` + `noul` Decomposition (PR #2)
+
+> [!NOTE] Release Summary: `agentic-prompt-triage-plugin` Semantic Laya Triage Merged & Released
+> - **Architecture Decision**: [[architecture/adr-017-semantic-laya-triage-and-parallel-choice-noul-decomposition|ADR-017: Semantic Laya Triage & Parallel choice + noul Decomposition]]
+> - **Feature Note**: [[features/semantic-laya-triage|Feature: Semantic Laya Triage & Parallel choice + noul Decomposition]]
+> - **Architecture Note**: [[architecture/semantic-laya-triage|Semantic Laya Triage & Parallel choice + noul Decomposition Architecture Plan]]
+> - **Plugin Spec**: [[plugins/agentic-prompt-triage-plugin|agentic-prompt-triage-plugin]]
+> - **Verification**: `101/101` automated tests passing (`uv run pytest -v` in `3.96s`: `12` plugin tests, `89` prompt triage tests), CLI smoke test exited `0` (`{"injectSteps": []}`), empirical Laya evaluation (`scripts/eval_laya_triage.py`) selected `default` (`Router(preload=False)`) over `typed-decisions`, QA review **PASS** with zero unplanned changes.
+> - **Branch & Worktree Lifecycle**: Merged via GitHub [PR #2](https://github.com/gpfister/agentic-prompt-triage-plugin/pull/2) (`feature/semantic-laya-triage` -> `main` at [`ff5a3ae`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin)); worktree `.worktrees/semantic-laya-triage` removed and pruned; `feature/semantic-laya-triage` deleted locally and remotely; primary repo clean on `main` (`ff5a3ae`).
+
+### Overview & Key Capabilities Delivered
+Refactored [`hooks/prompt_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/hooks/prompt_triage.py) in [`agentic-prompt-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin) to improve Laya Router System 1 zero-shot classification accuracy, calibration, and observability in a single forward pass:
+- **Semantic `criteria` Keys & Action-Oriented Descriptions**:
+  - Replaced opaque `response 1`..`response 9` keys in `build_dynamic_triage_spec` with semantic keys (`inquiry`, `coding`, `monitoring`, `investigation`, `research`, `documentation`, `grooming`, `design`) and removed `mixed` from `choice` criteria while preserving `response_to_intent["mixed"]` and `response_to_directive["mixed"]`.
+- **Single-Pass Parallel `choice` + `noul` Decomposition**:
+  - Evaluates `"about"` (`choice`), `"requires_changes"` (`noul`), and `"is_mixed"` (`noul`) in one `self._router.predict({"prompt": text}, questions)` call.
+  - Gates mutating agents (`MUTATING_AGENTS = frozenset({"coding", "documentation", "grooming", "design"})`) against `requires_changes == "no"` and `inquiry` against `requires_changes == "yes"`, while exempting `NON_MUTATING_AGENTS` (`monitoring`, `investigation`, `research`).
+- **Anchored Instructions, `usage` Diagnostics & Calibrated Confidence**:
+  - Set `TRIAGE_QUESTION = "Which single agent or action should handle `prompt`?"` and anchored `noul` questions to `` `prompt` ``.
+  - Added `_inspect_usage` to warn on `truncated` / `truncated_questions` and `options` collisions, and preferred calibrated `ans.get("confidence")`.
+  - Benchmarked `default` (`Router(preload=False)`) vs `typed-decisions` via [`scripts/eval_laya_triage.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/scripts/eval_laya_triage.py), confirming `default` as the superior router configuration.
+
+### Merged Repositories & Release Commits
+- [`agentic-prompt-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin): [PR #2](https://github.com/gpfister/agentic-prompt-triage-plugin/pull/2) merged into `main` at `ff5a3ae` — `feat: semantic Laya triage with parallel choice + noul decomposition (#2)`.
+
+---
+
+## [2026-11-25] — `minigma-ai-web-app`: UI Alignment (`spartan/ui` + Tailwind CSS 4) & Screen Cleanup (PR #4)
+
+> [!NOTE] Release Summary: `minigma-ai-web-app` UI Alignment & Screen Cleanup Merged & Released
+> - **Architecture Decision**: [[architecture/adr-015-minigma-ai-web-app-spartan-ui-and-screen-cleanup|ADR-015: Minigma AI Web App: spartan/ui + Tailwind CSS 4 Migration, Dual-Theme Tokens, and Route Surface Reduction]]
+> - **Feature Note**: [[features/minigma-ai-web-app-ui-alignment|Minigma AI Web App — UI Alignment & Screen Cleanup]]
+> - **Architecture Note**: [[architecture/minigma-ai-web-app-ui-alignment|Architecture Plan — Minigma AI Web App UI Alignment & Screen Cleanup]]
+> - **Design Spec**: [[designs/minigma-ai-web-app-ui-alignment|Design Spec — Minigma AI Web App UI Alignment & Screen Cleanup]]
+> - **Project Note**: [[projects/minigma-ai-web-app|Minigma AI Web App (`minigma-ai-web-app`)]]
+> - **Verification**: `npx tsc --noEmit` (0 errors), `npm run build` (`481.49 kB` initial), and active local Kubernetes deployment at `http://app.localhost:8080/` (`minigma-ai-web-app:94f1f67-1795625897` in namespace `minigma-ai-web-app`).
+> - **Branch & Worktree Lifecycle**: Squash-merged via GitHub [PR #4](https://github.com/gpfister/minigma-ai-web-app/pull/4) (`feature/penpot-ui-alignment` -> `main` at [`49360d2`](file:///Users/gpfister/Development/Projects/gpfister/minigma-ai/minigma-ai-web-app)); worktree `.worktrees/penpot-ui-alignment` removed and pruned; local and remote `feature/penpot-ui-alignment` deleted; primary repo clean on `main` (`49360d2`).
+
+### Overview & Key Capabilities Delivered
+Aligned [`minigma-ai-web-app`](file:///Users/gpfister/Development/Projects/gpfister/minigma-ai/minigma-ai-web-app) (Angular `^19.0.0`) with the approved **spartan/ui + Tailwind CSS 4** PenPot design system (`42288968-6e5e-808d-8008-fab5dcc739f5`):
+- **Tailwind CSS 4 & `spartan/ui` Migration**:
+  - Phased out `@angular/material`, `--mat-sys-*`, and Google Material Icons across `AppComponent`, `LoginComponent`, `CallbackComponent`, `OnboardingComponent`, `ChatComponent`, `src/styles.scss`, and `src/index.html`.
+  - Adopted `@spartan-ng/brain`, local Hlm primitives (`src/app/shared/ui/`), and Tailwind CSS 4 (`.postcssrc.json`).
+- **Dual-Theme Token System & Brand Assets**:
+  - Configured **Late Sun Engineering (Light)** and **Twilight Engineering (Dark, `html[data-theme="dark"]`)** CSS custom properties (`--color-*`, `--font-mono`, `--font-sans`, `--space-*`, `--radius-*`) in `src/styles.scss`.
+  - Added `logo-light.svg`, `logo-dark.svg`, and `prefers-color-scheme` favicons with `"output": "assets"` in `angular.json`.
+- **Route Surface Reduction & Screen Alignment**:
+  - Restricted `src/app/app.routes.ts` strictly to **Auth** (`auth/login`, `auth/callback`), **Onboarding** (`onboarding`), and **Chat** (`chat`), deleting `spec`, `code`, `ops`, `sandbox`, `user/account`, `admin/users`, and `adminGuard`.
+  - Added `OrgService.selectOrganisation(id: string)` for the `spartan-navbar` Organisation Switcher on `/chat`, and aligned `CallbackComponent` to `HlmCardDirective` / `HlmButtonDirective` redirecting to `/chat`.
+
+### Merged Repositories & Release Commits
+- [`minigma-ai-web-app`](file:///Users/gpfister/Development/Projects/gpfister/minigma-ai/minigma-ai-web-app): [PR #4](https://github.com/gpfister/minigma-ai-web-app/pull/4) squash-merged into `main` at `49360d2` — `feat(ui): align web app with PenPot spartan/ui + Tailwind CSS 4 design (#4)`.
+
+---
+
+## [2026-11-25] — `agentic-coding-plugin`: UI Design Stage & Change-Request Loop Between Specification and Planning
+
+> [!NOTE] Release Summary: UI Design Stage & Change-Request Loop Merged & Released in `agentic-coding-plugin`
+> - **Architecture Decision**: [[architecture/adr-014-ui-design-stage-and-change-request-loop|ADR-014: UI Design Stage & Change-Request Loop Between Specification and Planning]]
+> - **Feature Note**: [[features/ui-design-stage-and-change-request-loop|Feature: UI Design Stage & Change-Request Loop (@coding <-> @coding-design)]]
+> - **Architecture Note**: [[architecture/ui-design-stage-and-change-request-loop|UI Design Stage & Change-Request Loop Architecture & Implementation Plan]]
+> - **Plugin Spec**: [[plugins/agentic-coding-plugin|agentic-coding-plugin]]
+> - **Verification**: 27/27 automated unit tests passing in `agentic-coding-plugin` (100% pass rate, `uv run pytest -v` in `0.03s`).
+> - **Branch & Worktree Lifecycle**: Merged via GitHub [PR #7](https://github.com/gpfister/agentic-coding-plugin/pull/7) (`feature/ui-design-stage-loop` -> `main` at [`634f62b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/)); worktree `.worktrees/ui-design-stage-loop` removed and pruned; `feature/ui-design-stage-loop` deleted locally and remotely; `agentic-coding-plugin` synchronized on `main`.
+
+### Overview & Key Capabilities Delivered
+Enforced a deterministic **UI Design Stage (`@coding-design`)** strictly between **Phase 2 (`coding-specify`)** and **Phase 3 (`coding-plan`)** in `agentic-coding-plugin`:
+- **Strict Stage Placement & Dual-Condition Trigger (`DesignCheck`)**:
+  - Removed conflicting *"or alongside `@coding-plan` and `@coding-develop`"* wording in [`skills/coding-orchestrator/SKILL.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/skills/coding-orchestrator/SKILL.md).
+  - Invokes `@coding-design` only when **both** `agentic-design-plugin` is installed **and** the task involves UI/UX changes; non-UI tasks advance directly to Phase 3 (`coding-plan`).
+- **Pre-Clarified Fast-Path Alignment**:
+  - Fast-Path checks whether `design-spec.md` is already approved before entering `coding-plan`, otherwise routing through `DesignCheck`.
+- **Dual-Mode Validation Gate & Two-Branch Change-Request Loop**:
+  - Added `@coding-design` to worker subagent relay lists in [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/rules/AGENTS.md) Sections 6 & 7 (`[QUESTION_RELAY_REQUEST]` and `[ARTIFACT_APPROVAL_REQUEST]`).
+  - On `design-spec.md` rejection (`DesignGate`), evaluates feedback against `specification.md`: **Branch A** (functional, scope, requirement, user-flow, or mixed feedback) routes to `@coding-specify` (`P2`) before re-invoking `@coding-design`; **Branch B** (visual, layout, or styling only) re-invokes `@coding-design` directly.
+- **Downstream Handoffs & Automated Regression Coverage**:
+  - Passes approved `design-spec.md` and PenPot references to both `@coding-plan` and `@coding-develop`.
+  - Added `test_coding_orchestrator_ui_design_stage_and_change_request_loop` in [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/test_plugin.py) (`27/27` tests passing).
+
+### Merged Repositories & Release Commits
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): [PR #7](https://github.com/gpfister/agentic-coding-plugin/pull/7) merged into `main` at [`634f62b`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) (**27/27 tests passed**)
+
+---
+
+## [2026-11-21] — `agentic-design-plugin`: `@coding-design` with Official PenPot MCP Integration
+
+> [!NOTE] Release Summary: `agentic-design-plugin` Merged & Released across 5 Repositories
+> - **Architecture Decision**: [[architecture/adr-013-coding-design-plugin-and-penpot-mcp|ADR-013: Coding Design Plugin (@coding-design) with Official PenPot MCP Integration]]
+> - **Feature Note**: [[features/coding-design-plugin|Coding Design Plugin (@coding-design) with Official PenPot MCP Integration]]
+> - **Plugin Spec**: [[plugins/agentic-design-plugin|agentic-design-plugin]]
+> - **Vault Archival Index**: [[designs/index|Designs Index]]
+> - **Verification**: 7/7 tests passing in `agentic-design-plugin`, 26/26 in `agentic-coding-plugin`, 87/87 in `agentic-prompt-triage-plugin`, and 11/11 in `agentic-project-documenting-plugin`; `make status` exited 0 in `agentic` root.
+> - **Branch & Worktree Lifecycle**: `agentic-design-plugin` locally merged (`feature/coding-design-plugin` -> `main`); GitHub PRs merged into `main` across `agentic` (#4), `agentic-coding-plugin` (#6), `agentic-prompt-triage-plugin` (#1), and `agentic-project-documenting-plugin` (#2); all worktrees removed & pruned; feature branches deleted; primary repositories synchronized on `main`.
+
+### Overview & Key Capabilities Delivered
+Introduced **`agentic-design-plugin`** hosting the Dual-Mode **`@coding-design`** subagent with official **PenPot MCP** integration (`${PENPOT_MCP_URL:-http://localhost:4401/mcp}`):
+- **Standalone Design Plugin (`agentic-design-plugin`)**:
+  - Bidirectional PenPot authoring and inspection via MCP tools, synthesizing `<appDataDir>/brain/<conversation-id>/design-spec.md`.
+  - Enforces Exclusive Code-Change Authority ([[architecture/adr-012-exclusive-code-change-authority|ADR-012]]): `edit_file` and `run_command` omitted; `write_file` restricted strictly to `design-spec.md`.
+  - Complies with Dual-Mode Question & Artifact Approval Relay Protocols ([[architecture/adr-005-question-relay-protocol|ADR-005]], [[architecture/adr-006-artifact-approval-relay-protocol|ADR-006]]), with optional `@coding` implementation handoff in Standalone Mode.
+- **Cross-Plugin Integration**:
+  - **Root Workspace (`agentic`)**: Registered `agentic-design-plugin` in `Makefile`, `.gitignore`, and `AGENTS.md`.
+  - **`agentic-coding-plugin` (`@coding`)**: Dynamic detection of `agentic-design-plugin` and optional Phase 2/3 `@coding-design` delegation for UI/UX tasks.
+  - **`agentic-prompt-triage-plugin`**: Dynamic detection of `agentic-design-plugin` and `design` intent routing to `@coding-design`.
+  - **`agentic-project-documenting-plugin` (`@coding-document`)**: Documented archival of approved `design-spec.md`, PenPot links, and design tokens into `agentic-obsidian/designs/<design-slug>.md` and `agentic-obsidian/designs/index.md`.
+
+### Merged Repositories & Release Commits
+- [`agentic-design-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin/): Local merge `feature/coding-design-plugin` -> `main` at [`9b434b4`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin/) (**7/7 tests passed**)
+- [`agentic` (root)](file:///Users/gpfister/Development/Projects/gpfister/agentic/): [PR #4](https://github.com/gpfister/agentic/pull/4) merged into `main` at [`f234f6a`](file:///Users/gpfister/Development/Projects/gpfister/agentic/) (`make status` PASS)
+- [`agentic-coding-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/): [PR #6](https://github.com/gpfister/agentic-coding-plugin/pull/6) merged into `main` at [`2348713`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) (**26/26 tests passed**)
+- [`agentic-prompt-triage-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/): [PR #1](https://github.com/gpfister/agentic-prompt-triage-plugin/pull/1) merged into `main` at [`bca48d6`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-prompt-triage-plugin/) (**87/87 tests passed**)
+- [`agentic-project-documenting-plugin`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/): [PR #2](https://github.com/gpfister/agentic-project-documenting-plugin/pull/2) merged into `main` at [`c2d3b19`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) (**11/11 tests passed**)
 
 ---
 
@@ -265,6 +394,7 @@ Standardized an event-driven Artifact Approval Relay Protocol (`[ARTIFACT_APPROV
 > - **Feature Note**: [[features/question-relay-protocol|Question Relay Protocol for Subagent User Prompts]]
 > - **Architecture Note**: [[architecture/question-relay-protocol|Question Relay Protocol Architecture & Implementation Plan]]
 > - **Verification**: 147/147 automated unit tests passing workspace-wide (60/60 across feature repositories, 100% pass rate).
+> - **Branch Topology**: Fast-forward merged into `master` across all 6 participating repositories; `feature/question-relay-protocol` branches deleted.
 
 ### Overview & Key Capabilities Delivered
 Standardized an event-driven Question Relay Protocol (`[QUESTION_RELAY_REQUEST]` / `[QUESTION_RELAY_RESPONSE]`) across the multi-agent workspace to completely eliminate premature 60-second host execution timeout terminations on subagents invoking user-prompting tools:
@@ -272,7 +402,7 @@ Standardized an event-driven Question Relay Protocol (`[QUESTION_RELAY_REQUEST]`
   - Pure subagents (`@coding-clarify`, `@coding-deploy`, `@coding-review`) omit `ask_question` from tools frontmatter and relay all inquiries through their parent caller via `send_message`.
   - Dual-mode subagents (`@coding-investigate`, `/project-grooming` `@coding-groom`, `@coding-monitor`, `@coding-research`) check caller ID dynamically: they dispatch relay envelopes when spawned under an orchestrator, or prompt directly via `ask_question` in standalone root sessions.
 - **Top-Level Orchestration Relay Handling**:
-  - Orchestrator (`@coding`) intercepts `[QUESTION_RELAY_REQUEST]` envelopes, prompts the user interactively at the root session turn without host timeout limits, and dispatches `[QUESTION_RELAY_RESPONSE]` to reactively awaken worker subagents.
+  - Orchestrator (`@coding`) intercepts `[QUESTION_RELAY_REQUEST]`, prompts the user interactively at the root session turn without host timeout limits, and dispatches `[QUESTION_RELAY_RESPONSE]` to reactively awaken worker subagents.
 - **Workspace Coordination Guidelines**:
   - Formalized Question Relay Protocol in workspace-wide rules (`AGENTS.md`), plugin rules, and skills runbooks.
 

@@ -1,6 +1,6 @@
 ---
 title: "Agentic Workspace Architecture Overview"
-date: "2026-10-26"
+date: "2026-11-25"
 tags:
   - architecture
   - multi-repo
@@ -14,7 +14,7 @@ The **Agentic** workspace is designed to author, test, and maintain a federation
 ### Key Tenets
 1. **Multi-Repo Federation**: Each plugin is self-contained with its own Git history, `uv`-managed virtual environment, tests, and configuration. The parent directory acts as an orchestrator.
 2. **Declarative Multi-Agent Orchestration**: Plugins define specialized subagents as markdown files (`agents/*.md`) registered at `SessionStart` and routed at `PreInvocation` via the **Laya Router** System 1 classifier.
-3. **Interactive Artifact Gates & Relay Protocols**: Key lifecycle milestones (`specification.md`, `plan.md`, `issue-assessment.md`) use Antigravity's interactive `RequestFeedback=True` approval modals at the root orchestrator level, relayed via standardized protocol envelopes to avoid subagent execution timeouts.
+3. **Interactive Artifact Gates & Relay Protocols**: Key lifecycle milestones (`specification.md`, `plan.md`, `issue-assessment.md`, `design-spec.md`) use Antigravity's interactive `RequestFeedback=True` approval modals at the root orchestrator level, relayed via standardized protocol envelopes to avoid subagent execution timeouts.
 4. **Knowledge Continuity**: Agent interactions, reasoning steps, tool usage, and generated artifacts from both `~/.gemini/antigravity/brain` and `~/.gemini/antigravity-cli/brain` are exported to `agentic-obsidian/sessions/` using structured callouts and frontmatter metadata.
 5. **Progressive Disclosure**: Skills and rules adhere strictly to Antigravity guidelines, minimizing context overhead while providing targeted guidance.
 6. **Standard Antigravity Packaging**: All plugins comply with native manifest and lifecycle specs (`plugin.json`, `agents/`, `rules/AGENTS.md`, `skills/`, `hooks.json`, `mcp_config.json`).
@@ -30,6 +30,7 @@ flowchart TD
     subgraph Execution["Agent & Skill Execution Federation"]
         subgraph Subagents["Standardized @coding-* Subagent Federation"]
             Orch["@coding<br/>(Software Development Lifecycle)"]
+            Design["@coding-design<br/>(PenPot UI/UX Design & Specs)"]
             Investigate["@coding-investigate<br/>(Issue Diagnosis & RCA)"]
             Monitor["@coding-monitor<br/>(Telemetry & Surveillance)"]
             Research["@coding-research<br/>(Topic & Web Research)"]
@@ -42,6 +43,7 @@ flowchart TD
 
     Triage -->|Project Grooming / Scaffolding| Grooming
     Triage -->|Code Change Request| Orch
+    Triage -->|UI/UX Design / PenPot| Design
     Triage -->|Issue / Bug Investigation| Investigate
     Triage -->|Telemetry / Streaming Log| Monitor
     Triage -->|Deep Literature / Web Research| Research
@@ -50,7 +52,10 @@ flowchart TD
     %% Inter-subagent and skill collaborations
     Grooming -.->|Delegates repository & code scaffolding| Orch
     Grooming -.->|Delegates Obsidian vault initialization| Document
+    Orch -.->|"UI Design Stage & Loop (between P2 & P3)"| Design
     Orch -.->|Maintains documentation after each phase| Document
+    Design -.->|Optional Standalone handoff| Orch
+    Design -.->|Archives design-spec.md & tokens| Document
     Investigate -.->|Handoff remediation| Orch
     Investigate -.->|Archives approved assessment| Document
     Monitor -.->|Pause gate on error| Investigate
@@ -60,6 +65,7 @@ flowchart TD
     subgraph Vault["agentic-obsidian Vault"]
         DocProjects["projects/"]
         DocFeatures["features/"]
+        DocDesigns["designs/"]
         DocArch["architecture/"]
         DocSessions["sessions/"]
         DocGit["git-status.md"]
@@ -78,6 +84,7 @@ flowchart TD
 | [`scripts/sync_sessions.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/sync_sessions.py) | Exports Antigravity session transcripts and artifacts into `agentic-obsidian/sessions/`. |
 | [`scripts/worktree.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/scripts/worktree.py) | Manages isolated Git worktrees across root and sub-repositories for parallel sessions. |
 | [`agentic-coding-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/) | Structured 7-stage software development companion (`@coding`), operating as a Dual-Mode Orchestrator with Multi-Hop Relay, Anti-Direct-Coding Guardrails, clean code reviews, local deployment verification (`@coding-deploy`), and after-each-phase documentation maintenance. |
+| [`agentic-design-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-design-plugin/) | Bidirectional PenPot UI/UX design & token extraction companion (`@coding-design`) with official PenPot MCP integration. |
 | [`agentic-issue-investigation-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-issue-investigation-plugin/) | Autonomous multi-repo issue investigation plugin (`@coding-investigate`). |
 | [`agentic-obsidian/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-obsidian/) | Centralized Obsidian vault for plugin specs, architecture docs, and session logs. |
 | [`agentic-project-documenting-plugin/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-project-documenting-plugin/) | Centralized Obsidian documentation companion (`@coding-document`). |
@@ -104,3 +111,5 @@ flowchart TD
 | [[architecture/adr-010-coding-review-plan-audit-and-unplanned-changes-gate\|ADR-010]] | Plan-vs-Changes Audit, Non-Blocking Review Artifact, and Unplanned Changes Validation Gate for @coding-review | Accepted |
 | [[architecture/adr-011-worktree-based-development-lifecycle\|ADR-011]] | Worktree-Based Development Lifecycle (.worktrees/<slug> Isolation) | Accepted |
 | [[architecture/adr-012-exclusive-code-change-authority\|ADR-012]] | Exclusive Code-Change Authority for @coding-develop Across All Agentic Plugins | Accepted |
+| [[architecture/adr-013-coding-design-plugin-and-penpot-mcp\|ADR-013]] | Coding Design Plugin (@coding-design) with Official PenPot MCP Integration | Accepted |
+| [[architecture/adr-014-ui-design-stage-and-change-request-loop\|ADR-014]] | UI Design Stage & Change-Request Loop Between Specification and Planning | Accepted |

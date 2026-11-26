@@ -24,7 +24,7 @@ version: "0.1.0"
 - **License**: [`LICENSE`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/LICENSE) specifying MIT License (Copyright (c) 2026 Greg PFISTER).
 - **Contributing Guidelines**: [`CONTRIBUTING.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/CONTRIBUTING.md) detailing subagent/skill addition workflows, Conventional Commits, testing requirements, and PR review checklists.
 - **Dependencies**: [`pyproject.toml`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/pyproject.toml) managed via `uv` (`pytest>=8.0.0`).
-- **Rules**: [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/rules/AGENTS.md) enforcing core engineering principles (clarity over cleverness, fail fast, single responsibility, preserving comments/docstrings, and clickable `file://` links).
+- **Rules**: [`rules/AGENTS.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/rules/AGENTS.md) enforcing core engineering principles (clarity over cleverness, fail fast, single responsibility, preserving comments/docstrings, clickable `file://` links, and Dual-Mode Question & Artifact Approval Relay protocols including `@coding-design`).
 
 ### 2. Declarative Markdown Subagents (`agents/`)
 Subagent instructions are authored as modular markdown specifications within dedicated directories (`agents/<agent>/agent.md`), described and orchestrated by the master [`agents/agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/agent.md) specification:
@@ -32,14 +32,14 @@ Subagent instructions are authored as modular markdown specifications within ded
 | Agent Directory / File | Handle / Name | Role & Capabilities | Tool Permissions |
 | :--- | :--- | :--- | :--- |
 | [`agent.md`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/agent.md) | `coding-catalog` | **Subagents & Workflow Specification**: Architecture, subagent registry, tool privilege model, and coding workflow guide. | `write=False`, `subagent=False`, `mcp=False` |
-| [`coding/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding/) | `@coding` | **Coding Workflow Orchestrator (Dual-Mode)**: Coordinates the 7-stage software development lifecycle across repositories using `invoke_subagent`, `send_message`, and `manage_subagents`. Operates in Dual-Mode (Multi-Hop Relay in Subagent Mode; Direct Gate Rendering & Prompting in Standalone Mode), captures `worktree_path` from `DevelopReport` and propagates it to `@coding-deploy`, `@coding-review`, and `@coding-merge`. Bound by Anti-Direct-Coding Guardrails. | `write=True` (Standalone gates only), `subagent=True`, `mcp=True` |
+| [`coding/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding/) | `@coding` | **Coding Workflow Orchestrator (Dual-Mode)**: Coordinates the 7-stage software development lifecycle across repositories using `invoke_subagent`, `send_message`, and `manage_subagents`. Operates in Dual-Mode (Multi-Hop Relay in Subagent Mode; Direct Gate Rendering & Prompting in Standalone Mode), executes the deterministic UI Design Stage (`@coding-design`) strictly between Phase 2 and Phase 3 when `agentic-design-plugin` is installed and the task involves UI/UX changes (with Dual-Mode `design-spec.md` gate and two-branch Design Change-Request Loop), captures `worktree_path` from `DevelopReport` and propagates it to `@coding-deploy`, `@coding-review`, and `@coding-merge`. Bound by Anti-Direct-Coding Guardrails. | `write=True` (Standalone gates only), `subagent=True`, `mcp=True` |
 | [`coding-clarify/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-clarify/) | `@coding-clarify` | **Requirement Clarifier**: Matt Pocock `/grill-me` style requirement interrogation asking one question at a time via Question Relay, inspecting code first, and searching docs. | `write=False`, `subagent=False`, `mcp=True` |
 | [`coding-specify/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-specify/) | `@coding-specify` | **Specification Architect**: Synthesizes clarified requirements into `specification.md` and manages the interactive approval gate. | `write=True` (Artifact-only), `subagent=False`, `mcp=True` |
-| [`coding-plan/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-plan/) | `@coding-plan` | **Architecture Planner**: Deconstructs approved specifications into per-repository tasks, assesses local deployment requirements, and plans branch names in `plan.md`. | `write=True` (Artifact-only), `subagent=False`, `mcp=True` |
-| [`coding-develop/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-develop/) | `@coding-develop` | **Software Engineer**: Sole agent with exclusive code-change authority (`edit_file`). Keeps primary repo on `main`/`master`, creates/reuses isolated `.worktrees/<slug>` worktrees, executes all code, test, linter, and repo-local doc edits inside `worktree_path`, and returns `worktree_path` + `branch` in `DevelopReport`. | `edit=True` (Sole agent), `write=True` (`worktree_path`), `subagent=False`, `mcp=True` |
+| [`coding-plan/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-plan/) | `@coding-plan` | **Architecture Planner**: Deconstructs approved specifications (and approved `design-spec.md` / PenPot references when present) into per-repository tasks, assesses local deployment requirements, and plans branch names in `plan.md`. | `write=True` (Artifact-only), `subagent=False`, `mcp=True` |
+| [`coding-develop/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-develop/) | `@coding-develop` | **Software Engineer**: Sole agent with exclusive code-change authority (`edit_file`). Keeps primary repo on `main`/`master`, creates/reuses isolated `.worktrees/<slug>` worktrees, executes all code, test, linter, and repo-local doc edits inside `worktree_path` (consuming approved `design-spec.md` and PenPot references for UI tasks), and returns `worktree_path` + `branch` in `DevelopReport`. | `edit=True` (Sole agent), `write=True` (`worktree_path`), `subagent=False`, `mcp=True` |
 | [`coding-deploy/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-deploy/) | `@coding-deploy` | **Local Deployment Specialist**: Executes local deployments (Docker, Minikube, Terraform, scripts) and monitors health in real time against `worktree_path` (`edit_file` removed; `write_file` restricted to `deployment-issue*.md`; `run_command` operational/read-only). | `write=True` (`deployment-issue*.md` only), `subagent=True`, `mcp=True` |
 | [`coding-review/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-review/) | `@coding-review` | **Quality Assurance Lead**: Audits actual `git status` / `git diff` inside `worktree_path` across participating repositories against the approved `plan.md`, verifies `specification.md` compliance, automated tests, linters, and deployment health, writes non-blocking `review-<slug>.md` artifacts (`write_file` strictly scoped to `<appDataDir>/brain/<conversation-id>/review-<slug>.md`), sends `[REVIEW_ARTIFACT]` before `[QUESTION_RELAY_REQUEST]` for the conditional Unplanned Changes Validation Gate, and routes defects or revert/revision directives to `@coding-develop`. | `write=True` (Artifact-only), `subagent=False`, `mcp=True` |
-| [`coding-merge/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-merge/) | `@coding-merge` | **Release Engineer**: Executes local git merge in the primary repository or remote PR creation (`gh pr create` with compare URL fallback), handles interactive PR review waiting gates via Question Relay Protocol (`[QUESTION_RELAY_REQUEST]`), performs post-merge base branch synchronization (`git pull --ff-only`), removes isolated worktrees (`git worktree remove` + `git worktree prune`), deletes remote and local feature branches, and prunes remote-tracking references (`git fetch --prune origin`). | `write=False`, `subagent=False`, `mcp=True` |
+| [`coding-merge/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/agents/coding-merge/) | `@coding-merge` | **Release Engineer**: Executes local git merge in the primary repository or remote PR creation (`gh pr create` with compare URL fallback), handles interactive PR review waiting gates via Question Relay Protocol (`[QUESTION_RELAY_REQUEST]`), performs post-merge base branch synchronization (`git pull --ff-only origin <base>`), removes isolated worktrees (`git worktree remove` + `git worktree prune`), deletes remote and local feature branches, and prunes remote-tracking references (`git fetch --prune origin`). | `write=False`, `subagent=False`, `mcp=True` |
 
 ### 3. Progressive-Disclosure Skills (`skills/`)
 | Skill | File | Description |
@@ -57,7 +57,11 @@ Phase transitions are orchestrated via `invoke_subagent`:
 ```mermaid
 flowchart TD
     %% Top Entrypoint
-    Start(["User Request / Task"]) --> P1["Phase 1: Clarification<br/>(@coding-clarify)"]
+    Start(["User Request / Task"]) --> FastPathSpecCheck{"Pre-Clarified Fast-Path:<br/>specification.md already approved?"}
+    FastPathSpecCheck -->|"Yes"| FastPathDesignCheck{"design-spec.md<br/>already approved?"}
+    FastPathDesignCheck -->|"Yes"| P3["Phase 3: Planning<br/>(@coding-plan)"]
+    FastPathDesignCheck -->|"No"| DesignCheck{"UI/UX feature &<br/>agentic-design-plugin<br/>installed?"}
+    FastPathSpecCheck -->|"No"| P1["Phase 1: Clarification<br/>(@coding-clarify)"]
     
     %% Phase 1: Clarification
     P1 --> AmbiguityCheck{"Ambiguities or<br/>Open Questions?"}
@@ -66,15 +70,22 @@ flowchart TD
     AmbiguityCheck -->|"No / Clarified"| P2["Phase 2: Specification<br/>(@coding-specify)"]
 
     %% Phase 2: Specification
-    P2 --> SpecArtifact["Write specification.md<br/>(RequestFeedback=True, sole tool call)"]
-    SpecArtifact --> IdleSpec["Enter IDLE State<br/>(Wait for User Gate Decision)"]
-    IdleSpec --> SpecGate{"User Decision on<br/>specification.md?"}
-    SpecGate -->|"[GATE_APPROVED]"| P3["Phase 3: Planning<br/>(@coding-plan)"]
+    P2 --> SpecArtifact["Write specification.md<br/>(Dual-Mode Approval Gate)"]
+    SpecArtifact --> SpecGate{"User Decision on<br/>specification.md?"}
+    SpecGate -->|"[GATE_APPROVED]"| DesignCheck
+
+    %% UI Design Stage (Strictly Between Phase 2 and Phase 3)
+    DesignCheck -->|"No / Skip"| P3
+    DesignCheck -->|"Yes"| InvokeDesign["UI Design Stage<br/>(@coding-design)"]
+    InvokeDesign --> DesignGate{"design-spec.md<br/>Approved?"}
+    DesignGate -->|"Approved"| P3
+    DesignGate -->|"Rejected"| DesignFeedbackEval{"Evaluate feedback vs<br/>specification.md"}
+    DesignFeedbackEval -->|"Functional / Scope / Mixed (Branch A)"| P2
+    DesignFeedbackEval -->|"Visual / Layout / Styling Only (Branch B)"| InvokeDesign
 
     %% Phase 3: Planning
-    P3 --> PlanArtifact["Write plan.md<br/>(RequestFeedback=True, sole tool call)"]
-    PlanArtifact --> IdlePlan["Enter IDLE State<br/>(Wait for User Gate Decision)"]
-    IdlePlan --> PlanGate{"User Decision on<br/>plan.md?"}
+    P3 --> PlanArtifact["Write plan.md<br/>(Dual-Mode Approval Gate)"]
+    PlanArtifact --> PlanGate{"User Decision on<br/>plan.md?"}
     PlanGate -->|"[GATE_APPROVED]"| DocPlanCheck{"agentic-project-documenting-plugin<br/>installed?"}
     DocPlanCheck -->|"Yes"| InvokeDocPlan["Invoke @coding-document<br/>(Document architecture plan & ADRs)"]
     DocPlanCheck -->|"No"| P4["Phase 4: Development<br/>(@coding-develop)"]
@@ -91,10 +102,10 @@ flowchart TD
     P5Deploy --> DeployRun["Execute local deploy & monitor health"]
     DeployRun --> DeploySuccess{"Deployment<br/>Successful?"}
     DeploySuccess -->|"Yes"| JoinDevDeploy
-    DeploySuccess -->|"Error"| DeployIssueArtifact["Investigate error & author<br/>Deployment Issue artifact<br/>(RequestFeedback=True)"]
+    DeploySuccess -->|"Error"| DeployIssueArtifact["Investigate error & author<br/>Deployment Issue artifact"]
     DeployIssueArtifact --> DeployGate{"User Decision on<br/>Deployment Issue?"}
     DeployGate -->|"Approved"| MultiSolCheck{"Multiple solutions<br/>proposed?"}
-    MultiSolCheck -->|"Yes"| AskSol["Ask user solution choice<br/>via ask_question"]
+    MultiSolCheck -->|"Yes"| AskSol["Ask user solution choice<br/>via Question Relay"]
     MultiSolCheck -->|"Single"| InvokeFixDev["Invoke @coding-develop<br/>to implement fix"]
     AskSol --> InvokeFixDev
     InvokeFixDev --> P5Deploy
@@ -111,7 +122,7 @@ flowchart TD
     UnplannedCheck -->|"No"| ReviewCheck
     ReviewCheck -->|"Passed"| MergeConfirmGate{"Confirm Merge with User<br/>(ask_question / Question Relay)"}
     MergeConfirmGate -->|"User Confirmed"| DocPreMergeCheck{"agentic-project-documenting-plugin<br/>installed?"}
-    DocPreMergeCheck -->|"Yes"| InvokeDocPreMerge["Invoke @coding-document<br/>(Pre-merge tidy-up: update READMEs & architecture docs)"]
+    DocPreMergeCheck -->|"Yes"| InvokeDocPreMerge["Invoke @coding-document<br/>(Pre-merge tidy-up: update Obsidian vault)"]
     DocPreMergeCheck -->|"No"| P7Merge["Phase 7: Merge & Release<br/>(@coding-merge)"]
     InvokeDocPreMerge --> P7Merge
 
@@ -142,12 +153,14 @@ To prevent duplicate UI modals and 60-second host runtime timeouts in background
 - `run_command` is restricted to workspace inspection (`git status`).
 - Implementation is strictly delegated to `@coding-develop`, local deployment checks to `@coding-deploy`, code review to `@coding-review`, and release/merge to `@coding-merge`.
 
-### 4. Pre-Clarified Fast-Path
-- Automatically skips Phase 1 (`coding-clarify`) when invoked with pre-clarified requirements or an approved issue assessment.
-- Fast-paths directly to Phase 2 (`coding-specify`) or Phase 3 (`coding-plan`), preserving formal approval gates before development begins.
+### 4. Pre-Clarified Fast-Path & UI/UX Design Stage (`@coding-design`)
+- **Pre-Clarified Fast-Path**: Automatically skips Phase 1 (`coding-clarify`) when invoked with pre-clarified requirements or an approved issue assessment. When `specification.md` is already approved, `@coding` checks whether `design-spec.md` is already approved (e.g., handoff from standalone `@coding-design`): if yes, it advances directly to Phase 3 (`coding-plan`); otherwise, it routes through `DesignCheck` before entering Phase 3.
+- **UI/UX Design Stage (`@coding-design`, strictly between Phase 2 and Phase 3)**: Evaluated via `DesignCheck` after `specification.md` approval. `@coding-design` is invoked only when **both** `agentic-design-plugin` is installed **and** the task involves UI/UX changes. It runs through the Dual-Mode `[ARTIFACT_APPROVAL_REQUEST]` / `[QUESTION_RELAY_REQUEST]` gate for `design-spec.md`:
+  - **Approved**: Advances to Phase 3 (`@coding-plan`) and passes the approved `design-spec.md` path and PenPot references to both `@coding-plan` and `@coding-develop`.
+  - **Rejected**: Triggers the **Design Change-Request Loop**, routing functional/scope/mixed feedback (Branch A) to `@coding-specify` (`P2`) and purely visual/layout/styling feedback (Branch B) directly back to `@coding-design`.
 
 ---
 
 ## Testing
-Automated tests in [`agentic-coding-plugin/tests/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/) validate manifest integrity, agent frontmatter & registration, lifecycle rules, dual-mode orchestration, multi-hop relay, and anti-direct-coding constraints:
-- [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/test_plugin.py) (25/25 tests passing on `feature/review-plan-audit`, 100% pass rate)
+Automated tests in [`agentic-coding-plugin/tests/`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/) validate manifest integrity, agent frontmatter & registration, lifecycle rules, dual-mode orchestration, multi-hop relay, UI Design Stage & Change-Request Loop routing, and anti-direct-coding constraints:
+- [`tests/test_plugin.py`](file:///Users/gpfister/Development/Projects/gpfister/agentic/agentic-coding-plugin/tests/test_plugin.py) (`27/27` tests passing on `feature/ui-design-stage-loop` commit `314ce39`, 100% pass rate)
